@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -38,8 +39,9 @@ namespace Movies.Models
         }
 
         private string GetConnectionString()
-
         {
+            IWebHostEnvironment? environment = new HttpContextAccessor().HttpContext?.RequestServices
+                                        .GetRequiredService<IWebHostEnvironment>();
 
             IConfiguration config = new ConfigurationBuilder()
 
@@ -49,7 +51,14 @@ namespace Movies.Models
 
             .Build();
 
-            var strConn = config["ConnectionStrings:MyCnn"];
+            var strConn = "";
+            if (environment?.IsProduction() ?? true)
+            {
+                strConn = config["ConnectionStrings:MyCnn"];
+            } else 
+            {
+                strConn = config["LocalDB:MyCnn"];
+            }
 
             return strConn;
 

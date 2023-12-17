@@ -61,9 +61,9 @@ namespace Movies.Controllers
             ResponseDTO response = await _actorRepository.CreateActor(actorDetail);
             if(response.Status == HttpStatusCode.Created)  
             {
-                return Ok(response);
+                return Ok(response.Message);
             }
-            return BadRequest(response);
+            return BadRequest(response.Message);
         }
 
         [HttpPut("Actor")]
@@ -76,9 +76,9 @@ namespace Movies.Controllers
             ResponseDTO response = await _actorRepository.UpdateActor(actorDetail);
             if (response.Status == HttpStatusCode.OK)
             {
-                return Ok(response);
+                return Ok(response.Message);
             }
-            return BadRequest(response);
+            return BadRequest(response.Message);
         }
 
         [HttpDelete("Actor/{id}")]

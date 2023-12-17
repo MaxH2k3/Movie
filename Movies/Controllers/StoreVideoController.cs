@@ -20,9 +20,9 @@ namespace Movies.Controllers
         }
 
         [HttpPost("StoreVideo")]
-        public async Task<IActionResult> UploadMovie(IFormFile videoFile)
+        public async Task<IActionResult> UploadMovie(IFormFile videoFile, string videoName)
         {
-            if(!(await _storeVideoRepository.UploadMovie(videoFile)))
+            if(!(await _storeVideoRepository.UploadMovie(videoFile, videoName)))
             {
                 return NotFound("Video Not Found");
             }

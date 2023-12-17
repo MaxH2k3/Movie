@@ -23,16 +23,13 @@ public class StoreVideoRepository : IStoreVideoRepository
         _context = new StoreVideoContext();
     }
 
-    public async Task<bool> UploadMovie(IFormFile videoFile)
+    public async Task<bool> UploadMovie(IFormFile videoFile, string videoName)
     {
         // Kiểm tra tệp tin video
         if (videoFile == null || videoFile.Length == 0)
         {
             return false;
         }
-
-        // Tạo một tên duy nhất cho video
-        string videoName = $"{Path.GetRandomFileName()}{Path.GetExtension(videoFile.FileName)}";
 
         // Lưu trữ video vào GridFS
         using (var stream = videoFile.OpenReadStream())

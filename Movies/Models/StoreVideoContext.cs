@@ -38,7 +38,10 @@ namespace Movies.Models
 
         private string GetConnectionString()
         {
-                IConfiguration config = new ConfigurationBuilder()
+            IWebHostEnvironment? environment = new HttpContextAccessor().HttpContext?.RequestServices
+                                        .GetRequiredService<IWebHostEnvironment>();
+
+            IConfiguration config = new ConfigurationBuilder()
 
                     .SetBasePath(Directory.GetCurrentDirectory())
 
@@ -46,9 +49,16 @@ namespace Movies.Models
 
                     .Build();
 
-                var strConn = config["ConnectionStrings:MongoDB"];
-
-                return strConn;
+            var strConn = "";
+            if (environment?.IsProduction() ?? true)
+            {
+                strConn = config["ConnectionStrings:MongoDB"];
+            } else
+            {
+                strConn = config["LocalDB:MongoDB"];
+            }
+            
+            return strConn;
             
         }
 
