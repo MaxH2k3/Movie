@@ -55,6 +55,11 @@ namespace Movies.Repository
             return GetMovies().Where(m => m.FeatureId == featureId).OrderByDescending(m => m.DateUpdated).Take(8).ToList();
         }
 
+        public IEnumerable<Movie> GetMovieByCategory(int categoryId)
+        {
+            return GetMovies().Where(m => m.MovieCategories.Any(mc => mc.CategoryId == categoryId)).ToList();
+        }
+
         public async Task<ResponseDTO> CreateMovie(MovieDetail movieDetail)
         {
             Movie movie = new Movie();

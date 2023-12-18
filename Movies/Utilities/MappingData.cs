@@ -27,6 +27,8 @@ namespace Movies.Utilities
                 .ForMember(dest => dest.Name,
                 opt => opt.MapFrom(src => src.Category.Name));
 
+            CreateMap<MovieCategory, MoviePreview>();
+
             //actor
             CreateMap<Actor, ActorDetail>()
                 .ForMember(dest => dest.NationName,

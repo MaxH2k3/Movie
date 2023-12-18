@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Movies.Business;
 using Movies.Interface;
 using Movies.Models;
+using Movies.Utilities;
+using static Movies.Utilities.Constraint;
 
 namespace Movies.Controllers;
 
@@ -20,9 +22,38 @@ public class MovieController : Controller
     }
 
     [HttpGet("Movies")]
-    public IActionResult Movies()
+    public IActionResult Movies(string? filterBy, string? key)
     {
-        var movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies());
+        IEnumerable<MoviePreview> movie;
+        if (Constraint.FilterName.RECENT_UPDATE.Equals(filterBy?.Trim().ToLower()))
+        {
+            if (int.TryParse(key, out int id))
+            {
+                movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetRecentUpdateMovies(id));
+            } else
+            {
+                return BadRequest("Invalid your key! Key is a featureId (int)");
+            }
+        } else if (Constraint.FilterName.CATEGORY.Equals(filterBy?.Trim().ToLower()))
+        {
+            if (int.TryParse(key, out int id))
+            {
+                movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByCategory(id));
+            } else
+            {
+                return BadRequest("Invalid your key! Key is a categoryId (int)");
+            }
+        } else if(String.IsNullOrEmpty(filterBy) && !String.IsNullOrEmpty(key))
+        {
+            movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower()));
+        } else if(String.IsNullOrEmpty(filterBy))
+        {
+            movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies());
+        } else
+        {
+            return NotFound("Your filter did not existed!");
+        }
+        
         return Ok(movie);
     }
 
@@ -30,24 +61,6 @@ public class MovieController : Controller
     public IActionResult Movie(int MovieId)
     {
         var movie = _mapper.Map<MovieDetail>(_movieRepository.GetMovieById(MovieId));
-        return Ok(movie);
-    }
-
-    [HttpGet("Movie/{MovieName}")]
-    public IActionResult SearchByName(string MovieName)
-    {
-        if(!ModelState.IsValid)
-        {
-            BadRequest("Invalid the name");
-        }
-        var movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(MovieName.Trim().ToLower()));
-        return Ok(movie);
-    }
-
-    [HttpGet("Movie/RecentUpdate")]
-    public IActionResult RecentUpdate(int featureId)
-    {
-        var movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetRecentUpdateMovies(featureId));
         return Ok(movie);
     }
 
