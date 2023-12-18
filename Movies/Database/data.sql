@@ -78,3 +78,23 @@ CREATE TABLE [dbo].[Episode](
 	[DateCreated] [datetime] NULL,
 	[DateUpdated] [datetime] NULL,
 );
+
+/*-----------------*/
+DROP TABLE [dbo].[Cast]
+
+DROP TABLE [dbo].[Actor]
+
+DROP TABLE [dbo].[Episode]
+
+DROP TABLE [dbo].[Season]
+
+DROP TABLE [dbo].[MovieCategory]
+
+DROP TABLE [dbo].[Category]
+
+DROP TABLE [dbo].[Movies]
+
+DROP TABLE [dbo].[FeatureFilm]
+
+DROP TABLE [dbo].[Nation]
+

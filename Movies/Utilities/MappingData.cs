@@ -40,6 +40,12 @@ namespace Movies.Utilities
             CreateMap<PersonDetail, Person>();
 
             CreateMap<Person, PersonDTO>();
+
+            //season
+            CreateMap<Season, SeasonDTO>();
+
+            CreateMap<Episode, EpisodeDTO>();
+
         }
     }
 }

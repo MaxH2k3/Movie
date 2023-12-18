@@ -24,6 +24,8 @@ public class Program
         builder.Services.AddScoped<IStoreVideoRepository, StoreVideoRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
+        builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
+        builder.Services.AddScoped<IEpisodeRepository, EpisodeRepository>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
