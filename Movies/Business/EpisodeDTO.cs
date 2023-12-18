@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Movies.Models
+﻿namespace Movies.Business
 {
-    public partial class Episode
+    public class EpisodeDTO
     {
-
         public int EpisodeId { get; set; }
-        public int? SeasonId { get; set; }
         public int EpisodeNumber { get; set; }
         public string? Name { get; set; }
         public string? Video { get; set; }
-        public string? Status { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
-
-        public virtual Season? Season { get; set; }
     }
 }

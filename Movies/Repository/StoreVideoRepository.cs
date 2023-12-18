@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
+using Movies.Business;
 using Movies.Interface;
 using Movies.Models;
 using System.Diagnostics;
+using System.Net;
 
 namespace Movies.Repository;
 
@@ -23,12 +25,18 @@ public class StoreVideoRepository : IStoreVideoRepository
         _context = new StoreVideoContext();
     }
 
-    public async Task<bool> UploadMovie(IFormFile videoFile, string videoName)
+    public async Task<ResponseDTO> UploadMovie(IFormFile videoFile, string videoName)
     {
         // Kiểm tra tệp tin video
         if (videoFile == null || videoFile.Length == 0)
         {
-            return false;
+            return new ResponseDTO(HttpStatusCode.NotFound, "Video not found!");
+        }
+
+        // Kiểm tra tên tệp tin video
+        if(await FileExistAsync(videoName))
+        {
+            return new ResponseDTO(HttpStatusCode.Conflict, "VideoName has been existed. Please, changing the name video!");
         }
 
         // Lưu trữ video vào GridFS
@@ -39,7 +47,7 @@ public class StoreVideoRepository : IStoreVideoRepository
 
         // Tiếp tục xử lý lưu trữ video (ví dụ: lưu tên tệp tin vào cơ sở dữ liệu)
 
-        return true;
+        return new ResponseDTO(HttpStatusCode.Created, "Video uploaded successfully!");
     }
 
     public async Task<bool> FileExistAsync(string fileName)

@@ -71,6 +71,7 @@ CREATE TABLE [dbo].[Episode](
 	[SeasonID] [int] REFERENCES [dbo].[Season]([SeasonID]),
 	[EpisodeNumber] [int] NOT NULL,
 	[Name] [nvarchar](255) NULL,
+	[Video] [nvarchar](Max) NULL,
 	[Status] [varchar](255) NULL,
 	[DateCreated] [datetime] NULL,
 	[DateUpdated] [datetime] NULL,

@@ -9,7 +9,9 @@ namespace Movies.Utilities
         public MappingData()
         {
             //movie
-            CreateMap<Movie, MoviePreview>();
+            CreateMap<Movie, MoviePreview>()
+                .ForMember(dest => dest.Categories,
+                opt => opt.MapFrom(src => src.MovieCategories));
 
             CreateMap<Movie, MovieDetail>()
                 .ForMember(dest => dest.CastCharacteries,

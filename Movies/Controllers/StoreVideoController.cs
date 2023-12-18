@@ -2,8 +2,10 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
+using Movies.Business;
 using Movies.Interface;
 using Movies.Models;
+using System.Net;
 
 namespace Movies.Controllers
 {
@@ -20,17 +22,22 @@ namespace Movies.Controllers
         }
 
         [HttpPost("StoreVideo")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UploadMovie(IFormFile videoFile, string videoName)
         {
-            if(!(await _storeVideoRepository.UploadMovie(videoFile, videoName)))
+            ResponseDTO response = await _storeVideoRepository.UploadMovie(videoFile, videoName);
+            if(response.Status != HttpStatusCode.Created)
             {
-                return NotFound("Video Not Found");
+                return BadRequest(response);
             }
 
-            return Ok("Video uploaded successfully.");
+            return Ok(response.Message);
         }
 
         [HttpGet("Watch")]
+        [ProducesResponseType(typeof(File), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetVideo(string movie)
         {
             //check video exist in GridFs (Mongo)
@@ -46,6 +53,8 @@ namespace Movies.Controllers
         }
 
         [HttpDelete("StoreVideo/{filename}")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteVideo(string filename)
         {
             if(!(await _storeVideoRepository.DeleteVideo(filename)))
@@ -53,7 +62,7 @@ namespace Movies.Controllers
                 return NotFound("Video Not Found");
             }
 
-            return Ok("OK");
+            return Ok("Video deleted successfully!");
         }
     }
 }

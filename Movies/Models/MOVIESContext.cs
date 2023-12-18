@@ -26,8 +26,6 @@ namespace Movies.Models
         public virtual DbSet<MovieCategory> MovieCategories { get; set; } = null!;
         public virtual DbSet<Nation> Nations { get; set; } = null!;
         public virtual DbSet<Season> Seasons { get; set; } = null!;
-        public virtual DbSet<Video> Videos { get; set; } = null!;
-        public virtual DbSet<StoreVideo> StoreVideos { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -139,6 +137,8 @@ namespace Movies.Models
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
                 entity.Property(e => e.DateUpdated).HasColumnType("datetime");
+
+                entity.Property(e => e.Video).HasColumnName("Video");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(255);
@@ -255,45 +255,6 @@ namespace Movies.Models
                     .HasForeignKey(d => d.MovieId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Season__MovieID__60A75C0F");
-            });
-
-            modelBuilder.Entity<Video>(entity =>
-            {
-                entity.ToTable("Video");
-
-                entity.Property(e => e.VideoId).HasColumnName("VideoID");
-
-                entity.Property(e => e.EpisodeId).HasColumnName("EpisodeID");
-
-                entity.Property(e => e.Link)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Status)
-                    .HasMaxLength(255);
-
-                entity.HasOne(d => d.Episode)
-                    .WithMany(p => p.Videos)
-                    .HasForeignKey(d => d.EpisodeId)
-                    .HasConstraintName("FK__video__EpisodeID__66603565");
-            });
-
-            modelBuilder.Entity<StoreVideo>(entity =>
-            {
-                entity.HasKey(e => e.StoreVideoId);
-
-                entity.ToTable("StoreVideo");
-
-                entity.Property(e => e.Index).HasColumnName("Index");
-
-                entity.Property(e => e.VideoData).HasColumnName("VideoData");
-
-                entity.Property(e => e.VideoId).HasColumnName("VideoID");
-
-                entity.HasOne(d => d.Video)
-                    .WithMany()
-                    .HasForeignKey(d => d.VideoId)
-                    .HasConstraintName("FK__StoreVide__Video__6FE99F9F");
             });
 
             OnModelCreatingPartial(modelBuilder);

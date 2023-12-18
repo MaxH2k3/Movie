@@ -25,7 +25,6 @@ public class MovieController : Controller
     /// Get movies by filter
     /// </summary>
     /// <param name="filterBy">The filter option. Possible values:
-    ///    <para>- recentupdate: take 8 newest movies</para>
     ///    <para>- category: take all movies by category</para>
     ///    <para>- feature: take all movies by feature</para>
     ///    <para>- actor: take all movie cast by actor </para>
@@ -44,16 +43,8 @@ public class MovieController : Controller
     public IActionResult Movies(string? filterBy, string? key, int page = 1, int eachPage = 6)
     {
         IEnumerable<MoviePreview> movies;
-        if (Constraint.FilterName.RECENT_UPDATE.Equals(filterBy?.Trim().ToLower()))
-        {
-            if (int.TryParse(key, out int id))
-            {
-                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetRecentUpdateMovies(id));
-            } else
-            {
-                return BadRequest("Invalid your key! Key is a featureId (int)");
-            }
-        } else if (Constraint.FilterName.CATEGORY.Equals(filterBy?.Trim().ToLower()))
+        
+        if (Constraint.FilterName.CATEGORY.Equals(filterBy?.Trim().ToLower()))
         {
             if (int.TryParse(key, out int id))
             {
@@ -90,7 +81,7 @@ public class MovieController : Controller
         {
             return NotFound("Your filter did not existed!");
         }
-        movies = movies.Skip((page - 1) * eachPage).Take(eachPage);
+        movies = movies.OrderByDescending(m => m.DateCreated).Skip((page - 1) * eachPage).Take(eachPage);
         return Ok(movies);
     }
 

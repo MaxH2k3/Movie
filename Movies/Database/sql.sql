@@ -76,7 +76,7 @@ INSERT INTO [dbo].[MovieCategory]([MovieID], [CategoryID]) VALUES
 (4, 1),
 (4, 5);
 
-INSERT INTO Season (MovieID, Season) VALUES
+INSERT INTO Season (MovieID, SeasonNumber) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
@@ -88,7 +88,7 @@ INSERT INTO Season (MovieID, Season) VALUES
 (4, 1),
 (4, 2);
 
-INSERT INTO Episode (SeasonID, episode, Name) VALUES
+INSERT INTO Episode (SeasonID, EpisodeNumber, Name) VALUES
 (1, 1, N'Tập 1'),
 (1, 2, N'Tập 2'),
 (1, 3, N'Tập 3'),
@@ -99,17 +99,5 @@ INSERT INTO Episode (SeasonID, episode, Name) VALUES
 (2, 4, N'Tập 4'),
 (3, 1, N'Tập 1'),
 (3, 2, N'Tập 2');
-
-INSERT INTO Video (EpisodeID, Link) VALUES
-(1, 'https://example.com/video/1'),
-(1, 'https://example.com/video/2'),
-(2, 'https://example.com/video/3'),
-(2, 'https://example.com/video/4'),
-(3, 'https://example.com/video/5'),
-(3, 'https://example.com/video/6'),
-(4, 'https://example.com/video/7'),
-(4, 'https://example.com/video/8'),
-(5, 'https://example.com/video/9'),
-(5, 'https://example.com/video/10');
 
 
