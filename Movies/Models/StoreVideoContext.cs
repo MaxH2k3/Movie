@@ -15,7 +15,6 @@ namespace Movies.Models
 
         public GridFSBucket gridFSBucket { get; set;}
 
-        public IMongoCollection<Player> CollectionPlayer { get; set; }
         public StoreVideoContext()
         {
             BucketName = GetBucketName();
@@ -31,9 +30,6 @@ namespace Movies.Models
             {
                 BucketName = BucketName
             });
-
-            // Access a specific collection
-            CollectionPlayer = database.GetCollection<Player>("Players");
         }
 
         private string GetConnectionString()

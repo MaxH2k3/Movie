@@ -7,7 +7,6 @@ using Movies.Models;
 namespace Movies.Controllers;
 
 [ApiController]
-[Route("[controller]")]
 public class MovieController : Controller
 {
     private readonly IMovieRepository _movieRepository;
@@ -20,41 +19,39 @@ public class MovieController : Controller
         _mapper = mapper;
     }
 
-    [HttpGet("GetMovies")]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<Movie>))]
-    public IActionResult GetMovies()
+    [HttpGet("Movies")]
+    public IActionResult Movies()
     {
         var movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies());
         return Ok(movie);
     }
 
-    [HttpGet("GetMovie")]
-    [ProducesResponseType(200, Type = typeof(Movie))]
-    public IActionResult GetName(int id)
+    [HttpGet("Movie/{MovieId}")]
+    public IActionResult Movie(int MovieId)
     {
-        var movie = _mapper.Map<MovieDetail>(_movieRepository.GetMovieById(id));
+        var movie = _mapper.Map<MovieDetail>(_movieRepository.GetMovieById(MovieId));
         return Ok(movie);
     }
 
-    [HttpGet("SearchByName")]
-    public IActionResult SearchByName(string name)
+    [HttpGet("Movie/{MovieName}")]
+    public IActionResult SearchByName(string MovieName)
     {
         if(!ModelState.IsValid)
         {
             BadRequest("Invalid the name");
         }
-        var movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(name.Trim().ToLower()));
+        var movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(MovieName.Trim().ToLower()));
         return Ok(movie);
     }
 
-    [HttpGet("RecentUpdate")]
+    [HttpGet("Movie/RecentUpdate")]
     public IActionResult RecentUpdate(int featureId)
     {
         var movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetRecentUpdateMovies(featureId));
         return Ok(movie);
     }
 
-    [HttpPatch("UpdateMovie")]
+    [HttpPut("Movie/{MovieId}")]
     public IActionResult UpdateMovie([FromForm] Movie movie)
     {
         if(!ModelState.IsValid)
@@ -68,7 +65,7 @@ public class MovieController : Controller
         return BadRequest("Update movie failed");
     }
 
-    [HttpPost("CreateMovie")]
+    [HttpPost("Movie")]
     public IActionResult CreateMovie([FromForm] Movie movie)
     {
         if(!ModelState.IsValid)
@@ -82,7 +79,7 @@ public class MovieController : Controller
         return BadRequest("Create movie failed");
     }
 
-    [HttpDelete("DeleteMovie")]
+    [HttpDelete("Movie/{id}")]
     public IActionResult DeleteMovie(int id)
     {
         if(!ModelState.IsValid)
