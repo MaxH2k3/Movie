@@ -27,6 +27,8 @@ public class MovieController : Controller
     /// <param name="filterBy">The filter option. Possible values:
     ///    <para>- recentupdate: take 8 newest movies</para>
     ///    <para>- category: take all movies by category</para>
+    ///    <para>- feature: take all movies by feature</para>
+    ///    <para>- actor: take all movie cast by actor </para>
     ///    <pra> Get all movies if filterBy is empty </pra>
     /// </param>
     /// <param name="key">The value option. Possible values:
@@ -39,7 +41,7 @@ public class MovieController : Controller
     [HttpGet("Movies")]
     [ProducesResponseType(typeof(IEnumerable<MoviePreview>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    public IActionResult Movies(string? filterBy, string? key)
+    public IActionResult Movies(string? filterBy, string? key, int page = 1, int eachPage = 6)
     {
         IEnumerable<MoviePreview> movies;
         if (Constraint.FilterName.RECENT_UPDATE.Equals(filterBy?.Trim().ToLower()))
@@ -60,6 +62,24 @@ public class MovieController : Controller
             {
                 return BadRequest("Invalid your key! Key is a categoryId (int)");
             }
+        } else if (Constraint.FilterName.FEATURE.Equals(filterBy?.Trim().ToLower()))
+        {
+            if (int.TryParse(key, out int id))
+            {
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByFeature(id));
+            } else
+            {
+                return BadRequest("Invalid your key! Key is a featureId (int)");
+            }
+        } else if (Constraint.FilterName.ACTOR.Equals(filterBy?.Trim().ToLower()))
+        {
+            if (int.TryParse(key, out int id))
+            {
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByActor(id));
+            } else
+            {
+                return BadRequest("Invalid your key! Key is a actorId (int)");
+            }
         } else if(String.IsNullOrEmpty(filterBy) && !String.IsNullOrEmpty(key))
         {
             movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower()));
@@ -70,7 +90,7 @@ public class MovieController : Controller
         {
             return NotFound("Your filter did not existed!");
         }
-        
+        movies = movies.Skip((page - 1) * eachPage).Take(eachPage);
         return Ok(movies);
     }
 

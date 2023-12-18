@@ -15,7 +15,7 @@ CREATE TABLE [dbo].[Nation](
 
 CREATE TABLE [dbo].[FeatureFilm](
 	[FeatureId] [int] IDENTITY(1,1) PRIMARY KEY,
-	[Name] [varchar](255) NULL,
+	[Name] [nvarchar](255) NULL,
 )
 
 CREATE TABLE [dbo].[Actor](

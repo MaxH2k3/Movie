@@ -60,6 +60,16 @@ namespace Movies.Repository
             return GetMovies().Where(m => m.MovieCategories.Any(mc => mc.CategoryId == categoryId)).ToList();
         }
 
+        public IEnumerable<Movie> GetMovieByActor(int actorId)
+        {
+            return GetMovies().Where(m => m.Casts.Any(c => c.ActorId == actorId)).ToList();
+        }
+
+        public IEnumerable<Movie> GetMovieByFeature(int featureId)
+        {
+            return GetMovies().Where(m => m.FeatureId == featureId).ToList();
+        }
+
         public async Task<ResponseDTO> CreateMovie(MovieDetail movieDetail)
         {
             Movie movie = new Movie();

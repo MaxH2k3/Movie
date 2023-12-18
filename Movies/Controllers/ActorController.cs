@@ -34,7 +34,7 @@ public class ActorController : Controller
 
     [HttpGet("Actors")]
     [ProducesResponseType(typeof(IEnumerable<ActorDetail>), StatusCodes.Status200OK)]
-    public IActionResult GetActors(string? key)
+    public IActionResult GetActors(string? key, int page = 1, int eachPage = 6)
     {
         IEnumerable<ActorDetail>? actors;
         if (!String.IsNullOrEmpty(key))
@@ -45,6 +45,7 @@ public class ActorController : Controller
             actors = _mapper.Map<IEnumerable<ActorDetail>>(_actorRepository.GetActors());
         }
         
+        actors = actors.Skip((page - 1) * eachPage).Take(eachPage);
         return Ok(actors);
     }
 
