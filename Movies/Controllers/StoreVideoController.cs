@@ -34,7 +34,7 @@ namespace Movies.Controllers
         public async Task<IActionResult> GetVideo(string movie)
         {
             //check video exist in GridFs (Mongo)
-            if(!_storeVideoRepository.FileExistAsync(movie).Result)
+            if (!_storeVideoRepository.FileExistAsync(movie).Result)
             {
                 return NotFound("Video Not Found");
             }

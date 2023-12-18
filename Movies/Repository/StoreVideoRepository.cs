@@ -85,7 +85,12 @@ public class StoreVideoRepository : IStoreVideoRepository
             throw new FileNotFoundException($"File '{movie}' not found.");
         }
 
-        return await _context.gridFSBucket.OpenDownloadStreamAsync(fileInfo.Id);
+        var downloadStream = await _context.gridFSBucket.OpenDownloadStreamAsync(fileInfo.Id);
+        var memoryStream = new MemoryStream();
+        await downloadStream.CopyToAsync(memoryStream);
+        memoryStream.Position = 0;
+
+        return memoryStream;
     }
 
 }
