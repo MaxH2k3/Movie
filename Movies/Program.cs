@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting.Internal;
 using Movies.ExceptionHandler;
 using Movies.Interface;
@@ -34,6 +36,18 @@ public class Program
                 swagger.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Movies.xml"));
             });
         builder.Services.AddCors();
+
+
+        builder.Services.Configure<KestrelServerOptions>(options =>
+        {
+            options.Limits.MaxRequestBodySize = 1073741824; // 100 MB
+        });
+
+        builder.Services.Configure<FormOptions>(options =>
+        {
+            options.MultipartBodyLengthLimit = 1073741824; // 100 MB
+        });
+
         var app = builder.Build();
 
         // configure cors
