@@ -27,7 +27,12 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(
+            swagger =>
+            {
+                swagger.SwaggerDoc("v1", new() { Title = "Movies", Version = "v1" });
+                swagger.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Movies.xml"));
+            });
         builder.Services.AddCors();
         var app = builder.Build();
 

@@ -23,33 +23,43 @@ public class ActorController : Controller
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Get actors by filter
+    /// </summary>
+    /// <param name="key">
+    ///     <para>Existed value: search by name actor</para>
+    ///     <para>Empty value: get all actors</para>
+    /// </param>
+    /// <returns></returns>
+
     [HttpGet("Actors")]
-    public IActionResult GetActors()
+    [ProducesResponseType(typeof(IEnumerable<ActorDetail>), StatusCodes.Status200OK)]
+    public IActionResult GetActors(string? key)
     {
-        var actors = _mapper.Map<IEnumerable<ActorDetail>>(_actorRepository.GetActors());
+        IEnumerable<ActorDetail>? actors;
+        if (!String.IsNullOrEmpty(key))
+        {
+            actors = _mapper.Map<IEnumerable<ActorDetail>>(_actorRepository.SearchByName(key.Trim().ToLower()));
+        } else
+        {
+            actors = _mapper.Map<IEnumerable<ActorDetail>>(_actorRepository.GetActors());
+        }
+        
         return Ok(actors);
     }
 
-    [HttpGet("Actor/{key}")]
-    public IActionResult GetActor(string key)
+    [HttpGet("Actor/{ActorId}")]
+    [ProducesResponseType(typeof(ActorDetail), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+    public IActionResult GetActor(int ActorId)
     {
-        ActorDetail? actor;
-        if(int.TryParse(key, out int id))
+        var actor = _mapper.Map<ActorDetail>(_actorRepository.GetActor(ActorId));
+        if (actor == null)
         {
-            actor = _mapper.Map<ActorDetail>(_actorRepository.GetActor(id));
-        } else
-        {
-            actor = _mapper.Map<ActorDetail>(_actorRepository.GetActorByName(key.Trim().ToLower()));
+            return NotFound("Actor not found!");
         }
         
         return Ok(actor);
-    }
-
-    [HttpGet("Actor/Search")]
-    public IActionResult SearchByName(string name)
-    {
-        var actors = _mapper.Map<IEnumerable<ActorDetail>>(_actorRepository.SearchByName(name.Trim().ToLower()));
-        return Ok(actors);
     }
 
     [HttpPost("Actor")]

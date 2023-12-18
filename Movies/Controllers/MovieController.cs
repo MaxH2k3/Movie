@@ -21,15 +21,32 @@ public class MovieController : Controller
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Get movies by filter
+    /// </summary>
+    /// <param name="filterBy">The filter option. Possible values:
+    ///    <para>- recentupdate: take 8 newest movies</para>
+    ///    <para>- category: take all movies by category</para>
+    ///    <pra> Get all movies if filterBy is empty </pra>
+    /// </param>
+    /// <param name="key">The value option. Possible values:
+    ///    <para>- recentupdate: featureId (int)</para>
+    ///    <para>- category: categoryId (int)</para>
+    ///    <para>- empty filterBy: search by englishName and vietnamName (string) </para>
+    /// </param>
+    /// <returns></returns>
+
     [HttpGet("Movies")]
+    [ProducesResponseType(typeof(IEnumerable<MoviePreview>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     public IActionResult Movies(string? filterBy, string? key)
     {
-        IEnumerable<MoviePreview> movie;
+        IEnumerable<MoviePreview> movies;
         if (Constraint.FilterName.RECENT_UPDATE.Equals(filterBy?.Trim().ToLower()))
         {
             if (int.TryParse(key, out int id))
             {
-                movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetRecentUpdateMovies(id));
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetRecentUpdateMovies(id));
             } else
             {
                 return BadRequest("Invalid your key! Key is a featureId (int)");
@@ -38,29 +55,35 @@ public class MovieController : Controller
         {
             if (int.TryParse(key, out int id))
             {
-                movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByCategory(id));
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByCategory(id));
             } else
             {
                 return BadRequest("Invalid your key! Key is a categoryId (int)");
             }
         } else if(String.IsNullOrEmpty(filterBy) && !String.IsNullOrEmpty(key))
         {
-            movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower()));
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower()));
         } else if(String.IsNullOrEmpty(filterBy))
         {
-            movie = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies());
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies());
         } else
         {
             return NotFound("Your filter did not existed!");
         }
         
-        return Ok(movie);
+        return Ok(movies);
     }
 
     [HttpGet("Movie/{MovieId}")]
+    [ProducesResponseType(typeof(MovieDetail), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public IActionResult Movie(int MovieId)
     {
         var movie = _mapper.Map<MovieDetail>(_movieRepository.GetMovieById(MovieId));
+        if (movie == null)
+        {
+            return NotFound("The movie did not existed");
+        }
         return Ok(movie);
     }
 
