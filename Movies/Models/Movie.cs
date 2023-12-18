@@ -21,9 +21,8 @@ namespace Movies.Models
         public string? Description { get; set; }
         public string? EnglishName { get; set; }
         public string? VietnamName { get; set; }
-        public string? LinkMovie { get; set; }
-        public string? LinkThumbnail { get; set; }
-        public string? LinkTrailer { get; set; }
+        public string? Thumbnail { get; set; }
+        public string? Trailer { get; set; }
         public string? Status { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }

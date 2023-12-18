@@ -11,7 +11,6 @@ namespace Movies.Business
         public double? Mark { get; set; }
         public int? Time { get; set; }
         public int? Viewer { get; set; }
-        [MaxLength(100)]
         [MinLength(20)]
         public string? Description { get; set; }
         [MaxLength(100)]
@@ -21,9 +20,9 @@ namespace Movies.Business
         [MinLength(2)]
         public string? VietnamName { get; set; }
         [Required]
-        public string? LinkThumbnail { get; set; }
+        public string? Thumbnail { get; set; }
         [Required]
-        public string? LinkTrailer { get; set; }
+        public string? Trailer { get; set; }
         public string? Status { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }

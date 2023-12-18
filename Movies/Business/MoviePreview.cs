@@ -7,7 +7,7 @@
         public int? Time { get; set; }
         public string? VietnamName { get; set; }
         public string? EnglishName { get; set; }
-        public string? LinkThumbnail { get; set; }
+        public string? Thumbnail { get; set; }
         public string? Status { get; set; }
         public DateTime? DateCreated { get; set; }
     }

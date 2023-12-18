@@ -76,17 +76,14 @@ namespace Movies.Models
 
                 entity.Property(e => e.DoB).HasColumnType("datetime");
 
-                entity.Property(e => e.LinkImage)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Image)
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.NameActor)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.NationId)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
                     .HasColumnName("NationID");
 
                 entity.HasOne(d => d.Nation)
@@ -130,8 +127,7 @@ namespace Movies.Models
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
                 entity.Property(e => e.Name)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
             });
 
             modelBuilder.Entity<Episode>(entity =>
@@ -145,14 +141,12 @@ namespace Movies.Models
                 entity.Property(e => e.DateUpdated).HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.SeasonId).HasColumnName("SeasonID");
 
                 entity.Property(e => e.Status)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.HasOne(d => d.Season)
                     .WithMany(p => p.Episodes)
@@ -168,8 +162,7 @@ namespace Movies.Models
                 entity.ToTable("FeatureFilm");
 
                 entity.Property(e => e.Name)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
             });
 
             modelBuilder.Entity<Movie>(entity =>
@@ -180,38 +173,27 @@ namespace Movies.Models
 
                 entity.Property(e => e.DateUpdated).HasColumnType("datetime");
 
-                entity.Property(e => e.Description)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Description);
 
                 entity.Property(e => e.EnglishName)
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.LinkMovie)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Thumbnail)
+                    .HasMaxLength(255);
 
-                entity.Property(e => e.LinkThumbnail)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LinkTrailer)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Trailer)
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.NationId)
                     .HasMaxLength(255)
-                    .IsUnicode(false)
                     .HasColumnName("NationID");
 
                 entity.Property(e => e.Status)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.VietnamName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.HasOne(d => d.Feature)
                     .WithMany()
@@ -229,10 +211,6 @@ namespace Movies.Models
                 entity.HasKey(mc => new { mc.MovieId, mc.CategoryId });
 
                 entity.ToTable("MovieCategory");
-
-                //entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-
-                //entity.Property(e => e.MovieId).HasColumnName("MovieID");
 
                 entity.HasOne(d => d.Category)
                     .WithMany()
@@ -255,8 +233,7 @@ namespace Movies.Models
                     .HasColumnName("NationID");
 
                 entity.Property(e => e.Name)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
             });
 
             modelBuilder.Entity<Season>(entity =>
@@ -268,12 +245,10 @@ namespace Movies.Models
                 entity.Property(e => e.MovieId).HasColumnName("MovieID");
 
                 entity.Property(e => e.Name)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.Status)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.HasOne(d => d.Movie)
                     .WithMany(p => p.Seasons)
@@ -295,8 +270,7 @@ namespace Movies.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Status)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.HasOne(d => d.Episode)
                     .WithMany(p => p.Videos)

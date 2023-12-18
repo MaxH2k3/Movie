@@ -5,7 +5,7 @@
         public int ActorId { get; set; }
         public string? NameActor { get; set; }
         public string? CharacterName { get; set; }
-        public string? LinkImage { get; set; }
+        public string? Image { get; set; }
 
     }
 }

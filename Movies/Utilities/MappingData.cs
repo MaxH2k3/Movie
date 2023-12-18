@@ -20,8 +20,8 @@ namespace Movies.Utilities
             CreateMap<Cast, CastCharacter>()
                 .ForMember(dest => dest.NameActor, 
                 opt => opt.MapFrom(src => src.Actor.NameActor))
-                .ForMember(dest => dest.LinkImage,
-                opt => opt.MapFrom(src => src.Actor.LinkImage));
+                .ForMember(dest => dest.Image,
+                opt => opt.MapFrom(src => src.Actor.Image));
 
             CreateMap<MovieCategory, Category>()
                 .ForMember(dest => dest.Name,
