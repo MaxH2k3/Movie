@@ -11,6 +11,7 @@ namespace Movies.Business
         public string? EnglishName { get; set; }
         public string? Thumbnail { get; set; }
         public string? Description { get; set; }
+        public PersonDTO? Producer { get; set; }
         public virtual Nation? Nation { get; set; }
         public virtual FeatureFilm? Feature { get; set; }
         public DateTime? DateCreated { get; set; }

@@ -4,24 +4,25 @@ using System.Collections.Generic;
 
 namespace Movies.Models
 {
-    public partial class Actor
+    public partial class Person
     {
-        public Actor()
+        public Person()
         {
             Casts = new HashSet<Cast>();
         }
 
-        public int ActorId { get; set; }
+        public int PersonId { get; set; }
         public string? Image { get; set; }
-        public string? NameActor { get; set; }
+        public string? NamePerson { get; set; }
         public string? NationId { get; set; }
+        public string? Role { get; set; }
         public DateTime? DoB { get; set; }
 
         public virtual Nation? Nation { get; set; }
         public virtual ICollection<Cast> Casts { get; set; }
         public override string ToString()
         {
-            return $"ActorId: {ActorId}, LinkImage: {Image}, NameActor: {NameActor}, NationId: {NationId}, DoB: {DoB}";
+            return $"ActorId: {PersonId}, LinkImage: {Image}, NameActor: {NamePerson}, NationId: {NationId}, DoB: {DoB}";
         }
     }
 }

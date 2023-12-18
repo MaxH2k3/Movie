@@ -20,7 +20,7 @@ public class Program
 
         builder.Services.AddScoped<StoreVideoContext>();
         builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-        builder.Services.AddScoped<IActorRepository, ActorRepository>();
+        builder.Services.AddScoped<IPersonRepository, PersonRepository>();
         builder.Services.AddScoped<IStoreVideoRepository, StoreVideoRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();

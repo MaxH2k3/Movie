@@ -3,11 +3,11 @@ using Movies.Models;
 
 namespace Movies.Business
 {
-    public class ActorDetail
+    public class PersonDetail
     {
-        public int ActorId { get; set; }
+        public int PersonId { get; set; }
         public string? Image { get; set; }
-        public string? NameActor { get; set; }
+        public string? NamePerson { get; set; }
         public string? NationId { get; set; }
         public string? NationName { get; set; }
         public string? DoB { get; set; }

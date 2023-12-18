@@ -30,6 +30,7 @@ namespace Movies.Repository
             return _context.Movies
                 .Include(m => m.Nation)
                 .Include(m => m.Feature)
+                .Include(m => m.Producer)
                 .Include(m => m.Casts).ThenInclude(c => c.Actor)
                 .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category);
         }
@@ -131,7 +132,7 @@ namespace Movies.Repository
 
         private ResponseDTO validateData(MovieDetail movieDetail)
         {
-            Nation? nation = _context.Nations.Find(movieDetail.NationId);
+            Nation? nation = _context.Nations.Find(movieDetail.Nation?.NationId);
             if (nation == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found");

@@ -19,34 +19,35 @@ VALUES
 ('US', N'Mỹ'),
 ('CH', N'Trung Quốc');
 
-INSERT INTO [dbo].[Movies] ([FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [DateCreated], [DateUpdated])
+SET IDENTITY_INSERT [dbo].[Person] ON 
+INSERT INTO Person (PersonID, Image, NamePerson, NationID, Role) VALUES
+(1, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Debbi Bossi', 'VN', 'PR'),
+(2, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Scarlett Johansson', 'VN', 'AC'),
+(3, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Chris Evans', 'VN', 'PR'),
+(4, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Brie Larson', 'KR', 'AC'),
+(5, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Tom Holland', 'KR', 'AC'),
+(6, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Mark Ruffalo', 'KR', 'PR'),
+(7, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Chris Hemsworth', 'KR', 'AC'),
+(8, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Benedict Cumberbatch', 'VN', 'AC'),
+(9, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Tom Hiddleston', 'KR', 'PR'),
+(10, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Zoe Saldana', 'VN', 'AC');
+SET IDENTITY_INSERT [dbo].[Person] OFF
+
+INSERT INTO [dbo].[Movies] ([FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [DateCreated], [DateUpdated], [ProducerID])
 VALUES
-    (1, 'VN', 4.5, 120, 1000, 'A thrilling action movie set in Vietnam.', 'The Lost City', N'Thành phố bị mất', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/1.jpg', 'mck', 'Released', '2023-01-15', '2023-03-02'),
-    (2, 'KR', 3.8, 105, 500, 'A romantic comedy set in South Korea.', 'Love in Seoul', N'Tình yêu ở Seoul', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/2.jpg', 'mck', 'Released', '2023-02-10', '2023-04-05'),
-    (3, 'US', 4.2, 135, 750, 'A sci-fi thriller set in the United States.', 'Beyond the Horizon', N'Vượt xa chân trời', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/3.jpg', 'mck', 'Released', '2023-03-20', '2023-06-15'),
-    (4, 'CH', 4.7, 112, 900, 'An action-packed martial arts film set in China.', 'The Dragon''s Legacy', N'Di sản của rồng', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/4.jpg', 'mck', 'Released', '2023-04-25', '2023-07-20');
+    (1, 'VN', 4.5, 120, 1000, 'A thrilling action movie set in Vietnam.', 'The Lost City', N'Thành phố bị mất', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/1.jpg', 'mck', 'Released', '2023-01-15', '2023-03-02', 1),
+    (2, 'KR', 3.8, 105, 500, 'A romantic comedy set in South Korea.', 'Love in Seoul', N'Tình yêu ở Seoul', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/2.jpg', 'mck', 'Released', '2023-02-10', '2023-04-05', 3),
+    (3, 'US', 4.2, 135, 750, 'A sci-fi thriller set in the United States.', 'Beyond the Horizon', N'Vượt xa chân trời', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/3.jpg', 'mck', 'Released', '2023-03-20', '2023-06-15', 1),
+    (4, 'CH', 4.7, 112, 900, 'An action-packed martial arts film set in China.', 'The Dragon''s Legacy', N'Di sản của rồng', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/4.jpg', 'mck', 'Released', '2023-04-25', '2023-07-20', 6);
 
-SET IDENTITY_INSERT [dbo].[actor] ON 
-INSERT INTO actor (ActorID, Image, NameActor, NationID) VALUES
-(1, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Debbi Bossi', 'VN'),
-(2, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Scarlett Johansson', 'VN'),
-(3, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Chris Evans', 'VN'),
-(4, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Brie Larson', 'KR'),
-(5, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Tom Holland', 'KR'),
-(6, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Mark Ruffalo', 'KR'),
-(7, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Chris Hemsworth', 'KR'),
-(8, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Benedict Cumberbatch', 'VN'),
-(9, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Tom Hiddleston', 'KR'),
-(10, 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Zoe Saldana', 'VN');
-SET IDENTITY_INSERT [dbo].[actor] OFF
 
-INSERT INTO dbo.Cast (ActorID, MovieID, CharacterName)
+INSERT INTO dbo.Cast (PersonID, MovieID, CharacterName)
 VALUES 
-(1, 1, 'John Doe'),
-(2, 2, 'Jane Smith'),
-(3, 3, 'Michael Johnson'),
-(4, 4, 'Emily Davis'),
-(5, 1, 'David Brown');
+(2, 1, 'John Doe'),
+(4, 2, 'Jane Smith'),
+(4, 3, 'Michael Johnson'),
+(10, 4, 'Emily Davis'),
+(8, 1, 'David Brown');
 
 SET IDENTITY_INSERT [dbo].[category] ON 
 INSERT INTO category (CategoryID, Name) VALUES

@@ -20,8 +20,10 @@ namespace Movies.Utilities
                 opt => opt.MapFrom(src => src.MovieCategories));
 
             CreateMap<Cast, CastCharacter>()
-                .ForMember(dest => dest.NameActor, 
-                opt => opt.MapFrom(src => src.Actor.NameActor))
+                .ForMember(dest => dest.PersonId, 
+                opt => opt.MapFrom(src => src.Actor.PersonId))
+                .ForMember(dest => dest.NamePerson, 
+                opt => opt.MapFrom(src => src.Actor.NamePerson))
                 .ForMember(dest => dest.Image,
                 opt => opt.MapFrom(src => src.Actor.Image));
 
@@ -32,10 +34,12 @@ namespace Movies.Utilities
             CreateMap<MovieCategory, MoviePreview>();
 
             //actor
-            CreateMap<Actor, ActorDetail>()
+            CreateMap<Person, PersonDetail>()
                 .ForMember(dest => dest.NationName,
                 opt => opt.MapFrom(src => src.Nation.Name));
-            CreateMap<ActorDetail, Actor>();
+            CreateMap<PersonDetail, Person>();
+
+            CreateMap<Person, PersonDTO>();
         }
     }
 }

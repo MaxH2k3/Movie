@@ -17,7 +17,7 @@ namespace Movies.Models
         {
         }
 
-        public virtual DbSet<Actor> Actors { get; set; } = null!;
+        public virtual DbSet<Person> Persons { get; set; } = null!;
         public virtual DbSet<Cast> Casts { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Episode> Episodes { get; set; } = null!;
@@ -64,20 +64,22 @@ namespace Movies.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Actor>(entity =>
+            modelBuilder.Entity<Person>(entity =>
             {
-                entity.ToTable("Actor");
+                entity.ToTable("Person");
 
-                entity.Property(e => e.ActorId)
+                entity.Property(e => e.PersonId)
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("ActorID");
+                    .HasColumnName("PersonID");
 
                 entity.Property(e => e.DoB).HasColumnType("datetime");
+
+                entity.Property(e => e.Role);
 
                 entity.Property(e => e.Image)
                     .HasMaxLength(255);
 
-                entity.Property(e => e.NameActor)
+                entity.Property(e => e.NamePerson)
                     .HasMaxLength(255);
 
                 entity.Property(e => e.NationId)
@@ -97,7 +99,7 @@ namespace Movies.Models
 
                 entity.ToTable("Cast");
 
-                entity.Property(e => e.ActorId).HasColumnName("ActorID");
+                entity.Property(e => e.ActorId).HasColumnName("PersonID");
 
                 entity.Property(e => e.MovieId).HasColumnName("MovieID");
 
@@ -189,6 +191,13 @@ namespace Movies.Models
                     .HasMaxLength(255)
                     .HasColumnName("NationID");
 
+                entity.Property(e => e.FeatureId)
+                    .HasMaxLength(255)
+                    .HasColumnName("FeatureID");
+
+                entity.Property(e => e.ProducerId)
+                    .HasColumnName("ProducerID");
+
                 entity.Property(e => e.Status)
                     .HasMaxLength(255);
 
@@ -204,6 +213,11 @@ namespace Movies.Models
                     .WithMany()
                     .HasForeignKey(d => d.NationId)
                     .HasConstraintName("FK__Movies__NationID__571DF1D5");
+
+                entity.HasOne(d => d.Producer)
+                    .WithMany()
+                    .HasForeignKey(d => d.ProducerId)
+                    .HasConstraintName("FK__Movies__Producer__5812160E");
             });
 
             modelBuilder.Entity<MovieCategory>(entity =>

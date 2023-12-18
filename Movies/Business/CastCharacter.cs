@@ -2,8 +2,8 @@
 {
     public class CastCharacter
     {
-        public int ActorId { get; set; }
-        public string? NameActor { get; set; }
+        public int PersonId { get; set; }
+        public string? NamePerson { get; set; }
         public string? CharacterName { get; set; }
         public string? Image { get; set; }
 

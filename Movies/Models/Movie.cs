@@ -15,6 +15,7 @@ namespace Movies.Models
         public int MovieId { get; set; }
         public int? FeatureId { get; set; }
         public string? NationId { get; set; }
+        public int? ProducerId { get; set; }
         public double? Mark { get; set; }
         public int? Time { get; set; }
         public int? Viewer { get; set; }
@@ -27,6 +28,7 @@ namespace Movies.Models
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
 
+        public virtual Person? Producer { get; set; }
         public virtual FeatureFilm? Feature { get; set; }
         public virtual Nation? Nation { get; set; }
         public virtual ICollection<Cast> Casts { get; set; }
