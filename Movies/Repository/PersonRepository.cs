@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver.Linq;
 using Movies.Business;
 using Movies.Interface;
 using Movies.Models;
+using Movies.Utilities;
 using System.Diagnostics;
 using System.Net;
 
@@ -25,33 +27,21 @@ namespace Movies.Repository
             _mapper = mapper;
         }
 
-        public async Task<ResponseDTO> CreatePerson(PersonDetail personDetail)
+        public Person? GetPerson(Guid id)
         {
-            Person person = new Person();
-            person = _mapper.Map<Person>(personDetail);
+            return GetPersons().FirstOrDefault(a => a.PersonId.Equals(id));
+        }
 
-            Nation? nation = _context.Nations.Find(personDetail.NationId);
-            if (nation == null)
+        public IEnumerable<Person> SearchByName(string name, string role)
+        {
+            if(role.Equals(Constraint.RolePerson.ACTOR))
             {
-                return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found");
+                return GetActos().Where(a => a.NamePerson.ToLower().Contains(name)).ToList();
+            } else
+            {
+                return GetProducers().Where(a => a.NamePerson.ToLower().Contains(name)).ToList();
             }
             
-            _context.Persons.Add(person);
-            if (await _context.SaveChangesAsync() > 0)
-            {
-                return new ResponseDTO(HttpStatusCode.Created, "Create person successfully");
-            }
-            return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
-        }
-
-        public Person? GetPerson(int id)
-        {
-            return GetPersons().FirstOrDefault(a => a.PersonId == id);
-        }
-
-        public IEnumerable<Person> SearchByName(string name)
-        {
-            return GetPersons().Where(a => a.NamePerson.ToLower().Contains(name)).ToList();
         }
 
         public Person? GetPersonByName(string name)
@@ -62,6 +52,42 @@ namespace Movies.Repository
         public IEnumerable<Person> GetPersons()
         {
             return _context.Persons.Include(a => a.Nation);
+        }
+        public IEnumerable<Person> GetActos()
+        {
+            return GetPersons().Where(a => a.Role.ToUpper().Equals(Constraint.RolePerson.ACTOR)).ToList();
+        }
+
+        public IEnumerable<Person> GetProducers()
+        {
+            return GetPersons().Where(a => a.Role.ToUpper().Equals(Constraint.RolePerson.PRODUCER)).ToList();
+        }
+
+        public async Task<ResponseDTO> CreatePerson(PersonDetail personDetail)
+        {
+            Person person = new Person();
+            person = _mapper.Map<Person>(personDetail);
+
+            Nation? nation = _context.Nations.Find(personDetail.NationId);
+            if (nation == null)
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found");
+            }
+
+            if(!person.Role.ToUpper().StringIn(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
+            {
+                return new ResponseDTO(HttpStatusCode.BadRequest, "Role must be actor (AC) or producer (PR)");
+            }
+
+            person.Role = person.Role.ToUpper();
+            person.PersonId = Guid.NewGuid();
+
+            _context.Persons.Add(person);
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                return new ResponseDTO(HttpStatusCode.Created, "Create person successfully");
+            }
+            return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
         }
 
         public async Task<ResponseDTO> UpdatePerson(PersonDetail personDetail)
@@ -80,6 +106,13 @@ namespace Movies.Repository
                 return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found!");
             }
 
+            if (!person.Role.ToUpper().StringIn(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
+            {
+                return new ResponseDTO(HttpStatusCode.BadRequest, "Role must be actor (AC) or producer (PR)");
+            }
+
+            person.Role = person.Role.ToUpper();
+
             _context.Persons.Update(person);
             if (await _context.SaveChangesAsync() > 0)
             {
@@ -89,7 +122,7 @@ namespace Movies.Repository
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
         }
 
-        public async Task<ResponseDTO> DeletePerson(int id)
+        public async Task<ResponseDTO> DeletePerson(Guid id)
         {
             Person? person = GetPerson(id);
             if (person == null)
@@ -105,7 +138,5 @@ namespace Movies.Repository
 
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
         }
-
-
     }
 }

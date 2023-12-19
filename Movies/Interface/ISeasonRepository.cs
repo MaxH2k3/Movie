@@ -5,6 +5,6 @@ namespace Movies.Interface
     public interface ISeasonRepository
     {
         IEnumerable<Season> GetSeasons();
-        IEnumerable<Season> GetSeasonsByMovie(int movieId);
+        IEnumerable<Season> GetSeasonsByMovie(Guid movieId);
     }
 }

@@ -23,9 +23,9 @@ namespace Movies.Repository
             return _context.Episodes.Include(e => e.Season);
         }
 
-        public IEnumerable<Episode> GetEpisodesBySeason(int seasonId)
+        public IEnumerable<Episode> GetEpisodesBySeason(string seasonId)
         {
-            return GetEpisodes().Where(e => e.SeasonId == seasonId).ToList();
+            return GetEpisodes().Where(e => e.SeasonId.Equals(seasonId)).ToList();
         }
     }
 }

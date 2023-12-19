@@ -6,8 +6,8 @@ namespace Movies.Models
     public partial class Episode
     {
 
-        public int EpisodeId { get; set; }
-        public int? SeasonId { get; set; }
+        public Guid EpisodeId { get; set; }
+        public Guid? SeasonId { get; set; }
         public int EpisodeNumber { get; set; }
         public string? Name { get; set; }
         public string? Video { get; set; }

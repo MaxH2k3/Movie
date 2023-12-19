@@ -12,10 +12,10 @@ namespace Movies.Models
             MovieCategories = new HashSet<MovieCategory>();
         }
 
-        public int MovieId { get; set; }
+        public Guid MovieId { get; set; }
         public int? FeatureId { get; set; }
         public string? NationId { get; set; }
-        public int? ProducerId { get; set; }
+        public Guid? ProducerId { get; set; }
         public double? Mark { get; set; }
         public int? Time { get; set; }
         public int? Viewer { get; set; }
@@ -25,6 +25,8 @@ namespace Movies.Models
         public string? Thumbnail { get; set; }
         public string? Trailer { get; set; }
         public string? Status { get; set; }
+        public int? TotalSeasons { get; set; }
+        public int? TotalEpisodes { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
 

@@ -19,7 +19,7 @@ public class SeasonController : Controller
     }
 
     [HttpGet("Seasons")]
-    public IActionResult GetSeasons(int movieId)
+    public IActionResult GetSeasons(Guid movieId)
     {
         var seasons = _mapper.Map<IEnumerable<SeasonDTO>>(_seasonRepository.GetSeasonsByMovie(movieId));
 

@@ -2,7 +2,7 @@
 {
     public class EpisodeDTO
     {
-        public int EpisodeId { get; set; }
+        public Guid EpisodeId { get; set; }
         public int EpisodeNumber { get; set; }
         public string? Name { get; set; }
         public string? Video { get; set; }

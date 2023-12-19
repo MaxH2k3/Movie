@@ -35,9 +35,9 @@ namespace Movies.Repository
                 .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category);
         }
 
-        public Movie? GetMovieById(int id)
+        public Movie? GetMovieById(Guid id)
         {
-            return GetMovies().FirstOrDefault(m => m.MovieId == id);
+            return GetMovies().FirstOrDefault(m => m.MovieId.Equals(id));
         }
 
         public IEnumerable<Movie> GetMovieByName(string name)
@@ -61,14 +61,24 @@ namespace Movies.Repository
             return GetMovies().Where(m => m.MovieCategories.Any(mc => mc.CategoryId == categoryId)).ToList();
         }
 
-        public IEnumerable<Movie> GetMovieByActor(int actorId)
+        public IEnumerable<Movie> GetMovieByActor(string actorId)
         {
-            return GetMovies().Where(m => m.Casts.Any(c => c.ActorId == actorId)).ToList();
+            return GetMovies().Where(m => m.Casts.Any(c => c.ActorId.Equals(new Guid(actorId)))).ToList();
+        }
+
+        public IEnumerable<Movie> GetMovieByProducer(string producerId)
+        {
+            return GetMovies().Where(m => m.ProducerId.Equals(new Guid(producerId))).ToList();
         }
 
         public IEnumerable<Movie> GetMovieByFeature(int featureId)
         {
             return GetMovies().Where(m => m.FeatureId == featureId).ToList();
+        }
+
+        public Movie? GetMovieNewest()
+        {
+            return GetMovies().OrderByDescending(m => m.DateCreated).FirstOrDefault();
         }
 
         public async Task<ResponseDTO> CreateMovie(MovieDetail movieDetail)
@@ -114,7 +124,7 @@ namespace Movies.Repository
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
         }
 
-        public async Task<ResponseDTO> DeleteMovie(int id)
+        public async Task<ResponseDTO> DeleteMovie(Guid id)
         {
             Movie? movie = GetMovieById(id);
             if (movie == null)

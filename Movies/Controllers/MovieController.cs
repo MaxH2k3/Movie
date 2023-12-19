@@ -28,6 +28,7 @@ public class MovieController : Controller
     ///    <para>- category: take all movies by category</para>
     ///    <para>- feature: take all movies by feature</para>
     ///    <para>- actor: take all movie cast by actor </para>
+    ///    <para>- producer: take all movie published by producer </para>
     ///    <pra> Get all movies if filterBy is empty </pra>
     /// </param>
     /// <param name="key">The value option. Possible values:
@@ -64,13 +65,10 @@ public class MovieController : Controller
             }
         } else if (Constraint.FilterName.ACTOR.Equals(filterBy?.Trim().ToLower()))
         {
-            if (int.TryParse(key, out int id))
-            {
-                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByActor(id));
-            } else
-            {
-                return BadRequest("Invalid your key! Key is a actorId (int)");
-            }
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByActor(key));
+        } else if (Constraint.FilterName.PRODUCER.Equals(filterBy?.Trim().ToLower()))
+        {
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByProducer(key));
         } else if(String.IsNullOrEmpty(filterBy) && !String.IsNullOrEmpty(key))
         {
             movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower()));
@@ -85,10 +83,18 @@ public class MovieController : Controller
         return Ok(movies);
     }
 
+    [HttpGet("Movies/Newest")]
+    [ProducesResponseType(typeof(MovieNewest), StatusCodes.Status200OK)]
+    public IActionResult MoviesNewest()
+    {
+        var movies = _mapper.Map<MovieNewest>(_movieRepository.GetMovieNewest());
+        return Ok(movies);
+    }
+
     [HttpGet("Movie/{MovieId}")]
     [ProducesResponseType(typeof(MovieDetail), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-    public IActionResult Movie(int MovieId)
+    public IActionResult Movie(Guid MovieId)
     {
         var movie = _mapper.Map<MovieDetail>(_movieRepository.GetMovieById(MovieId));
         if (movie == null)

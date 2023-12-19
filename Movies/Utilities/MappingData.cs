@@ -19,21 +19,23 @@ namespace Movies.Utilities
                 .ForMember(dest => dest.Categories,
                 opt => opt.MapFrom(src => src.MovieCategories));
 
-            CreateMap<Cast, CastCharacter>()
-                .ForMember(dest => dest.PersonId, 
-                opt => opt.MapFrom(src => src.Actor.PersonId))
-                .ForMember(dest => dest.NamePerson, 
-                opt => opt.MapFrom(src => src.Actor.NamePerson))
-                .ForMember(dest => dest.Image,
-                opt => opt.MapFrom(src => src.Actor.Image));
-
             CreateMap<MovieCategory, Category>()
                 .ForMember(dest => dest.Name,
                 opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<MovieCategory, MoviePreview>();
 
+            CreateMap<Movie, MovieNewest>();
+
             //actor
+            CreateMap<Cast, CastCharacter>()
+                .ForMember(dest => dest.PersonId,
+                opt => opt.MapFrom(src => src.Actor.PersonId))
+                .ForMember(dest => dest.NamePerson,
+                opt => opt.MapFrom(src => src.Actor.NamePerson))
+                .ForMember(dest => dest.Image,
+                opt => opt.MapFrom(src => src.Actor.Image));
+
             CreateMap<Person, PersonDetail>()
                 .ForMember(dest => dest.NationName,
                 opt => opt.MapFrom(src => src.Nation.Name));

@@ -35,7 +35,7 @@ namespace Movies.Controllers
             return Ok(response.Message);
         }
 
-        [HttpGet("Watch")]
+        [HttpGet("Watch/{movie}")]
         [ProducesResponseType(typeof(File), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetVideo(string movie)

@@ -5,7 +5,7 @@ namespace Movies.Business
 {
     public class MovieDetail
     {
-        public int MovieId { get; set; }
+        public Guid MovieId { get; set; }
         public double? Mark { get; set; }
         public int? Time { get; set; }
         public int? Viewer { get; set; }
