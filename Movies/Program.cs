@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting.Internal;
@@ -26,6 +27,9 @@ public class Program
         builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
         builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
         builder.Services.AddScoped<IEpisodeRepository, EpisodeRepository>();
+        builder.Services.AddScoped<IBlobRepository, BlobRepository>();
+
+        builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlob")));
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

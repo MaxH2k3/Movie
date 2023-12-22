@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
-using Movies.Business;
+using Movies.Business.globals;
 using Movies.Interface;
 using Movies.Models;
 using System.Net;
@@ -13,12 +13,14 @@ namespace Movies.Controllers
     {
         private readonly IStoreVideoRepository _storeVideoRepository;
         private readonly StoreVideoContext _context;
+        private readonly IBlobRepository _blobRepository;
 
-        public StoreVideoController(IStoreVideoRepository storeVideoRepository,
+        public StoreVideoController(IStoreVideoRepository storeVideoRepository, IBlobRepository blobRepository,
                     StoreVideoContext context)
         {
             _storeVideoRepository = storeVideoRepository;
             _context = context;
+            _blobRepository = blobRepository;
         }
 
         [HttpPost("StoreVideo")]
@@ -47,9 +49,9 @@ namespace Movies.Controllers
             }
 
             //get video from GridFS
-            Stream videoStream = await _storeVideoRepository.GetVideo(movie);
+            FileStreamResult videoStream = await _storeVideoRepository.GetVideo(movie);
 
-            return File(videoStream, "video/mp4");
+            return videoStream;
         }
 
         [HttpDelete("StoreVideo/{filename}")]

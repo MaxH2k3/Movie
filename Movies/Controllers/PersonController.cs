@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Business;
+using Movies.Business.globals;
+using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Models;
 using Movies.Repository;
@@ -84,13 +85,13 @@ public class PersonController : Controller
     }
 
     [HttpPost("Person")]
-    public async Task<IActionResult> CreatePerson([FromBody] PersonDetail personDetail)
+    public async Task<IActionResult> CreatePerson([FromForm] NewPerson newPerson)
     {
         if(!ModelState.IsValid)
         {
             return BadRequest("Invalid data!");
         }
-        ResponseDTO response = await _personRepository.CreatePerson(personDetail);
+        ResponseDTO response = await _personRepository.CreatePerson(newPerson);
         if(response.Status == HttpStatusCode.Created)  
         {
             return Ok(response.Message);

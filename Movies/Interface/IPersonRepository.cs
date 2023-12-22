@@ -1,4 +1,5 @@
-﻿using Movies.Business;
+﻿using Movies.Business.globals;
+using Movies.Business.persons;
 using Movies.Models;
 
 namespace Movies.Interface
@@ -11,7 +12,7 @@ namespace Movies.Interface
         IEnumerable<Person> GetActos();
         IEnumerable<Person> GetProducers();
         IEnumerable<Person> SearchByName(string name, string role);
-        Task<ResponseDTO> CreatePerson(PersonDetail actorDetail);
+        Task<ResponseDTO> CreatePerson(NewPerson newPerson);
         Task<ResponseDTO> UpdatePerson(PersonDetail actorDetail);
         Task<ResponseDTO> DeletePerson(Guid id);
     }

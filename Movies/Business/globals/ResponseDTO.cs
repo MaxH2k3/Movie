@@ -1,9 +1,9 @@
 ﻿using System.Net;
 
-namespace Movies.Business
+namespace Movies.Business.globals
 {
     public class ResponseDTO
-    {   
+    {
         public HttpStatusCode? Status { get; set; }
         public string? Message { get; set; }
         public object? Data { get; set; }

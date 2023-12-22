@@ -3,10 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
-using Movies.Business;
+using Movies.Business.globals;
 using Movies.Interface;
 using Movies.Models;
-using System.Diagnostics;
 using System.Net;
 
 namespace Movies.Repository;
@@ -81,7 +80,7 @@ public class StoreVideoRepository : IStoreVideoRepository
         return true;
     }
 
-    public async Task<Stream> GetVideo(string movie)
+    public async Task<FileStreamResult> GetVideo(string movie)
     {
         var filter = Builders<GridFSFileInfo<ObjectId>>.Filter.Eq(x => x.Filename, movie);
         var options = new GridFSFindOptions { Limit = 1 };
@@ -94,11 +93,12 @@ public class StoreVideoRepository : IStoreVideoRepository
         }
 
         var downloadStream = await _context.gridFSBucket.OpenDownloadStreamAsync(fileInfo.Id);
-        var memoryStream = new MemoryStream();
-        await downloadStream.CopyToAsync(memoryStream);
-        memoryStream.Position = 0;
+        FileStreamResult fileStreamResult = new FileStreamResult(downloadStream, "video/mp4");
+        //var memoryStream = new MemoryStream();
+        //await downloadStream.CopyToAsync(memoryStream);
+        //memoryStream.Position = 0;
 
-        return memoryStream;
+        return fileStreamResult;
     }
 
 }

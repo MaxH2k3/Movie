@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using Movies.Business;
+using Movies.Business.movies;
+using Movies.Business.persons;
+using Movies.Business.seasons;
 using Movies.Models;
 
 namespace Movies.Utilities
@@ -27,7 +29,7 @@ namespace Movies.Utilities
 
             CreateMap<Movie, MovieNewest>();
 
-            //actor
+            //Person
             CreateMap<Cast, CastCharacter>()
                 .ForMember(dest => dest.PersonId,
                 opt => opt.MapFrom(src => src.Actor.PersonId))
@@ -42,6 +44,8 @@ namespace Movies.Utilities
             CreateMap<PersonDetail, Person>();
 
             CreateMap<Person, PersonDTO>();
+
+            CreateMap<Person, NewPerson>();
 
             //season
             CreateMap<Season, SeasonDTO>();

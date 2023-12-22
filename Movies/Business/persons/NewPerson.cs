@@ -1,17 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Movies.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Movies.Business
+namespace Movies.Business.persons
 {
-    public class PersonDetail
+    public class NewPerson
     {
         public Guid PersonId { get; set; }
-        public string? Image { get; set; }
+        public IFormFile? Thumbnail { get; set; }
+        [Required]
         public string? NamePerson { get; set; }
         [Required]
         public string? NationId { get; set; }
-        public string? NationName { get; set; }
         [Required]
         public string? Role { get; set; }
         public string? DoB { get; set; }

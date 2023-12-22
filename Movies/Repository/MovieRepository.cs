@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Movies.Business;
+using Movies.Business.globals;
+using Movies.Business.movies;
 using Movies.Interface;
 using Movies.Models;
 using System.Diagnostics;
@@ -44,6 +45,7 @@ namespace Movies.Repository
         {
             return GetMovies().Where(
                 m => m.VietnamName.ToLower().Contains(name) || m.EnglishName.ToLower().Contains(name))
+                .OrderByDescending(m => m.DateCreated)
                 .ToList();
         }
 
@@ -58,27 +60,32 @@ namespace Movies.Repository
 
         public IEnumerable<Movie> GetMovieByCategory(int categoryId)
         {
-            return GetMovies().Where(m => m.MovieCategories.Any(mc => mc.CategoryId == categoryId)).ToList();
+            return GetMovies().Where(m => m.MovieCategories.Any(mc => mc.CategoryId == categoryId)).OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public IEnumerable<Movie> GetMovieByActor(string actorId)
         {
-            return GetMovies().Where(m => m.Casts.Any(c => c.ActorId.Equals(new Guid(actorId)))).ToList();
+            return GetMovies().Where(m => m.Casts.Any(c => c.ActorId.Equals(new Guid(actorId)))).OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public IEnumerable<Movie> GetMovieByProducer(string producerId)
         {
-            return GetMovies().Where(m => m.ProducerId.Equals(new Guid(producerId))).ToList();
+            return GetMovies().Where(m => m.ProducerId.Equals(new Guid(producerId))).OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public IEnumerable<Movie> GetMovieByFeature(int featureId)
         {
-            return GetMovies().Where(m => m.FeatureId == featureId).ToList();
+            return GetMovies().Where(m => m.FeatureId == featureId).OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public Movie? GetMovieNewest()
         {
             return GetMovies().OrderByDescending(m => m.DateCreated).FirstOrDefault();
+        }
+
+        public IEnumerable<Movie> GetMovieByNation(string nationId)
+        {
+            return GetMovies().Where(m => m.NationId.Equals(nationId.Trim().ToUpper())).OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public async Task<ResponseDTO> CreateMovie(MovieDetail movieDetail)
@@ -155,5 +162,7 @@ namespace Movies.Repository
             }
             return new ResponseDTO();
         }
+
+        
     }
 }

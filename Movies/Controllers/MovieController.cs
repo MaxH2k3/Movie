@@ -1,6 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Business;
+using Movies.Business.movies;
 using Movies.Interface;
 using Movies.Models;
 using Movies.Utilities;
@@ -29,6 +29,7 @@ public class MovieController : Controller
     ///    <para>- feature: take all movies by feature</para>
     ///    <para>- actor: take all movie cast by actor </para>
     ///    <para>- producer: take all movie published by producer </para>
+    ///    <para>- nation: take all movie by nation </para>
     ///    <pra> Get all movies if filterBy is empty </pra>
     /// </param>
     /// <param name="key">The value option. Possible values:
@@ -63,6 +64,9 @@ public class MovieController : Controller
             {
                 return BadRequest("Invalid your key! Key is a featureId (int)");
             }
+        } else if (Constraint.FilterName.NATION.Equals(filterBy?.Trim().ToLower()))
+        {
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByNation(key));
         } else if (Constraint.FilterName.ACTOR.Equals(filterBy?.Trim().ToLower()))
         {
             movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByActor(key));

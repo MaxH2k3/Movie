@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver.Linq;
-using Movies.Business;
+using Movies.Business.globals;
+using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Models;
 using Movies.Utilities;
@@ -14,11 +15,13 @@ namespace Movies.Repository
     {
         private readonly MOVIESContext _context;
         private readonly IMapper _mapper;
+        private readonly IBlobRepository _blobRepository;
 
-        public PersonRepository(MOVIESContext context, IMapper mapper)
+        public PersonRepository(MOVIESContext context, IMapper mapper, IBlobRepository blobRepository)
         {
             _context = context;
             _mapper = mapper;
+            _blobRepository = blobRepository;
         }
 
         public PersonRepository(IMapper mapper)
@@ -63,24 +66,21 @@ namespace Movies.Repository
             return GetPersons().Where(a => a.Role.ToUpper().Equals(Constraint.RolePerson.PRODUCER)).ToList();
         }
 
-        public async Task<ResponseDTO> CreatePerson(PersonDetail personDetail)
+        public async Task<ResponseDTO> CreatePerson(NewPerson newPerson)
         {
+            newPerson.PersonId = Guid.NewGuid();
+            ResponseDTO responseDTO = await ValidateData(newPerson);
+
+            if (responseDTO.Status != HttpStatusCode.Continue)
+            {
+                return responseDTO;
+            }
+
             Person person = new Person();
-            person = _mapper.Map<Person>(personDetail);
+            person = _mapper.Map<Person>(newPerson);
 
-            Nation? nation = _context.Nations.Find(personDetail.NationId);
-            if (nation == null)
-            {
-                return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found");
-            }
-
-            if(!person.Role.ToUpper().StringIn(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
-            {
-                return new ResponseDTO(HttpStatusCode.BadRequest, "Role must be actor (AC) or producer (PR)");
-            }
-
-            person.Role = person.Role.ToUpper();
-            person.PersonId = Guid.NewGuid();
+            person.Role = person.Role?.ToUpper();
+            
 
             _context.Persons.Add(person);
             if (await _context.SaveChangesAsync() > 0)
@@ -120,6 +120,35 @@ namespace Movies.Repository
             }
 
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
+        }
+
+        public async Task<ResponseDTO> ValidateData(NewPerson newPerson)
+        {
+            Nation? nation = _context.Nations.Find(newPerson.NationId);
+            if (nation == null)
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found");
+            }
+
+            if (!newPerson.Role.ToUpper().StringIn(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Role must be actor (AC) or producer (PR)");
+            }
+
+            //upload umage
+            string? result = null;
+            if (newPerson.Thumbnail != null)
+            {   
+                var role = newPerson.Role.Equals(Constraint.RolePerson.ACTOR) ? "actor" : "producer";
+                var filePath = $"thumbnail-person/{role}/{newPerson.PersonId}";
+                result = await _blobRepository.UploadBlob(filePath, newPerson.Thumbnail);
+                if(String.IsNullOrEmpty(result))
+                {
+                    return new ResponseDTO(HttpStatusCode.Conflict, $"{ newPerson.Thumbnail.FileName } is existed!, Please change your thumbnail.");
+                }
+            }
+
+            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", result);
         }
 
         public async Task<ResponseDTO> DeletePerson(Guid id)

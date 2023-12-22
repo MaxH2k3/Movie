@@ -1,7 +1,8 @@
-﻿using Movies.Models;
+﻿using Movies.Business.persons;
+using Movies.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace Movies.Business
+namespace Movies.Business.movies
 {
     public class MovieDetail
     {

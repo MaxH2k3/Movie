@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Business;
+using Movies.Business.seasons;
 using Movies.Interface;
 
 namespace Movies.Controllers;

@@ -1,4 +1,5 @@
-﻿using Movies.Business;
+﻿using Movies.Business.globals;
+using Movies.Business.movies;
 using Movies.Models;
 
 namespace Movies.Interface
@@ -13,6 +14,7 @@ namespace Movies.Interface
         IEnumerable<Movie> GetMovieByActor(string actorId);
         IEnumerable<Movie> GetMovieByProducer(string producerId);
         IEnumerable<Movie> GetMovieByFeature(int featureId);
+        IEnumerable<Movie> GetMovieByNation(string nationId);
         Movie? GetMovieNewest();
         Task<ResponseDTO> CreateMovie(MovieDetail movieDetail);
         Task<ResponseDTO> UpdateMovie(MovieDetail movieDetail);

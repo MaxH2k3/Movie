@@ -1,4 +1,4 @@
-﻿namespace Movies.Business
+﻿namespace Movies.Business.seasons
 {
     public class EpisodeDTO
     {
