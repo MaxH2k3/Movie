@@ -1,4 +1,3 @@
-using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting.Internal;
@@ -19,17 +18,13 @@ public class Program
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         builder.Services.AddTransient<GlobalException>();
 
-        builder.Services.AddScoped<StoreVideoContext>();
         builder.Services.AddScoped<IMovieRepository, MovieRepository>();
         builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-        builder.Services.AddScoped<IStoreVideoRepository, StoreVideoRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
         builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
         builder.Services.AddScoped<IEpisodeRepository, EpisodeRepository>();
-        builder.Services.AddScoped<IBlobRepository, BlobRepository>();
-
-        builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlob")));
+        builder.Services.AddScoped<IStorageRepository, StorageRepository>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -46,12 +41,12 @@ public class Program
 
         builder.Services.Configure<KestrelServerOptions>(options =>
         {
-            options.Limits.MaxRequestBodySize = 1073741824; // 100 MB
+            options.Limits.MaxRequestBodySize = 1073741824; // 1GB
         });
 
         builder.Services.Configure<FormOptions>(options =>
         {
-            options.MultipartBodyLengthLimit = 1073741824; // 100 MB
+            options.MultipartBodyLengthLimit = 1073741824; // 1GB
         });
 
         var app = builder.Build();

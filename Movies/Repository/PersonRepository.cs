@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using MongoDB.Driver.Linq;
 using Movies.Business.globals;
 using Movies.Business.persons;
 using Movies.Interface;
@@ -15,13 +14,11 @@ namespace Movies.Repository
     {
         private readonly MOVIESContext _context;
         private readonly IMapper _mapper;
-        private readonly IBlobRepository _blobRepository;
 
-        public PersonRepository(MOVIESContext context, IMapper mapper, IBlobRepository blobRepository)
+        public PersonRepository(MOVIESContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _blobRepository = blobRepository;
         }
 
         public PersonRepository(IMapper mapper)
@@ -106,10 +103,10 @@ namespace Movies.Repository
                 return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found!");
             }
 
-            if (!person.Role.ToUpper().StringIn(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
-            {
-                return new ResponseDTO(HttpStatusCode.BadRequest, "Role must be actor (AC) or producer (PR)");
-            }
+            //if (!person.Role.ToUpper().(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
+            //{
+            //    return new ResponseDTO(HttpStatusCode.BadRequest, "Role must be actor (AC) or producer (PR)");
+            //}
 
             person.Role = person.Role.ToUpper();
 
@@ -130,25 +127,24 @@ namespace Movies.Repository
                 return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found");
             }
 
-            if (!newPerson.Role.ToUpper().StringIn(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
-            {
-                return new ResponseDTO(HttpStatusCode.NotFound, "Role must be actor (AC) or producer (PR)");
-            }
+            //if (!newPerson.Role.ToUpper().StringIn(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
+            //{
+            //    return new ResponseDTO(HttpStatusCode.NotFound, "Role must be actor (AC) or producer (PR)");
+            //}
 
             //upload umage
-            string? result = null;
-            if (newPerson.Thumbnail != null)
-            {   
-                var role = newPerson.Role.Equals(Constraint.RolePerson.ACTOR) ? "actor" : "producer";
-                var filePath = $"thumbnail-person/{role}/{newPerson.PersonId}";
-                result = await _blobRepository.UploadBlob(filePath, newPerson.Thumbnail);
-                if(String.IsNullOrEmpty(result))
-                {
-                    return new ResponseDTO(HttpStatusCode.Conflict, $"{ newPerson.Thumbnail.FileName } is existed!, Please change your thumbnail.");
-                }
-            }
+            //string? result = null;
+            //if (newPerson.Thumbnail != null)
+            //{   
+            //    var role = newPerson.Role.Equals(Constraint.RolePerson.ACTOR) ? "actor" : "producer";
+            //    var filePath = $"thumbnail-person/{role}/{newPerson.PersonId}";
+            //    if(String.IsNullOrEmpty(result))
+            //    {
+            //        return new ResponseDTO(HttpStatusCode.Conflict, $"{ newPerson.Thumbnail.FileName } is existed!, Please change your thumbnail.");
+            //    }
+            //}
 
-            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", result);
+            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", "a");
         }
 
         public async Task<ResponseDTO> DeletePerson(Guid id)

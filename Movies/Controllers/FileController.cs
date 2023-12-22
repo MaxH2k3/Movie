@@ -1,51 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Interface;
-using System.Diagnostics;
+using System.IO;
 
 namespace Movies.Controllers;
-
 
 [ApiController]
 public class FileController : Controller
 {
-    private readonly IBlobRepository _blobRepository;
-    public FileController(IBlobRepository blobRepository)
+    private readonly IStorageRepository _storageRepository;
+
+    public FileController(IStorageRepository storageRepository)
     {
-        _blobRepository = blobRepository;
+        _storageRepository = storageRepository;
     }
 
-
-    [HttpGet("image/{fileName}")]
-    public async Task<IActionResult> getThumbnail(string fileName)
+    [HttpGet]
+    [Route("file")]
+    public async Task<IActionResult> GetFile(string fileName)
     {
-
-        var image = await _blobRepository.GetBlob(fileName);
-        if(image == Stream.Null)
+        Console.WriteLine("file name: " + fileName);
+        var imageStream = await _storageRepository.GetFile(fileName);
+        if(imageStream == Stream.Null)
         {
-            return NotFound($"{fileName} is not existed!");
+            return NotFound("Not found");
         }
-        return File(image, "image/*");
+
+        return File(imageStream, "image/*");
     }
 
-    [HttpPost("image")]
-    public async Task<IActionResult> upload(string pathName, IFormFile file)
+    [HttpPost]
+    [Route("file")]
+    public async Task<IActionResult> UploadFile(IFormFile file, string filePath)
     {
-        var path = await _blobRepository.UploadBlob(pathName, file);
-        if(string.IsNullOrEmpty(path))
+        if(file.Length == 0)
         {
-            return Conflict($"{pathName} is existed! Please, change your fileName");
+            return BadRequest("File is empty");
         }
-        return Ok(path);
+        await _storageRepository.UploadFile(file, filePath);
+        return Ok(filePath);
     }
 
-    [HttpDelete("image/{fileName}")]
-    public async Task<IActionResult> delete(string fileName)
+    [HttpDelete]
+    [Route("file")]
+    public async Task<IActionResult> DeleteFile(string fileName)
     {
-        var path = await _blobRepository.DeleteBlob(fileName);
-        if(string.IsNullOrEmpty(path))
-        {
-            return NotFound($"{fileName} is not existed!");
-        }
-        return Ok(path);
+        await _storageRepository.DeleteFile(fileName);
+        return Ok("ok");
     }
 }
