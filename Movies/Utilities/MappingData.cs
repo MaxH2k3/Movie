@@ -29,6 +29,8 @@ namespace Movies.Utilities
 
             CreateMap<Movie, MovieNewest>();
 
+            CreateMap<NewMovie, Movie>();
+
             //Person
             CreateMap<Cast, CastCharacter>()
                 .ForMember(dest => dest.PersonId,

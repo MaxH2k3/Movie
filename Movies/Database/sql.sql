@@ -4,20 +4,21 @@ SET IDENTITY_INSERT [dbo].[FeatureFilm] ON
 INSERT INTO [dbo].[FeatureFilm]
 ([FeatureId], [Name])
 VALUES
-(1, N'phim mới'),
-(2, N'phim lẻ'),
-(3, N'phim chiếu rạp'),
-(4, N'phim bộ');
+(1, N'New Movies'),
+(2, N'Standalone Film'),
+(3, N'Cinema Film'),
+(4, N'TV Series');
 SET IDENTITY_INSERT [dbo].[FeatureFilm] OFF
 
 
 INSERT INTO [dbo].[Nation]
 ([NationID], [Name])
 VALUES
-('VN', N'Việt Nam'),
-('KR', N'Hàn Quốc'),
-('US', N'Mỹ'),
-('CH', N'Trung Quốc');
+('VN', N'VietNam'),
+('KR', N'Korea'),
+('US', N'American'),
+('CH', N'China'),
+('JP', N'Japan');
 
 INSERT INTO Person (PersonID, Image, NamePerson, NationID, Role) VALUES
 ('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Debbi Bossi', 'VN', 'PR'),
@@ -38,7 +39,7 @@ VALUES
     ('BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB', 2, 'KR', 3.8, 105, 500, 'A romantic comedy set in South Korea.', 'Love in Seoul', N'Tình yêu ở Seoul', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/2.jpg', 'https://streamit-movie.azurewebsites.net/Watch/mck', 'Released', '2023-02-10', '2023-04-05', '9B46E82B-279E-43F3-BC36-60A45E10015D'),
     ('7626213A-FDC6-4291-BF57-DABD768CD1C8', 3, 'US', 4.2, 135, 750, 'A sci-fi thriller set in the United States.', 'Beyond the Horizon', N'Vượt xa chân trời', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/3.jpg', 'https://streamit-movie.azurewebsites.net/Watch/mck', 'Released', '2023-03-20', '2023-06-15', 'E1CB11EF-1753-4DA7-A352-25D7F2969329'),
     ('B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 4, 'CH', 4.7, 112, 900, 'An action-packed martial arts film set in China.', 'The Dragon''s Legacy', N'Di sản của rồng', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/4.jpg', 'https://streamit-movie.azurewebsites.net/Watch/mck', 'Released', '2023-04-25', '2023-07-20', '572A3A53-1F81-4251-B886-6ADF4E62389C'),
-    ('7626213A-FDC6-4291-BF57-DABD768CD1C8', 2, 'CH', 4.7, 112, 900, 'An action-packed martial arts film set in China.', 'The Dragon''s Legacy', N'Di sản của rồng', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/4.jpg', 'https://streamit-movie.azurewebsites.net/Watch/mck', 'Released', '2023-04-25', '2023-07-20', '572A3A53-1F81-4251-B886-6ADF4E62389C'),
+    ('2A866A68-5DBF-40D2-B773-12D4202CE028', 2, 'CH', 4.7, 112, 900, 'An action-packed martial arts film set in China.', 'The Dragon''s Legacy', N'Di sản của rồng', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/4.jpg', 'https://streamit-movie.azurewebsites.net/Watch/mck', 'Released', '2023-04-25', '2023-07-20', '572A3A53-1F81-4251-B886-6ADF4E62389C'),
     ('99D5840E-DD16-497D-96C5-8A448B9AF19A', 4, 'CH', 4.7, 112, 900, 'An action-packed martial arts film set in China.', 'The Dragon''s Legacy', N'Di sản của rồng', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/4.jpg', 'https://streamit-movie.azurewebsites.net/Watch/mck', 'Released', '2023-04-25', '2023-07-20', '572A3A53-1F81-4251-B886-6ADF4E62389C');
 
 

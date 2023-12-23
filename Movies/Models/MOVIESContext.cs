@@ -171,9 +171,16 @@ namespace Movies.Models
             {
                 entity.Property(e => e.MovieId).HasColumnName("MovieID");
 
-                entity.Property(e => e.DateCreated).HasColumnType("datetime");
+                entity.Property(e => e.DateCreated)
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.DateUpdated).HasColumnType("datetime");
+
+                entity.Property(e => e.TotalEpisodes)
+                    .HasDefaultValue(0);
+
+                entity.Property(e => e.TotalSeasons)
+                    .HasDefaultValue(0);
 
                 entity.Property(e => e.Description);
 

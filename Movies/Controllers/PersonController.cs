@@ -84,7 +84,16 @@ public class PersonController : Controller
         return Ok(person);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newPerson">
+    ///     <para> Do not add id when create a person </para>
+    /// </param>
+    /// <returns></returns>
     [HttpPost("Person")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreatePerson([FromForm] NewPerson newPerson)
     {
         if(!ModelState.IsValid)
@@ -96,10 +105,12 @@ public class PersonController : Controller
         {
             return Ok(response.Message);
         }
-        return BadRequest(response.Message);
+        return BadRequest(response);
     }
 
     [HttpPut("Person")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdatePerson([FromForm] NewPerson newPerson)
     {
         if (!ModelState.IsValid)
@@ -111,16 +122,18 @@ public class PersonController : Controller
         {
             return Ok(response.Message);
         }
-        return BadRequest(response.Message);
+        return BadRequest(response);
     }
 
     [HttpDelete("Person/{id}")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeletePerson(Guid id)
     {
         ResponseDTO response = await _personRepository.DeletePerson(id);
         if (response.Status == HttpStatusCode.OK)
         {
-            return Ok(response);
+            return Ok(response.Message);
         }
         return BadRequest(response);
     }

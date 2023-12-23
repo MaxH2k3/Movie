@@ -16,8 +16,8 @@ namespace Movies.Interface
         IEnumerable<Movie> GetMovieByFeature(int featureId);
         IEnumerable<Movie> GetMovieByNation(string nationId);
         Movie? GetMovieNewest();
-        Task<ResponseDTO> CreateMovie(MovieDetail movieDetail);
-        Task<ResponseDTO> UpdateMovie(MovieDetail movieDetail);
+        Task<ResponseDTO> CreateMovie(NewMovie newMovie);
+        Task<ResponseDTO> UpdateMovie(NewMovie newMovie);
         Task<ResponseDTO> DeleteMovie(Guid id);
     }
 }

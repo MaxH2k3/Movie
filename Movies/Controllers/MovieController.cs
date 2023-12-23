@@ -1,9 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Business.globals;
 using Movies.Business.movies;
 using Movies.Interface;
 using Movies.Models;
 using Movies.Utilities;
+using System.Net;
 using static Movies.Utilities.Constraint;
 
 namespace Movies.Controllers;
@@ -108,46 +110,56 @@ public class MovieController : Controller
         return Ok(movie);
     }
 
-    [HttpPut("Movie/{MovieId}")]
-    public IActionResult UpdateMovie([FromForm] Movie movie)
+    [HttpPut("Movie")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateMovie([FromForm] NewMovie newMovie)
     {
         if(!ModelState.IsValid)
         {
             BadRequest("Invalid the movie");
         }
-        //if(_movieRepository.UpdateMovie(movie))
-        //{
-        //    return Ok("Update Sucessfully!");
-        //}
-        return BadRequest("Update movie failed");
+        ResponseDTO responseDTO = await _movieRepository.UpdateMovie(newMovie);
+        if (responseDTO.Status == HttpStatusCode.OK)
+        {
+            return Ok("Update Sucessfully!");
+        }
+        return BadRequest(responseDTO);
     }
 
     [HttpPost("Movie")]
-    public IActionResult CreateMovie([FromForm] Movie movie)
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateMovie([FromForm] NewMovie newMovie)
     {
         if(!ModelState.IsValid)
         {
             BadRequest("Invalid the movie");
         }
-        //if(_movieRepository.CreateMovie(movie))
-        //{
-        //    return Ok("Create Sucessfully!");
-        //}
-        return BadRequest("Create movie failed");
+        ResponseDTO responseDTO = await _movieRepository.CreateMovie(newMovie);
+        if(responseDTO.Status == HttpStatusCode.Created)
+        {
+            return Ok(responseDTO.Message);
+        }
+
+        return BadRequest(responseDTO);
     }
 
     [HttpDelete("Movie/{id}")]
-    public IActionResult DeleteMovie(int id)
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteMovie(Guid id)
     {
         if(!ModelState.IsValid)
         {
             BadRequest("Invalid the movie");
         }
-        //if(_movieRepository.DeleteMovie(id))
-        //{
-        //    return Ok("Delete Sucessfully!");
-        //}
-        return BadRequest("Delete movie failed");
+        ResponseDTO responseDTO = await _movieRepository.DeleteMovie(id);
+        if (responseDTO.Status == HttpStatusCode.OK)
+        {
+            return Ok("Delete Sucessfully!");
+        }
+        return BadRequest(responseDTO);
     }
 
 }
