@@ -7,18 +7,15 @@ namespace Movies.Repository
     public class StorageRepository : IStorageRepository
     {
         private readonly GCPContext _gcpContext;
-        private readonly ILogger<StorageRepository> _logger;
 
-        public StorageRepository(GCPContext gcpContext, ILogger<StorageRepository> logger)
+        public StorageRepository(GCPContext gcpContext)
         {
             _gcpContext = gcpContext;
-            _logger = logger;
         }
 
-        public StorageRepository(ILogger<StorageRepository> logger)
+        public StorageRepository()
         {
             _gcpContext = new GCPContext();
-            _logger = logger;
         }
 
         public async Task<Stream> GetFile(string fileName)

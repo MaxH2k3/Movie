@@ -14,17 +14,20 @@ namespace Movies.Repository
     {
         private readonly MOVIESContext _context;
         private readonly IMapper _mapper;
+        private readonly IStorageRepository _storageRepository;
 
-        public PersonRepository(MOVIESContext context, IMapper mapper)
+        public PersonRepository(MOVIESContext context, IMapper mapper, IStorageRepository storageRepository)
         {
             _context = context;
             _mapper = mapper;
+            _storageRepository = storageRepository;
         }
 
         public PersonRepository(IMapper mapper)
         {
             _context = new MOVIESContext();
             _mapper = mapper;
+            _storageRepository = new StorageRepository();
         }
 
         public Person? GetPerson(Guid id)
@@ -75,8 +78,9 @@ namespace Movies.Repository
 
             Person person = new Person();
             person = _mapper.Map<Person>(newPerson);
-
             person.Role = person.Role?.ToUpper();
+            person.NationId = person.NationId?.ToUpper();
+            person.Image = person.Image ?? responseDTO.Data?.ToString();
             
 
             _context.Persons.Add(person);
@@ -87,28 +91,26 @@ namespace Movies.Repository
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
         }
 
-        public async Task<ResponseDTO> UpdatePerson(PersonDetail personDetail)
+        public async Task<ResponseDTO> UpdatePerson(NewPerson newPerson)
         {
-            Person? person = GetPerson(personDetail.PersonId);
+            Person? person = GetPerson((Guid) newPerson.PersonId);
+            string? oldImage = person?.Image;
             if (person == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Person not found!");
             }
 
-            person = _mapper.Map<Person>(personDetail);
-
-            Nation? nation = _context.Nations.Find(personDetail.NationId);
-            if (nation == null)
+            ResponseDTO responseDTO = await ValidateData(newPerson);
+            if (responseDTO.Status != HttpStatusCode.Continue)
             {
-                return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found!");
+                return responseDTO;
             }
 
-            //if (!person.Role.ToUpper().(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
-            //{
-            //    return new ResponseDTO(HttpStatusCode.BadRequest, "Role must be actor (AC) or producer (PR)");
-            //}
-
-            person.Role = person.Role.ToUpper();
+            person = _mapper.Map<Person>(newPerson);
+            person.Role = person.Role?.ToUpper();
+            person.NationId = person.NationId?.ToUpper();
+            person.Image = (newPerson.Thumbnail != null) ? responseDTO.Data?.ToString() : oldImage;
+  
 
             _context.Persons.Update(person);
             if (await _context.SaveChangesAsync() > 0)
@@ -126,25 +128,23 @@ namespace Movies.Repository
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found");
             }
+            
+            if (!newPerson.Role.ToUpper().Equals(Constraint.RolePerson.ACTOR) &&
+                !newPerson.Role.ToUpper().Equals(Constraint.RolePerson.PRODUCER))
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Role must be actor (AC) or producer (PR)");
+            }
 
-            //if (!newPerson.Role.ToUpper().StringIn(Constraint.RolePerson.ACTOR, Constraint.RolePerson.PRODUCER))
-            //{
-            //    return new ResponseDTO(HttpStatusCode.NotFound, "Role must be actor (AC) or producer (PR)");
-            //}
+            //upload image
+            string? filePath = null;
+            if (newPerson.Thumbnail != null)
+            {
+                var role = newPerson.Role.ToUpper().Equals(Constraint.RolePerson.ACTOR) ? "actor" : "producer";
+                filePath = $"person/{role}/{newPerson.PersonId}";
+                await _storageRepository.UploadFile(newPerson.Thumbnail, filePath);
+            }
 
-            //upload umage
-            //string? result = null;
-            //if (newPerson.Thumbnail != null)
-            //{   
-            //    var role = newPerson.Role.Equals(Constraint.RolePerson.ACTOR) ? "actor" : "producer";
-            //    var filePath = $"thumbnail-person/{role}/{newPerson.PersonId}";
-            //    if(String.IsNullOrEmpty(result))
-            //    {
-            //        return new ResponseDTO(HttpStatusCode.Conflict, $"{ newPerson.Thumbnail.FileName } is existed!, Please change your thumbnail.");
-            //    }
-            //}
-
-            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", "a");
+            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", filePath);
         }
 
         public async Task<ResponseDTO> DeletePerson(Guid id)
@@ -156,6 +156,7 @@ namespace Movies.Repository
             }
 
             _context.Persons.Remove(person);
+            _storageRepository.DeleteFile(person.Image);
             if (await _context.SaveChangesAsync() > 0)
             {
                 return new ResponseDTO(HttpStatusCode.OK, "Person delete successfully!");

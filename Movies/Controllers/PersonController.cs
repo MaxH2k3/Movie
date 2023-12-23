@@ -66,7 +66,7 @@ public class PersonController : Controller
             return NotFound("Your filter did not existed!");
         }
         
-        persons = persons.Skip((page - 1) * eachPage).Take(eachPage);
+        persons = persons.OrderBy(p => p.NamePerson).Skip((page - 1) * eachPage).Take(eachPage);
         return Ok(persons);
     }
 
@@ -100,13 +100,13 @@ public class PersonController : Controller
     }
 
     [HttpPut("Person")]
-    public async Task<IActionResult> UpdatePerson([FromBody] PersonDetail personDetail)
+    public async Task<IActionResult> UpdatePerson([FromForm] NewPerson newPerson)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest("Invalid data!");
         }
-        ResponseDTO response = await _personRepository.UpdatePerson(personDetail);
+        ResponseDTO response = await _personRepository.UpdatePerson(newPerson);
         if (response.Status == HttpStatusCode.OK)
         {
             return Ok(response.Message);

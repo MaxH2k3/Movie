@@ -13,7 +13,7 @@ namespace Movies.Interface
         IEnumerable<Person> GetProducers();
         IEnumerable<Person> SearchByName(string name, string role);
         Task<ResponseDTO> CreatePerson(NewPerson newPerson);
-        Task<ResponseDTO> UpdatePerson(PersonDetail actorDetail);
+        Task<ResponseDTO> UpdatePerson(NewPerson newPerson);
         Task<ResponseDTO> DeletePerson(Guid id);
     }
 }
