@@ -123,6 +123,8 @@ namespace Movies.Repository
         {
             Movie movie = GetMovieById((Guid)newMovie.MovieId);
             string? oldThumnail = movie?.Thumbnail;
+            int? totalSeasons = movie?.TotalSeasons;
+            int? totalEpisodes = movie?.TotalEpisodes;
             if(movie == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Movie not found");
@@ -137,6 +139,8 @@ namespace Movies.Repository
             movie = _mapper.Map<Movie>(newMovie);
             movie.NationId = movie.NationId?.ToUpper();
             movie.Thumbnail = (newMovie.Thumbnail != null) ? responseDTO.Data?.ToString() : oldThumnail;
+            movie.TotalSeasons = totalSeasons;
+            movie.TotalEpisodes = totalEpisodes;
             if (movie.DateUpdated == null)
                 movie.DateUpdated = DateTime.Now;
 
