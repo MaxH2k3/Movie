@@ -33,5 +33,15 @@ namespace Movies.Repository
                     return s;
                 });
         }
+
+        public IEnumerable<Season> GetSeasonsByMovieAndNumber(Guid movieId, int? seasonNumber)
+        {
+            return GetSeasons().Where(s => s.MovieId.Equals(movieId) && s.SeasonNumber == seasonNumber).ToList()
+                .Select(s =>
+                {
+                    s.Episodes = s.Episodes.OrderBy(e => e.EpisodeNumber).ToList();
+                    return s;
+                });
+        }
     }
 }

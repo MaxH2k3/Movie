@@ -6,5 +6,7 @@ namespace Movies.Interface
     {
         IEnumerable<Season> GetSeasons();
         IEnumerable<Season> GetSeasonsByMovie(Guid movieId);
+        IEnumerable<Season> GetSeasonsByMovieAndNumber(Guid movieId, int? seasonNumber);
+
     }
 }

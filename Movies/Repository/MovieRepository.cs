@@ -46,10 +46,10 @@ namespace Movies.Repository
             return GetMovies().FirstOrDefault(m => m.MovieId.Equals(id));
         }
 
-        public IEnumerable<Movie> GetMovieByName(string name)
+        public IEnumerable<Movie>? GetMovieByName(string name)
         {
             return GetMovies().Where(
-                m => m.VietnamName.ToLower().Contains(name) || m.EnglishName.ToLower().Contains(name))
+                m => m.VietnamName.ToLower().Contains(name) || m.EnglishName.ToLower().Contains(name))?
                 .OrderByDescending(m => m.DateCreated)
                 .ToList();
         }

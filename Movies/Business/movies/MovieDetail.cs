@@ -27,6 +27,8 @@ namespace Movies.Business.movies
         public PersonDTO Producer { get; set; }
         public virtual Nation? Nation { get; set; }
         public virtual FeatureFilm? Feature { get; set; }
+        public int? TotalSeasons { get; set; }
+        public int? TotalEpisodes { get; set; }
         public virtual ICollection<CastCharacter>? CastCharacteries { get; set; }
         // public virtual ICollection<Season> Seasons { get; set; }
         public virtual ICollection<Category>? Categories { get; set; }
