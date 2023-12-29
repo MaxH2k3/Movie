@@ -24,5 +24,18 @@
             public static string ACTOR = "AC";
             public static string PRODUCER = "PR";
         }
+
+        public static class RoleUser
+        {
+            public static string ADMIN = "ADMIN";
+            public static string USER = "USER";
+        }
+
+        public static class StatusUser
+        {
+            public static string ACTIVE = "ACTIVE";
+            public static string PENDING = "PENDING";
+            public static string BLOCK = "BLOCK";
+        }
     }
 }

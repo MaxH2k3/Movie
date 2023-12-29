@@ -2,6 +2,7 @@
 using Movies.Business.movies;
 using Movies.Business.persons;
 using Movies.Business.seasons;
+using Movies.Business.users;
 using Movies.Models;
 
 namespace Movies.Utilities
@@ -56,6 +57,10 @@ namespace Movies.Utilities
 
             CreateMap<Episode, EpisodeDTO>();
 
+            //user
+            CreateMap<RegisterUser, User>();
+            CreateMap<User, RegisterUser>();
+            CreateMap<UserTemporary, User>();
         }
     }
 }

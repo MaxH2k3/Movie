@@ -20,26 +20,35 @@ VALUES
 ('CH', N'China'),
 ('JP', N'Japan');
 
-INSERT INTO Person (PersonID, Image, NamePerson, NationID, Role) VALUES
-('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Debbi Bossi', 'VN', 'PR'),
-('7B885328-C701-46DF-871B-3C8344A87809', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Scarlett Johansson', 'VN', 'AC'),
-('9B46E82B-279E-43F3-BC36-60A45E10015D', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Chris Evans', 'VN', 'PR'),
-('1401FC65-44FD-4881-A16A-640CF36F835C', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Brie Larson', 'KR', 'AC'),
-('8E379873-B309-4890-9271-6A66E4291BEA', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Tom Holland', 'KR', 'AC'),
-('572A3A53-1F81-4251-B886-6ADF4E62389C', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Mark Ruffalo', 'KR', 'PR'),
-('04031A5E-AE87-4D20-AE8B-E639444768BD', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Chris Hemsworth', 'KR', 'AC'),
-('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Benedict Cumberbatch', 'VN', 'AC'),
-('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Tom Hiddleston', 'KR', 'PR'),
-('751AB02D-33A1-455F-9875-FEC992B5382B', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Zoe Saldana', 'VN', 'AC');
+--INSERT INTO Person (PersonID, Image, NamePerson, NationID, Role) VALUES
+--('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Debbi Bossi', 'VN', 'PR'),
+--('7B885328-C701-46DF-871B-3C8344A87809', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Scarlett Johansson', 'VN', 'AC'),
+--('9B46E82B-279E-43F3-BC36-60A45E10015D', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Chris Evans', 'VN', 'PR'),
+--('1401FC65-44FD-4881-A16A-640CF36F835C', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Brie Larson', 'KR', 'AC'),
+--('8E379873-B309-4890-9271-6A66E4291BEA', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Tom Holland', 'KR', 'AC'),
+--('572A3A53-1F81-4251-B886-6ADF4E62389C', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Mark Ruffalo', 'KR', 'PR'),
+--('04031A5E-AE87-4D20-AE8B-E639444768BD', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Chris Hemsworth', 'KR', 'AC'),
+--('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Benedict Cumberbatch', 'VN', 'AC'),
+--('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a2.jpg', 'Tom Hiddleston', 'KR', 'PR'),
+--('751AB02D-33A1-455F-9875-FEC992B5382B', 'https://7z363nlh6c.execute-api.us-east-1.amazonaws.com/v1/storage-movie-data/a1.jpg', 'Zoe Saldana', 'VN', 'AC');
 
 -- Insert some records into the Person table
 INSERT INTO [dbo].[Person] ([PersonID], [Image], [NamePerson], [NationID], [Role], [DoB])
 VALUES
-('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'LeeJongSuk.jpg', N'Lee Jong Suk', 'KR', 'Actor', '1989-09-14'),
-('7B885328-C701-46DF-871B-3C8344A87809', 'IU.jpg', N'IU', 'KR', 'Singer', '1993-05-16'),
-('9B46E82B-279E-43F3-BC36-60A45E10015D', 'HyunBin.jpg', N'Han So Hee', 'KR', 'Actor', '1982-09-25'),
-('1401FC65-44FD-4881-A16A-640CF36F835C', 'GongYoo.jpg', N'Gong Yoo', 'KR', 'Actor', '1979-07-10'),
-('8E379873-B309-4890-9271-6A66E4291BEA', 'SongJoongKi.jpg', N'Song Joong Ki', 'KR', 'Actor', '1985-09-19');
+('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/E1CB11EF-1753-4DA7-A352-25D7F2969329.jpg', N'Lee Jong Suk', 'KR', 'PR', '1989-09-14'),
+('7B885328-C701-46DF-871B-3C8344A87809', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/7B885328-C701-46DF-871B-3C8344A87809.jpg', N'Song Kang', 'KR', 'AC', '1993-05-16'),
+('9B46E82B-279E-43F3-BC36-60A45E10015D', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/9B46E82B-279E-43F3-BC36-60A45E10015D.jpg', N'Han So Hee', 'KR', 'AC', '1982-09-25'),
+('1401FC65-44FD-4881-A16A-640CF36F835C', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/1401FC65-44FD-4881-A16A-640CF36F835C.webp', N'Kim Yoo-Jung', 'KR', 'AC', '1979-07-10'),
+('8E379873-B309-4890-9271-6A66E4291BEA', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/8E379873-B309-4890-9271-6A66E4291BEA.jpg', N'Park Seo Joon', 'KR', 'PR', '1985-09-19'),
+('572A3A53-1F81-4251-B886-6ADF4E62389C', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/572A3A53-1F81-4251-B886-6ADF4E62389C.jpeg', N'Ji Chang Wook', 'KR', 'AC', '1985-09-19'),
+('04031A5E-AE87-4D20-AE8B-E639444768BD', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/04031A5E-AE87-4D20-AE8B-E639444768BD.jpg', N'Shin Hye Sun', 'KR', 'PR', '1985-09-19'),
+('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 'https://streamit-movie.azurewebsites.net/file?fileName=person/producer/E1C3CE6E-FC60-47E7-8172-F0E970444F61.webp', N'Trấn Thành', 'VN', 'PR', '1985-09-19'),
+('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/EA879220-F69F-4256-BDC3-F55637E2E8A1.jpg', N'Yoon Chan-Young', 'KR', 'AC', '1985-09-19'),
+('751AB02D-33A1-455F-9875-FEC992B5382B', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/751AB02D-33A1-455F-9875-FEC992B5382B.jpg', N'Cho Yi-Hyun', 'KR', 'AC', '1985-09-19'),
+('A3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9F', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/F3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9.jpg', N'Park Ji Hu', 'KR', 'AC', '1985-09-19'),
+('0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F', 'https://streamit-movie.azurewebsites.net/file?fileName=person/producer/0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F.webp', N'Lee Jae Gyu', 'KR', 'PR', '1985-09-19'),
+('88876642-8167-4A4C-8380-D1734A98132B', 'https://streamit-movie.azurewebsites.net/file?fileName=person/producer/88876642-8167-4A4C-8380-D1734A98132B.jpg', N'Michael Bay', 'US', 'PR', '1985-09-19'),
+('1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA', 'https://streamit-movie.azurewebsites.net/file?fileName=person/producer/1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA.jpg', N'Terence Winter', 'US', 'PR', '1985-09-19');
 
 
 -- Thêm bộ phim Spider-Man: No Way Home
@@ -139,6 +148,30 @@ INSERT INTO [dbo].[Movies] VALUES (
 	12 -- TotalEpisodes
 );
 
+-- Insert data for Transformers (2007)
+INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [ProducerID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [DateCreated], [DateUpdated], [TotalSeasons], [TotalEpisodes])
+VALUES ('D9E9976C-9C92-451A-AFBE-01449D6E64C0', 1, 'US', '88876642-8167-4A4C-8380-D1734A98132B', 7.0, 144, 10000000, 'An ancient struggle between two Cybertronian races, the heroic Autobots and the evil Decepticons, comes to Earth, with a clue to the ultimate power held by a teenager.', 'Transformers', 'Biến hình', 'transformers-2007.jpg', 'transformers-2007-trailer.mp4', 'Released', '2007-07-03', '2007-07-03', 0, 0);
+
+-- Insert data for Transformers: Revenge of the Fallen (2009)
+INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [ProducerID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [DateCreated], [DateUpdated], [TotalSeasons], [TotalEpisodes])
+VALUES ('4A14D5AF-4766-4E00-837F-DF20E1139F34', 1, 'US', '88876642-8167-4A4C-8380-D1734A98132B', 6.0, 150, 9000000, 'Sam Witwicky leaves the Autobots behind for a normal life. But when his mind is filled with cryptic symbols, the Decepticons target him and he is dragged back into the Transformers'' war.', 'Transformers: Revenge of the Fallen', 'Biến hình: Báo thù của người đã chết', 'transformers-2009.jpg', 'transformers-2009-trailer.mp4', 'Released', '2009-06-24', '2009-06-24', 0, 0);
+
+-- Insert data for Transformers: Dark of the Moon (2011)
+INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [ProducerID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [DateCreated], [DateUpdated], [TotalSeasons], [TotalEpisodes])
+VALUES ('78A479B5-8EDE-434E-A751-8FE3F804B358', 1, 'US', '88876642-8167-4A4C-8380-D1734A98132B', 6.2, 154, 8000000, 'The Autobots learn of a Cybertronian spacecraft hidden on the moon, and race against the Decepticons to reach it and to learn its secrets.', 'Transformers: Dark of the Moon', 'Biến hình: Mặt trăng bóng tối', 'transformers-2011.jpg', 'transformers-2011-trailer.mp4', 'Released', '2011-06-29', '2011-06-29', 0, 0);
+
+-- Insert data for Transformers: Age of Extinction (2014)
+INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [ProducerID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [DateCreated], [DateUpdated], [TotalSeasons], [TotalEpisodes])
+VALUES ('1B2CF33E-2639-4E24-ADAF-D6B35D7C132A', 1, 'US', '88876642-8167-4A4C-8380-D1734A98132B', 5.6, 165, 7000000, 'When humanity allies with a bounty hunter in pursuit of Optimus Prime, the Autobots turn to a mechanic and his family for help.', 'Transformers: Age of Extinction', 'Biến hình: Kỷ nguyên tuyệt chủng', 'transformers-2014.jpg', 'transformers-2014-trailer.mp4', 'Released', '2014-06-27', '2014-06-27', 0, 0);
+
+-- Insert data for Transformers: Rise of the Beasts (2023)
+INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [ProducerID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [DateCreated], [DateUpdated], [TotalSeasons], [TotalEpisodes])
+VALUES ('52C7FA50-058F-4178-B2AD-4CA58FC08479', 1, 'US', '88876642-8167-4A4C-8380-D1734A98132B', NULL, NULL, NULL, 'The film will take place in 1994 and explore the Transformers'' history on Earth, introducing the Maximals, Predacons, and Terrorcons to the existing battle on earth between Autobots and Decepticons.', 'Transformers: Rise of the Beasts', 'Biến hình: Sự trỗi dậy của quái vật', 'transformers-2023.jpg', 'transformers-2023-trailer.mp4', 'Upcoming', '2023-06-09', NULL, 0, 0);
+
+-- Insert data for The Wolf of Wall Street (2013)
+INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [ProducerID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [DateCreated], [DateUpdated], [TotalSeasons], [TotalEpisodes])
+VALUES ('F153BBFE-E593-45A1-80EC-33B6BC7CEAB3', 2, 'US', '1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA', 8.2, 180, 6000000, 'Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.', 'The Wolf of Wall Street', 'Sói già phố Wall', 'wolf-2013.jpg', 'wolf-2013-trailer.mp4', 'Released', '2013-12-25', '2013-12-25', 0, 0);
+
 
 INSERT INTO dbo.Cast (PersonID, MovieID, CharacterName)
 VALUES 
@@ -148,18 +181,33 @@ VALUES
 ('751AB02D-33A1-455F-9875-FEC992B5382B', 'B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 'Emily Davis'),
 ('E1C3CE6E-FC60-47E7-8172-F0E970444F61', '15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 'David Brown');
 
+INSERT INTO [dbo].[Cast] ([PersonID], [MovieID], [CharacterName])
+VALUES
+('7B885328-C701-46DF-871B-3C8344A87809', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Nam On-jo'),
+('751AB02D-33A1-455F-9875-FEC992B5382B', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Lee Cheong-san'),
+('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Choi Nam-ra'),
+('9B46E82B-279E-43F3-BC36-60A45E10015D', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Lee Su-hyeok'),
+('F3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9F', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Yoon Gwi-nam');
+
+
 SET IDENTITY_INSERT [dbo].[category] ON 
 INSERT INTO category (CategoryID, Name) VALUES
-(1, N'Hành động'),
-(2, N'Hài hước'),
-(3, N'Kịch tính'),
-(4, N'Giả tưởng'),
-(5, N'Kinh dị'),
-(6, N'Huyền bí'),
-(7, N'Lãng mạn'),
-(8, N'Viễn tưởng'),
-(9, N'Thriller'),
-(10, N'Tài liệu');
+(1, N'Action'),
+(2, N'Adventure'),
+(3, N'Anime'),
+(4, N'Comedy'),
+(5, N'Drama'),
+(6, N'Fantasy'),
+(7, N'Horror'),
+(8, N'Musical'),
+(9, N'Mystery'),
+(10, N'Romance'),
+(11, N'Thriller'),
+(12, N'Historical'),
+(13, N'War'),
+(14, N'Violence'),
+(15, N'Nudity'),
+(16, N'Science');
 SET IDENTITY_INSERT [dbo].[category] OFF
 
 
@@ -174,7 +222,13 @@ INSERT INTO [dbo].[MovieCategory]([MovieID], [CategoryID]) VALUES
 ('BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB', 4),
 ('7626213A-FDC6-4291-BF57-DABD768CD1C8', 5),
 ('B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 1),
-('B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 5);
+('B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 5),
+('CA7274EA-0F24-4D20-88A7-D7605C449BE9', 4),
+('CA7274EA-0F24-4D20-88A7-D7605C449BE9', 5),
+('CA7274EA-0F24-4D20-88A7-D7605C449BE9', 14),
+('CA7274EA-0F24-4D20-88A7-D7605C449BE9', 7),
+('CA7274EA-0F24-4D20-88A7-D7605C449BEx9', 5);
+
 
 INSERT INTO Season (SeasonID, MovieID, SeasonNumber) VALUES
 ('F81AFFFB-3739-4B7D-AF27-01FBC1B5BB5E', '2A866A68-5DBF-40D2-B773-12D4202CE028', 1),
@@ -207,19 +261,19 @@ INSERT INTO Episode (EpisodeID, SeasonID, EpisodeNumber, Name, Video) VALUES
 ('2AB65F83-E9BE-4A39-8248-ABACC1AE000C', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 4, N'Episdode 4', 'da726a87-d018-48b2-b558-a3a067ec5f18'),
 ('233C2D7E-D7A7-4F79-AA04-20A8A949A4C1', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 5, N'Episdode 5', '92b5b13d-99fc-491c-8a66-c41d34f54199'),
 ('1D814FBC-38CC-4361-8FFC-0F4A04C1F3A2', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 6, N'Episdode 6', 'c1899099-844a-4541-9ede-75884d4d6390'),
-('FFC617B3-0365-418E-8FA5-8D4785FFDF73', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 7, N'Episdode 7', '9e451fd4-eb26-4e32-bb15-722cd0d358d1');
+('FFC617B3-0365-418E-8FA5-8D4785FFDF73', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 7, N'Episdode 7', '9e451fd4-eb26-4e32-bb15-722cd0d358d1'),
 ('2C07479B-65FA-4B64-97A5-E51221A65BBE', '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 1, N'Episdode 1', '63845c7d-8055-4a51-abe5-f5742c954700'),
-('1A0A2322-5DE1-4B82-B4E7-665CE1AD4D7F', '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 2, N'Episdode 2', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 3, N'Episdode 3', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 4, N'Episdode 4', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 5, N'Episdode 5', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 6, N'Episdode 6', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 7, N'Episdode 7', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 8, N'Episdode 8', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 9, N'Episdode 9', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 10, N'Episdode 10', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 11, N'Episdode 11', ''),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 12, N'Episdode 12', '');
+('1A0A2322-5DE1-4B82-B4E7-665CE1AD4D7F', '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 2, N'Episdode 2', '22f0717e-5636-4d80-b881-b882a99cdabe'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 3, N'Episdode 3', '2f8d6c35-89d4-4783-a266-0e0ed7e84055'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 4, N'Episdode 4', '1f1090c3-cf5c-48e8-aaa0-230e1f5281eb'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 5, N'Episdode 5', 'a3e62ee3-7cf4-4775-bcb7-8b6ce888c50b'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 6, N'Episdode 6', '4da3ec51-a98f-4a74-8327-41f5938852ec'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 7, N'Episdode 7', '5d85655f-4fc8-461b-a252-5c75f9f6293e'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 8, N'Episdode 8', '3bc4c7ad-5061-4f50-8393-1821ab1b26ea'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 9, N'Episdode 9', 'bd99f1be-0e70-4a28-9fb3-198b0f1ef8a9'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 10, N'Episdode 10', '614738a0-d236-4d82-852e-7e10186c1fd7'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 11, N'Episdode 11', '17504b91-1ed4-45ee-af9c-836f0da190fe'),
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 12, N'Episdode 12', '0b1e90cf-3a82-4462-b5f1-ae18cca3d4b9');
 
 
 

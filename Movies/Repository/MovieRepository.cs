@@ -103,7 +103,7 @@ namespace Movies.Repository
             }
 
             Movie movie = new Movie();
-            movie = _mapper.Map<Movie>(newMovie);
+            movie = _mapper.Map<Movie>(newMovie);   
             movie.Status = Constraint.StatusMovie.PENDING;
             movie.NationId = movie.NationId?.ToUpper();
             movie.Thumbnail = responseDTO.Data?.ToString();

@@ -17,6 +17,7 @@ namespace Movies.Models
         {
         }
 
+        public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Person> Persons { get; set; } = null!;
         public virtual DbSet<Cast> Casts { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
@@ -64,6 +65,27 @@ namespace Movies.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("User");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.DateCreated).HasColumnType("datetime");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Role)
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(255);
+            });
+
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.ToTable("Person");

@@ -2,6 +2,17 @@ CREATE DATABASE MOVIES;
 
 USE MOVIES;
 
+CREATE TABLE [dbo].[User](
+	[UserID] [uniqueidentifier] PRIMARY KEY,
+	[UserName] [varchar](255) Unique,
+	[Password] [VARBINARY](MAX) NOT NULL,
+	[PasswordSalt] [VARBINARY](MAX) NOT NULL,
+	[Role] [varchar](255) NOT NULL,
+	[Status] [varchar](255) NULL,
+	[Email] [varchar](255) NULL,
+	[DateCreated] [datetime] default GETDATE(),
+);
+
 CREATE TABLE [dbo].[Category](
 	[CategoryID] [int] IDENTITY(1,1) PRIMARY KEY,
 	[Name] [nvarchar](255) NULL

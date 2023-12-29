@@ -5,6 +5,7 @@ using Movies.ExceptionHandler;
 using Movies.Interface;
 using Movies.Models;
 using Movies.Repository;
+using Movies.Security;
 
 namespace Movies;
 
@@ -25,6 +26,9 @@ public class Program
         builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
         builder.Services.AddScoped<IEpisodeRepository, EpisodeRepository>();
         builder.Services.AddScoped<IStorageRepository, StorageRepository>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<JWTGenerator, JWTConfig>();
+        builder.Services.AddScoped<IAuthentication, Authentication>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
