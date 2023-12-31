@@ -104,7 +104,7 @@ namespace Movies.Repository
 
             Movie movie = new Movie();
             movie = _mapper.Map<Movie>(newMovie);   
-            movie.Status = Constraint.StatusMovie.PENDING;
+            movie.Status = Constraint.StatusMovie.UPCOMING;
             movie.NationId = movie.NationId?.ToUpper();
             movie.Thumbnail = responseDTO.Data?.ToString();
             if(movie.DateCreated == null)
