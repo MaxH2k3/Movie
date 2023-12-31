@@ -29,6 +29,7 @@ namespace Movies.Business.movies
         public virtual FeatureFilm? Feature { get; set; }
         public int? TotalSeasons { get; set; }
         public int? TotalEpisodes { get; set; }
+        public string? Status { get; set; }
         public virtual ICollection<CastCharacter>? CastCharacteries { get; set; }
         // public virtual ICollection<Season> Seasons { get; set; }
         public virtual ICollection<Category>? Categories { get; set; }

@@ -15,7 +15,7 @@
         
         public static class StatusMovie
         {
-            public static string PENDING = "PENDING";
+            public static string UPCOMING = "UPCOMING";
             public static string RELEASE = "RELEASE";
         }
 
