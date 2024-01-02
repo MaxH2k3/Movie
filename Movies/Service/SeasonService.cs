@@ -5,16 +5,16 @@ using Movies.Utilities;
 
 namespace Movies.Repository
 {
-    public class SeasonRepository : ISeasonRepository
+    public class SeasonService : ISeasonRepository
     {
         private readonly MOVIESContext _context;
 
-        public SeasonRepository(MOVIESContext context)
+        public SeasonService(MOVIESContext context)
         {
             _context = context;
         }
 
-        public SeasonRepository()
+        public SeasonService()
         {
             _context = new MOVIESContext();
         }

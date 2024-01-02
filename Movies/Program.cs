@@ -6,6 +6,7 @@ using Movies.Interface;
 using Movies.Models;
 using Movies.Repository;
 using Movies.Security;
+using Movies.Service;
 
 namespace Movies;
 
@@ -19,16 +20,17 @@ public class Program
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         builder.Services.AddTransient<GlobalException>();
 
-        builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-        builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-        builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
-        builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
-        builder.Services.AddScoped<IEpisodeRepository, EpisodeRepository>();
-        builder.Services.AddScoped<IStorageRepository, StorageRepository>();
-        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IMovieRepository, MovieService>();
+        builder.Services.AddScoped<IPersonRepository, PersonService>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryService>();
+        builder.Services.AddScoped<IFeatureRepository, FeatureService>();
+        builder.Services.AddScoped<ISeasonRepository, SeasonService>();
+        builder.Services.AddScoped<IEpisodeRepository, EpisodeService>();
+        builder.Services.AddScoped<IStorageRepository, StorageService>();
+        builder.Services.AddScoped<IUserRepository, UserService>();
         builder.Services.AddScoped<JWTGenerator, JWTConfig>();
         builder.Services.AddScoped<IAuthentication, Authentication>();
+        builder.Services.AddScoped<IMailRepository, MailService>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -42,7 +44,7 @@ public class Program
             });
         builder.Services.AddCors();
 
-
+        //set size limit for request
         builder.Services.Configure<KestrelServerOptions>(options =>
         {
             options.Limits.MaxRequestBodySize = 1073741824; // 1GB
@@ -52,6 +54,7 @@ public class Program
         {
             options.MultipartBodyLengthLimit = 1073741824; // 1GB
         });
+        //
 
         var app = builder.Build();
 

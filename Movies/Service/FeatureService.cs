@@ -3,16 +3,16 @@ using Movies.Models;
 
 namespace Movies.Repository
 {
-    public class FeatureRepository : IFeatureRepository
+    public class FeatureService : IFeatureRepository
     {
         private readonly MOVIESContext _context;
 
-        public FeatureRepository(MOVIESContext context)
+        public FeatureService(MOVIESContext context)
         {
             _context = context;
         }
 
-        public FeatureRepository()
+        public FeatureService()
         {
             _context = new MOVIESContext();
         }

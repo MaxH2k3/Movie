@@ -11,24 +11,24 @@ using System.Net;
 
 namespace Movies.Repository
 {
-    public class MovieRepository : IMovieRepository
+    public class MovieService : IMovieRepository
     {
         private readonly MOVIESContext _context;
         private readonly IMapper _mapper;
         private readonly IStorageRepository _storageRepository;
 
-        public MovieRepository(MOVIESContext context, IMapper mapper, IStorageRepository storageRepository)
+        public MovieService(MOVIESContext context, IMapper mapper, IStorageRepository storageRepository)
         {
             _context = context;
             _mapper = mapper;
             _storageRepository = storageRepository;
         }
 
-        public MovieRepository(IMapper mapper)
+        public MovieService(IMapper mapper)
         {
             _context = new MOVIESContext();
             _mapper = mapper;
-            _storageRepository = new StorageRepository();
+            _storageRepository = new StorageService();
         }
 
         public IEnumerable<Movie> GetMovies()
@@ -95,6 +95,11 @@ namespace Movies.Repository
 
         public async Task<ResponseDTO> CreateMovie(NewMovie newMovie)
         {
+            if(CheckExistMovie(newMovie.EnglishName.ToLower(), newMovie.VietnamName.ToLower(), null))
+            {
+                return new ResponseDTO(HttpStatusCode.BadRequest, "Movie already exists!");
+            }
+
             newMovie.MovieId = Guid.NewGuid();
             ResponseDTO responseDTO = await validateData(newMovie);
             if(responseDTO.Status != HttpStatusCode.Continue)
@@ -121,6 +126,10 @@ namespace Movies.Repository
 
         public async Task<ResponseDTO> UpdateMovie(NewMovie newMovie)
         {
+            if (CheckExistMovie(newMovie.EnglishName.ToLower(), newMovie.VietnamName.ToLower(), newMovie.MovieId))
+            {
+                return new ResponseDTO(HttpStatusCode.BadRequest, "Movie already exists!");
+            }
             Movie movie = GetMovieById((Guid)newMovie.MovieId);
             string? oldThumnail = movie?.Thumbnail;
             int? totalSeasons = movie?.TotalSeasons;
@@ -161,7 +170,7 @@ namespace Movies.Repository
             }
 
             _context.Movies.Remove(movie);
-            _storageRepository.DeleteFile(movie.Thumbnail);
+            await _storageRepository.DeleteFile(movie.Thumbnail.Replace("https://streamit-movie.azurewebsites.net/file?fileName=", ""));
             if (await _context.SaveChangesAsync() > 0)
             {
                 return new ResponseDTO(HttpStatusCode.OK, "Remove movie successfully!");
@@ -171,6 +180,7 @@ namespace Movies.Repository
 
         private async Task<ResponseDTO> validateData(NewMovie newMovie)
         {
+
             Nation? nation = _context.Nations.Find(newMovie.NationId);
             if (nation == null)
             {
@@ -185,15 +195,30 @@ namespace Movies.Repository
 
             //upload image
             string? filePath = null;
+            string url = "https://streamit-movie.azurewebsites.net/file?fileName=";
             if (newMovie.Thumbnail != null)
             {
                 filePath = $"movie/{feature.Name}/{newMovie.MovieId}";
+                await _storageRepository.DeleteFile(filePath);
                 await _storageRepository.UploadFile(newMovie.Thumbnail, filePath);
             }
 
-            return new ResponseDTO(HttpStatusCode.Continue, "Validate successfully!", filePath);
+            return new ResponseDTO(HttpStatusCode.Continue, "Validate successfully!", url + filePath);
         }
 
-        
+        public bool CheckExistMovie(string englishName, string vietNamName, Guid? id)
+        {   
+            if(id == null)
+            {
+                return GetMovies().Any(m => m.EnglishName.ToLower().Equals(englishName) ||
+                                    m.VietnamName.ToLower().Equals(vietNamName));
+            }
+            else if(id != null)
+            {
+                return GetMovies().Any(m => (m.EnglishName.ToLower().Equals(englishName) ||
+                                    m.VietnamName.ToLower().Equals(vietNamName)) && !m.MovieId.Equals(id));
+            }
+            return false;
+        }
     }
 }

@@ -4,16 +4,16 @@ using Movies.Models;
 
 namespace Movies.Repository
 {
-    public class EpisodeRepository : IEpisodeRepository
+    public class EpisodeService : IEpisodeRepository
     {
         private readonly MOVIESContext _context;
 
-        public EpisodeRepository(MOVIESContext context)
+        public EpisodeService(MOVIESContext context)
         {
             _context = context;
         }
 
-        public EpisodeRepository()
+        public EpisodeService()
         {
             _context = new MOVIESContext();
         }

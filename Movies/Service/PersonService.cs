@@ -10,24 +10,24 @@ using System.Net;
 
 namespace Movies.Repository
 {
-    public class PersonRepository : IPersonRepository
+    public class PersonService : IPersonRepository
     {
         private readonly MOVIESContext _context;
         private readonly IMapper _mapper;
         private readonly IStorageRepository _storageRepository;
 
-        public PersonRepository(MOVIESContext context, IMapper mapper, IStorageRepository storageRepository)
+        public PersonService(MOVIESContext context, IMapper mapper, IStorageRepository storageRepository)
         {
             _context = context;
             _mapper = mapper;
             _storageRepository = storageRepository;
         }
 
-        public PersonRepository(IMapper mapper)
+        public PersonService(IMapper mapper)
         {
             _context = new MOVIESContext();
             _mapper = mapper;
-            _storageRepository = new StorageRepository();
+            _storageRepository = new StorageService();
         }
 
         public Person? GetPerson(Guid id)

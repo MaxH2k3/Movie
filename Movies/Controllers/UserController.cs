@@ -1,10 +1,14 @@
 ﻿using Google.Apis.Auth.OAuth2.Responses;
+using MailKit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MimeKit;
 using Movies.Business.globals;
 using Movies.Business.users;
 using Movies.Interface;
+using Movies.Repository;
 using Movies.Security;
+using Movies.Utilities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
@@ -17,11 +21,13 @@ public class UserController : Controller
 {
     private readonly IUserRepository _userRepository;
     private readonly JWTGenerator _tokenGenerator;
+    private readonly IMailRepository _mailService;
 
-    public UserController(IUserRepository userRepository, JWTGenerator jwtGenerator)
+    public UserController(IUserRepository userRepository, JWTGenerator jwtGenerator, IMailRepository mailService)
     {
         _userRepository = userRepository;
         _tokenGenerator = jwtGenerator;
+        _mailService = mailService;
     }
 
     [Route("Authenticate")]
@@ -102,5 +108,20 @@ public class UserController : Controller
             return BadRequest(response);
         }
         return Ok(response.Message);
+    }
+
+    [HttpGet]
+    [Route("Mail")]
+    public IActionResult Mail()
+    {
+        MimeMessage mess = _mailService.CreateMail(new Models.Mail
+        {
+            Body = "ok",
+            Subject = "Hello",
+            To = "huy110903@gmail.com"
+        });
+
+        _mailService.SendMail(mess);
+        return Ok("ok");
     }
 }

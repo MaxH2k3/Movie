@@ -1,19 +1,20 @@
 ﻿using Google.Cloud.Storage.V1;
 using Movies.Interface;
 using Movies.Models;
+using System.Diagnostics;
 
 namespace Movies.Repository
 {
-    public class StorageRepository : IStorageRepository
+    public class StorageService : IStorageRepository
     {
         private readonly GCPContext _gcpContext;
 
-        public StorageRepository(GCPContext gcpContext)
+        public StorageService(GCPContext gcpContext)
         {
             _gcpContext = gcpContext;
         }
 
-        public StorageRepository()
+        public StorageService()
         {
             _gcpContext = new GCPContext();
         }
@@ -38,9 +39,17 @@ namespace Movies.Repository
             }
         }
 
-        public async Task DeleteFile(string fileName)
+        public async Task<bool> DeleteFile(string fileName)
         {
-            await _gcpContext.StorageClient.DeleteObjectAsync(_gcpContext.GCPStorageBucket, fileName);
+            try
+            {
+                await _gcpContext.StorageClient.DeleteObjectAsync(_gcpContext.GCPStorageBucket, fileName);
+            } catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+            return true;
         }
     }
 }

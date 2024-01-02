@@ -10,14 +10,14 @@ using System.Net;
 
 namespace Movies.Repository;
 
-public class UserRepository : IUserRepository
+public class UserService : IUserRepository
 {
     private readonly MOVIESContext _context;
     private readonly IAuthentication _authentication;
     private readonly MovieMongoContext _MongoContext;
     private readonly IMapper _mapper;
 
-    public UserRepository(MOVIESContext context, IAuthentication authentication, 
+    public UserService(MOVIESContext context, IAuthentication authentication, 
         IMapper mapper, MovieMongoContext mongoContext)
     {
         _context = context;
@@ -26,7 +26,7 @@ public class UserRepository : IUserRepository
         _MongoContext = mongoContext;
     }
 
-    public UserRepository(IAuthentication authentication, IMapper mapper)
+    public UserService(IAuthentication authentication, IMapper mapper)
     {
         _context = new MOVIESContext();
         _MongoContext = new MovieMongoContext();

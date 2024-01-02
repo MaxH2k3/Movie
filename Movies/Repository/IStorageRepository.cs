@@ -4,6 +4,6 @@
     {
         Task<Stream> GetFile(string fileName);
         Task UploadFile(IFormFile file, string filePath);
-        Task DeleteFile(string fileName);
+        Task<Boolean> DeleteFile(string fileName);
     }
 }

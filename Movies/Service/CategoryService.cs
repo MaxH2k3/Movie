@@ -5,16 +5,16 @@ using System.Diagnostics;
 
 namespace Movies.Repository
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryService : ICategoryRepository
     {
         private readonly MOVIESContext _context;
 
-        public CategoryRepository(MOVIESContext context)
+        public CategoryService(MOVIESContext context)
         {
             _context = context;
         }
 
-        public CategoryRepository()
+        public CategoryService()
         {
             _context = new MOVIESContext();
         }
