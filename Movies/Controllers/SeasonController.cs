@@ -55,4 +55,17 @@ public class SeasonController : Controller
         }
         return BadRequest(response.Message);
     }
+
+    [HttpDelete("Seasons")]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteSeason(Guid seasonId)
+    {
+        var response = await _seasonRepository.DeleteSeason(seasonId);
+        if (response.Status == HttpStatusCode.OK)
+        {
+            return Ok(response);
+        }
+        return BadRequest(response.Message);
+    }
 }

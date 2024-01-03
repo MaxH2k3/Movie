@@ -3,6 +3,7 @@ using Movies.Business.globals;
 using Movies.Business.seasons;
 using Movies.Interface;
 using Movies.Models;
+using System.Diagnostics;
 using System.Net;
 
 namespace Movies.Repository
@@ -26,7 +27,7 @@ namespace Movies.Repository
             return _context.Episodes.Include(e => e.Season);
         }
 
-        public IEnumerable<Episode> GetEpisodesBySeason(string seasonId)
+        public IEnumerable<Episode> GetEpisodesBySeason(Guid seasonId)
         {
             return GetEpisodes().Where(e => e.SeasonId.Equals(seasonId)).ToList();
         }
@@ -39,8 +40,8 @@ namespace Movies.Repository
                 return new ResponseDTO(HttpStatusCode.NotFound, "Season Not Found");
             }
 
-            var episodeNumber = GenerateEpisodeNumber(seasonId);
             var episodeId = Guid.NewGuid();
+            int episodeNumber = GenerateEpisodeNumber(seasonId);
             try
             {
                 Episode episode = new Episode()
@@ -55,7 +56,7 @@ namespace Movies.Repository
                 _context.Episodes.Add(episode);
                 if (_context.SaveChanges() > 0)
                 {
-                    return new ResponseDTO(HttpStatusCode.Created, "Create Episode Successfully!", $"EpisodeId: {episodeId}\n, EpisodeNumber: {episodeNumber}");
+                    return new ResponseDTO(HttpStatusCode.Created, "Create Episode Successfully!", $"EpisodeId: {episodeId}, EpisodeNumber: {episodeNumber}");
                 }
             } catch (Exception ex)
             {
@@ -69,19 +70,65 @@ namespace Movies.Repository
         public IEnumerable<ResponseDTO> CreateEpisodes(IEnumerable<NewEpisode> newEpisodes, Guid seasonId)
         {
             IEnumerable<ResponseDTO> responses = new List<ResponseDTO>();
-            newEpisodes.ToList().ForEach(e =>
+            int count = newEpisodes.Count();
+            for(int i = 0; i < count; i++)
             {
-                responses.Append(CreateEpisode(e, seasonId));
-                
-            });
+                //int episodeNumber = GenerateEpisodeNumber(seasonId) + i;
+                responses = responses.Append(CreateEpisode(newEpisodes.ElementAt(i), seasonId));
+            }
             return responses;
         }
 
 
-        public int? GenerateEpisodeNumber(Guid seasonId)
+        public int GenerateEpisodeNumber(Guid seasonId)
         {
-            var episodes = GetEpisodesBySeason(seasonId.ToString());
+            var episodes = GetEpisodesBySeason(seasonId);
             return episodes.Count() + 1;
+        }
+
+        public Episode? GetEpisode(Guid episodeId)
+        {
+            return GetEpisodes().FirstOrDefault(e => e.EpisodeId.Equals(episodeId));
+        }
+
+        public async Task<ResponseDTO> DeleteEpisode(Guid episodeId)
+        {
+            var episode = GetEpisode(episodeId);
+            if (episode != null)
+            {
+                _context.Episodes.Remove(episode);
+                if (await _context.SaveChangesAsync() == 0)
+                {
+                    return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
+                }
+                return new ResponseDTO(HttpStatusCode.OK, "Delete Episode Successfully!");
+            }
+            return new ResponseDTO(HttpStatusCode.NotFound, "Season Not Found!", $"EpisodeId: {episodeId}");
+        }
+
+        public IEnumerable<ResponseDTO> DeleteEpisodeBySeason(Guid seasonId)
+        {
+            IEnumerable<ResponseDTO> responses = new List<ResponseDTO>();
+            var episodes = _context.Episodes.Where(s => s.SeasonId.Equals(seasonId)).ToList();
+            if (episodes.Count() > 0)
+            {
+                episodes.ToList().ForEach(e =>
+                {
+                    Guid? id = e.EpisodeId;
+                    _context.Episodes.Remove(e);
+                    if (_context.SaveChanges() > 0)
+                    {
+                        responses = responses.Append(new ResponseDTO(HttpStatusCode.OK, "Delete Episode Successfully!", $"EpisodeID: {id}"));
+
+                    } else
+                    {
+                        responses = responses.Append(new ResponseDTO(HttpStatusCode.NotModified, "Fail to delete episode", $"EpisodeId: {id}"));
+
+                    }
+
+                });
+            }
+            return responses;
         }
     }
 }

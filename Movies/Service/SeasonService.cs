@@ -87,5 +87,40 @@ namespace Movies.Repository
             return seasons.Count() + 1;
         }
 
+        public Season? GetSeason(Guid seasonId)
+        {
+            return GetSeasons().FirstOrDefault(s => s.SeasonId.Equals(seasonId));
+        }
+
+        public async Task<ResponseDTO> DeleteSeason(Guid seasonId)
+        {
+            var responses = _episodeService.DeleteEpisodeBySeason(seasonId);
+            if (responses.Any(response => response.Status != HttpStatusCode.OK))
+            {
+                return new ResponseDTO(HttpStatusCode.InternalServerError, "Failt while deleting episode", responses);
+            }
+
+            var season = GetSeason(seasonId);
+            if(season != null)
+            {
+                _context.Seasons.Remove(season);
+                if(await _context.SaveChangesAsync() == 0)
+                {
+                    return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
+                }
+                return new ResponseDTO(HttpStatusCode.OK, "Delete Season Successfully!", responses);
+            }
+            return new ResponseDTO(HttpStatusCode.NotFound, "Season Not Found!", "seasonId: " + seasonId);
+        }
+
+        public void CheckSeasonNumber(Guid MovieId, int position = 0)
+        {
+            var seasons = GetSeasonsByMovie(MovieId).OrderBy(m => m.SeasonNumber);
+            int count = seasons.Count();
+            for(int i = position - 1; i < count; i++)
+            {
+                
+            }
+        }
     }
 }
