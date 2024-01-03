@@ -38,7 +38,8 @@ namespace Movies.Repository
                 .Include(m => m.Feature)
                 .Include(m => m.Producer)
                 .Include(m => m.Casts).ThenInclude(c => c.Actor)
-                .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category);
+                .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category)
+                .Where(m => !m.Status.ToLower().Equals(Constraint.StatusMovie.DELETED));
         }
 
         public Movie? GetMovieById(Guid id)
@@ -134,7 +135,8 @@ namespace Movies.Repository
             string? oldThumnail = movie?.Thumbnail;
             int? totalSeasons = movie?.TotalSeasons;
             int? totalEpisodes = movie?.TotalEpisodes;
-            if(movie == null)
+            DateTime? DateCreated = movie?.DateCreated;
+            if (movie == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Movie not found");
             }
@@ -150,6 +152,7 @@ namespace Movies.Repository
             movie.Thumbnail = (newMovie.Thumbnail != null) ? responseDTO.Data?.ToString() : oldThumnail;
             movie.TotalSeasons = totalSeasons;
             movie.TotalEpisodes = totalEpisodes;
+            movie.DateCreated = DateCreated;
             if (movie.DateUpdated == null)
                 movie.DateUpdated = DateTime.Now;
 
@@ -219,6 +222,11 @@ namespace Movies.Repository
                                     m.VietnamName.ToLower().Equals(vietNamName)) && !m.MovieId.Equals(id));
             }
             return false;
+        }
+
+        public int? GetFeatureIdByMovieId(Guid movieId)
+        {
+            return GetMovieById(movieId)?.FeatureId;
         }
     }
 }

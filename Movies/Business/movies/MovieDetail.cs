@@ -14,9 +14,11 @@ namespace Movies.Business.movies
         public string? Description { get; set; }
         [MaxLength(100)]
         [MinLength(2)]
+        [Required]
         public string? EnglishName { get; set; }
         [MaxLength(100)]
         [MinLength(2)]
+        [Required]
         public string? VietnamName { get; set; }
         [Required]
         public string? Thumbnail { get; set; }
@@ -31,7 +33,6 @@ namespace Movies.Business.movies
         public int? TotalEpisodes { get; set; }
         public string? Status { get; set; }
         public virtual ICollection<CastCharacter>? CastCharacteries { get; set; }
-        // public virtual ICollection<Season> Seasons { get; set; }
         public virtual ICollection<Category>? Categories { get; set; }
     }
 }

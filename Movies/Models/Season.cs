@@ -10,7 +10,7 @@ namespace Movies.Models
             Episodes = new HashSet<Episode>();
         }
 
-        public Guid SeasonId { get; set; }
+        public Guid? SeasonId { get; set; }
         public Guid MovieId { get; set; }
         public int SeasonNumber { get; set; }
         public string? Name { get; set; }

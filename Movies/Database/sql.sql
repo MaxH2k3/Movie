@@ -4,10 +4,9 @@ SET IDENTITY_INSERT [dbo].[FeatureFilm] ON
 INSERT INTO [dbo].[FeatureFilm]
 ([FeatureId], [Name])
 VALUES
-(1, N'New Movies'),
+(1, N'Cinema Film'),
 (2, N'Standalone Film'),
-(3, N'Cinema Film'),
-(4, N'TV Series');
+(3, N'TV Series');
 SET IDENTITY_INSERT [dbo].[FeatureFilm] OFF
 
 

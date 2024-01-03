@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Business.globals;
 using Movies.Business.seasons;
 using Movies.Interface;
 using Movies.Models;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Movies.Controllers;
 
@@ -41,4 +43,16 @@ public class SeasonController : Controller
         return Ok(seasons);
     }
 
+    [HttpPost("Seasons")]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateSeason([FromBody] NewSeason newSeason)
+    {
+        var response = await _seasonRepository.CreateSeason(newSeason);
+        if (response.Status == HttpStatusCode.Created)
+        {
+            return Ok(response);
+        }
+        return BadRequest(response.Message);
+    }
 }

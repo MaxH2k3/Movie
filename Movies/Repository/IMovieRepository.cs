@@ -19,5 +19,6 @@ namespace Movies.Interface
         Task<ResponseDTO> CreateMovie(NewMovie newMovie);
         Task<ResponseDTO> UpdateMovie(NewMovie newMovie);
         Task<ResponseDTO> DeleteMovie(Guid id);
+        int? GetFeatureIdByMovieId(Guid movieId);
     }
 }
