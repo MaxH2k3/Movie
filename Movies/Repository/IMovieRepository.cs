@@ -20,5 +20,6 @@ namespace Movies.Interface
         Task<ResponseDTO> UpdateMovie(NewMovie newMovie);
         Task<ResponseDTO> DeleteMovie(Guid id);
         int? GetFeatureIdByMovieId(Guid movieId);
+        Dictionary<string, int> GetStatistic();
     }
 }

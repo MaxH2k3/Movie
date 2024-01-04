@@ -6,6 +6,7 @@ using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Models;
 using Movies.Utilities;
+using NuGet.Packaging;
 using System.Diagnostics;
 using System.Net;
 
@@ -17,14 +18,15 @@ namespace Movies.Repository
         private readonly IMapper _mapper;
         private readonly IStorageRepository _storageRepository;
 
-        public MovieService(MOVIESContext context, IMapper mapper, IStorageRepository storageRepository)
+        public MovieService(MOVIESContext context, IMapper mapper, 
+            IStorageRepository storageRepository)
         {
             _context = context;
             _mapper = mapper;
             _storageRepository = storageRepository;
         }
 
-        public MovieService(IMapper mapper)
+        public MovieService(IMapper mapper, IUserRepository userRepository)
         {
             _context = new MOVIESContext();
             _mapper = mapper;
@@ -227,6 +229,21 @@ namespace Movies.Repository
         public int? GetFeatureIdByMovieId(Guid movieId)
         {
             return GetMovieById(movieId)?.FeatureId;
+        }
+
+        public Dictionary<string, int> GetStatistic()
+        {
+            Dictionary<string, int> statistics = new Dictionary<string, int>();
+            statistics.Add(Constraint.StatusMovie.UPCOMING, 
+                GetMovies().Where(m => m.Status.ToLower().Equals(Constraint.StatusMovie.UPCOMING.ToLower())).Count());
+            statistics.Add(Constraint.StatusMovie.PENDING, 
+                GetMovies().Where(m => m.Status.ToLower().Equals(Constraint.StatusMovie.PENDING.ToLower())).Count());
+            statistics.Add(Constraint.StatusMovie.RELEASE,
+                GetMovies().Where(m => m.Status.ToLower().Equals(Constraint.StatusMovie.RELEASE.ToLower())).Count());
+            statistics.Add(Constraint.StatusMovie.DELETED,
+                GetMovies().Where(m => m.Status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower())).Count());
+            
+            return statistics;
         }
     }
 }
