@@ -19,6 +19,7 @@
             public static string PENDING = "Pending";
             public static string RELEASE = "Release";
             public static string DELETED = "Deleted";
+            public static IEnumerable<string> ALL = new List<string> { UPCOMING, PENDING, RELEASE, DELETED };
         }
 
         public static class RolePerson

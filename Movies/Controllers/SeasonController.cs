@@ -56,7 +56,7 @@ public class SeasonController : Controller
         return BadRequest(response.Message);
     }
 
-    [HttpDelete("Seasons")]
+    [HttpDelete("Seasons/{seasonId}")]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteSeason(Guid seasonId)

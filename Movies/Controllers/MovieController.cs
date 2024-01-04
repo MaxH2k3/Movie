@@ -148,16 +148,60 @@ public class MovieController : Controller
     [HttpDelete("Movie/{id}")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteMovie(Guid id)
+    public async Task<IActionResult> DeleteMovie(Guid id, Boolean? DeleteForever)
     {
         if(!ModelState.IsValid)
         {
             BadRequest("Invalid the movie");
         }
-        ResponseDTO responseDTO = await _movieRepository.DeleteMovie(id);
+        ResponseDTO responseDTO;
+        if (DeleteForever == null || !(bool)DeleteForever)
+        {
+            responseDTO = await _movieRepository.UpdateStatusMovie(id, Constraint.StatusMovie.DELETED);
+        } else
+        {
+            responseDTO = await _movieRepository.DeleteMovie(id);
+        }
+
         if (responseDTO.Status == HttpStatusCode.OK)
         {
             return Ok("Delete Sucessfully!");
+        }
+        return BadRequest(responseDTO);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="movieId"></param>
+    /// <param name="status">The filter option. Possible values: Upcoming, Pending, Release</param>
+    /// <returns></returns>
+
+    [HttpPatch("Movie/{movieId}")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateStatusMovie(Guid movieId, string status)
+    {
+        if(status.Trim().ToLower().Equals(Constraint.StatusMovie.UPCOMING.ToLower()))
+        {
+            status = Constraint.StatusMovie.UPCOMING;
+        }
+        else if(status.Trim().ToLower().Equals(Constraint.StatusMovie.PENDING.ToLower()))
+        {
+            status = Constraint.StatusMovie.PENDING;
+        }
+        else if(status.Trim().ToLower().Equals(Constraint.StatusMovie.RELEASE.ToLower()))
+        {
+            status = Constraint.StatusMovie.RELEASE;
+        }
+        else
+        {
+            return BadRequest("Invalid status!");
+        }
+        ResponseDTO responseDTO = await _movieRepository.UpdateStatusMovie(movieId, status);
+        if (responseDTO.Status == HttpStatusCode.OK)
+        {
+            return Ok("Update Sucessfully!");
         }
         return BadRequest(responseDTO);
     }

@@ -33,15 +33,19 @@ namespace Movies.Repository
             _storageRepository = new StorageService();
         }
 
-        public IEnumerable<Movie> GetMovies()
+        public IEnumerable<Movie> GetMovies(string? status = null)
         {
-            return _context.Movies
+            IEnumerable<Movie> movies = _context.Movies
                 .Include(m => m.Nation)
                 .Include(m => m.Feature)
                 .Include(m => m.Producer)
                 .Include(m => m.Casts).ThenInclude(c => c.Actor)
-                .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category)
-                .Where(m => !m.Status.ToLower().Equals(Constraint.StatusMovie.DELETED));
+                .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category);
+            if(status == null)
+                movies = movies.Where(m => !m.Status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower()));
+            else if(status != null)
+                movies = movies.Where(m => m.Status.ToLower().Equals(status.ToLower()));
+            return movies;
         }
 
         public Movie? GetMovieById(Guid id)
@@ -234,16 +238,40 @@ namespace Movies.Repository
         public Dictionary<string, int> GetStatistic()
         {
             Dictionary<string, int> statistics = new Dictionary<string, int>();
-            statistics.Add(Constraint.StatusMovie.UPCOMING, 
-                GetMovies().Where(m => m.Status.ToLower().Equals(Constraint.StatusMovie.UPCOMING.ToLower())).Count());
-            statistics.Add(Constraint.StatusMovie.PENDING, 
-                GetMovies().Where(m => m.Status.ToLower().Equals(Constraint.StatusMovie.PENDING.ToLower())).Count());
-            statistics.Add(Constraint.StatusMovie.RELEASE,
-                GetMovies().Where(m => m.Status.ToLower().Equals(Constraint.StatusMovie.RELEASE.ToLower())).Count());
-            statistics.Add(Constraint.StatusMovie.DELETED,
-                GetMovies().Where(m => m.Status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower())).Count());
+            statistics.Add(Constraint.StatusMovie.UPCOMING, GetMovies(Constraint.StatusMovie.UPCOMING).Count());
+            statistics.Add(Constraint.StatusMovie.PENDING, GetMovies(Constraint.StatusMovie.PENDING).Count());
+            statistics.Add(Constraint.StatusMovie.RELEASE, GetMovies(Constraint.StatusMovie.RELEASE).Count());
+            statistics.Add(Constraint.StatusMovie.DELETED, GetMovies(Constraint.StatusMovie.DELETED).Count());
             
             return statistics;
+        }
+
+        public async Task<ResponseDTO> UpdateStatusMovie(Guid movieId, string status)
+        {
+            var movie = GetMovieById(movieId);
+            if(movie == null)
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Movie not found");
+            }
+            movie.Status = status;
+            movie.DateUpdated = DateTime.Now;
+            _context.Movies.Update(movie);
+            if(await _context.SaveChangesAsync() > 0)
+            {
+                return new ResponseDTO(HttpStatusCode.OK, "Update Successfully!");
+            }
+            return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
+        }
+
+        public IEnumerable<Movie> FilterMovie(string? name, string? status = null)
+        {
+            IEnumerable<Movie> movies = GetMovies(status);
+            if(name != null)
+            {
+                movies.Where(m => m.EnglishName.ToLower().Contains(name.ToLower()) ||
+                            m.VietnamName.ToLower().Contains(name.ToLower()));
+            }
+            return movies;
         }
     }
 }
