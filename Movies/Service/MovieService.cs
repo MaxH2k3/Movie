@@ -5,6 +5,7 @@ using Movies.Business.movies;
 using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Models;
+using Movies.Service;
 using Movies.Utilities;
 using NuGet.Packaging;
 using System.Diagnostics;
@@ -26,11 +27,11 @@ namespace Movies.Repository
             _storageRepository = storageRepository;
         }
 
-        public MovieService(IMapper mapper, IUserRepository userRepository)
+        public MovieService(IMapper mapper, IStorageRepository storageRepository)
         {
             _context = new MOVIESContext();
             _mapper = mapper;
-            _storageRepository = new StorageService();
+            _storageRepository = storageRepository;
         }
 
         public IEnumerable<Movie> GetMovies(string? status = null)
@@ -38,7 +39,6 @@ namespace Movies.Repository
             IEnumerable<Movie> movies = _context.Movies
                 .Include(m => m.Nation)
                 .Include(m => m.Feature)
-                .Include(m => m.Producer)
                 .Include(m => m.Casts).ThenInclude(c => c.Actor)
                 .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category);
             if(status == null)
@@ -77,12 +77,18 @@ namespace Movies.Repository
 
         public IEnumerable<Movie> GetMovieByActor(string actorId)
         {
-            return GetMovies().Where(m => m.Casts.Any(c => c.ActorId.Equals(new Guid(actorId)))).OrderByDescending(m => m.DateCreated).ToList();
+            return GetMovies().Where(m => 
+                    m.Casts.Any(c => c.ActorId.Equals(new Guid(actorId)) &&
+                    c.Actor.Role.ToLower().Equals(Constraint.RolePerson.ACTOR.ToLower())))
+                    .OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public IEnumerable<Movie> GetMovieByProducer(string producerId)
         {
-            return GetMovies().Where(m => m.ProducerId.Equals(new Guid(producerId))).OrderByDescending(m => m.DateCreated).ToList();
+            return GetMovies().Where(m => 
+                    m.Casts.Any(c => c.ActorId.Equals(new Guid(producerId)) && 
+                    c.Actor.Role.ToLower().Equals(Constraint.RolePerson.PRODUCER.ToLower())))
+                    .OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public IEnumerable<Movie> GetMovieByFeature(int featureId)
@@ -119,16 +125,24 @@ namespace Movies.Repository
             movie.Status = Constraint.StatusMovie.UPCOMING;
             movie.NationId = movie.NationId?.ToUpper();
             movie.Thumbnail = responseDTO.Data?.ToString();
+            
             if(movie.DateCreated == null)
                 movie.DateCreated = DateTime.Now;
-            
 
+            ResponseDTO response;
             _context.Movies.Add(movie);
             if (await _context.SaveChangesAsync() > 0)
             {
-                return new ResponseDTO(HttpStatusCode.Created, "Create movie successfully!");
+                response = new ResponseDTO(HttpStatusCode.Created, "Create movie successfully!", newMovie.MovieId);
+            } else
+            {
+                return response = new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
             }
-            return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
+
+            //create movie category
+            //response = await _movieCategoryService.CreateMovieCategory((Guid)newMovie.MovieId, newMovie.Categories);
+            
+            return response;
         }
 
         public async Task<ResponseDTO> UpdateMovie(NewMovie newMovie)

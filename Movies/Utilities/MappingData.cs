@@ -29,7 +29,7 @@ namespace Movies.Utilities
             CreateMap<MovieCategory, MoviePreview>();
 
             CreateMap<Movie, MovieNewest>();
-
+            CreateMap<Movie, NewMovie>();
             CreateMap<NewMovie, Movie>();
 
             //Person

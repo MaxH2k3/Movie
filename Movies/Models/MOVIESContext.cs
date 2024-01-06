@@ -224,9 +224,6 @@ namespace Movies.Models
                     .HasMaxLength(255)
                     .HasColumnName("FeatureID");
 
-                entity.Property(e => e.ProducerId)
-                    .HasColumnName("ProducerID");
-
                 entity.Property(e => e.Status)
                     .HasMaxLength(255);
 
@@ -242,11 +239,6 @@ namespace Movies.Models
                     .WithMany()
                     .HasForeignKey(d => d.NationId)
                     .HasConstraintName("FK__Movies__NationID__571DF1D5");
-
-                entity.HasOne(d => d.Producer)
-                    .WithMany()
-                    .HasForeignKey(d => d.ProducerId)
-                    .HasConstraintName("FK__Movies__Producer__5812160E");
             });
 
             modelBuilder.Entity<MovieCategory>(entity =>

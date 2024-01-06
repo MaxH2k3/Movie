@@ -39,9 +39,10 @@ public class AdminController : Controller
         {
             return BadRequest("Invalid status!");
         }
-        Console.WriteLine("Status: " + status);
+
         var movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieService.FilterMovie(name, status));
         return Ok(movies);
     }
 
+    
 }

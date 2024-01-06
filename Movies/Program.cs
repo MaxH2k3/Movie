@@ -18,7 +18,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-        builder.Services.AddTransient<GlobalException>();
+        builder.Services.AddScoped<GlobalException>();
 
         builder.Services.AddScoped<IMovieRepository, MovieService>();
         builder.Services.AddScoped<IPersonRepository, PersonService>();
@@ -28,6 +28,7 @@ public class Program
         builder.Services.AddScoped<IEpisodeRepository, EpisodeService>();
         builder.Services.AddScoped<IStorageRepository, StorageService>();
         builder.Services.AddScoped<IUserRepository, UserService>();
+        builder.Services.AddScoped<IMovieCategoryRepository, MovieCategoryService>();
         builder.Services.AddScoped<JWTGenerator, JWTConfig>();
         builder.Services.AddScoped<IAuthentication, Authentication>();
         builder.Services.AddScoped<IMailRepository, MailService>();

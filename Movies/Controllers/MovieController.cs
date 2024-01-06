@@ -128,7 +128,7 @@ public class MovieController : Controller
     }
 
     [HttpPost("Movie")]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateMovie([FromForm] NewMovie newMovie)
     {
@@ -139,7 +139,7 @@ public class MovieController : Controller
         ResponseDTO responseDTO = await _movieRepository.CreateMovie(newMovie);
         if(responseDTO.Status == HttpStatusCode.Created)
         {
-            return Ok(responseDTO.Message);
+            return Created(responseDTO.Message, responseDTO.Data);
         }
 
         return BadRequest(responseDTO);

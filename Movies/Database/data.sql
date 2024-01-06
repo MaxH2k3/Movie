@@ -92,37 +92,6 @@ CREATE TABLE [dbo].[Episode](
 	[DateUpdated] [datetime] NULL
 );
 
-/*-----------------*/
-DROP TABLE [dbo].[Cast]
-
-DROP TABLE [dbo].[Actor]
-
-DROP TABLE [dbo].[Episode]
-
-DROP TABLE [dbo].[Season]
-
-DROP TABLE [dbo].[MovieCategory]
-
-DROP TABLE [dbo].[Category]
-
-DROP TABLE [dbo].[Movies]
-
-DROP TABLE [dbo].[FeatureFilm]
-
-DROP TABLE [dbo].[Person]
-
-DROP TABLE [dbo].[Nation]
-
-/* edit table */
-ALTER TABLE [dbo].[Movies]
-ADD [TotalSeasons] [int] NULL;
-
-ALTER TABLE [dbo].[Movies]
-ADD [TotalEpisodes] [int] NOT NULL default 1;
-
-ALTER TABLE [dbo].[Season]
-ADD [TotalEpisodes] [int] NULL;
-
 /* Create trigger */
 CREATE TRIGGER [dbo].[UpdateTotalSeasons]
 ON [dbo].[Season]
@@ -155,3 +124,41 @@ BEGIN
     SET [TotalEpisodes] = [TotalEpisodes] - 1
     WHERE [Movies].[MovieID] IN (SELECT [MovieID] FROM deleted);
 END;
+
+/*-----------------*/
+DROP TABLE [dbo].[Cast]
+
+DROP TABLE [dbo].[Actor]
+
+DROP TABLE [dbo].[Episode]
+
+DROP TABLE [dbo].[Season]
+
+DROP TABLE [dbo].[MovieCategory]
+
+DROP TABLE [dbo].[Category]
+
+DROP TABLE [dbo].[Movies]
+
+DROP TABLE [dbo].[FeatureFilm]
+
+DROP TABLE [dbo].[Person]
+
+DROP TABLE [dbo].[Nation]
+
+ALTER TABLE Movies
+DROP CONSTRAINT FK__Movies__Producer__2739D489;
+
+ALTER TABLE Movies 
+DROP COLUMN ProducerID;
+
+/* edit table */
+ALTER TABLE [dbo].[Movies]
+ADD [TotalSeasons] [int] NULL;
+
+ALTER TABLE [dbo].[Movies]
+ADD [TotalEpisodes] [int] NOT NULL default 1;
+
+ALTER TABLE [dbo].[Season]
+ADD [TotalEpisodes] [int] NULL;
+
