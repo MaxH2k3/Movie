@@ -32,6 +32,7 @@ public class Program
         builder.Services.AddScoped<JWTGenerator, JWTConfig>();
         builder.Services.AddScoped<IAuthentication, Authentication>();
         builder.Services.AddScoped<IMailRepository, MailService>();
+        builder.Services.AddScoped<INationRepository, NationService>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

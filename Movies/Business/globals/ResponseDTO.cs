@@ -1,7 +1,7 @@
 ﻿using System.Net;
 
 namespace Movies.Business.globals
-{
+{   
     public class ResponseDTO
     {
         public HttpStatusCode? Status { get; set; }

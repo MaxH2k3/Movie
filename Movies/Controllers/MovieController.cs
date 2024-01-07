@@ -15,12 +15,15 @@ public class MovieController : Controller
 {
     private readonly IMovieRepository _movieRepository;
     private readonly IMapper _mapper;
+    private readonly ISeasonRepository _seasonService;
 
     public MovieController(IMovieRepository movieRepository,
-        IMapper mapper)
+        IMapper mapper,
+        ISeasonRepository seasonRepository)
     {
         _movieRepository = movieRepository;
         _mapper = mapper;
+        _seasonService = seasonRepository;
     }
 
     /// <summary>
@@ -160,7 +163,15 @@ public class MovieController : Controller
             responseDTO = await _movieRepository.UpdateStatusMovie(id, Constraint.StatusMovie.DELETED);
         } else
         {
-            responseDTO = await _movieRepository.DeleteMovie(id);
+            responseDTO = await _seasonService.DeleteSeason(id);
+            if(responseDTO.Status == HttpStatusCode.OK || responseDTO.Status == HttpStatusCode.NotFound)
+            {
+                responseDTO = await _movieRepository.DeleteMovie(id);
+            } else
+            {
+                return BadRequest(responseDTO);
+            }
+            
         }
 
         if (responseDTO.Status == HttpStatusCode.OK)
