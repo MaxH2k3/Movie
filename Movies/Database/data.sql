@@ -42,7 +42,6 @@ CREATE TABLE [dbo].[Movies](
 	[MovieID] [uniqueidentifier] PRIMARY KEY,
 	[FeatureId] [int] REFERENCES [dbo].[featurefilm]([FeatureId]),
 	[NationID] [varchar](255) REFERENCES [dbo].[Nation]([NationID]),
-	[ProducerID] [uniqueidentifier] REFERENCES [dbo].[Person]([PersonID]),
 	[Mark] [float] NULL,
 	[Time] [int] NULL,
 	[Viewer] [int] NULL,
