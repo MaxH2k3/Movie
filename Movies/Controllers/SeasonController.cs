@@ -51,9 +51,9 @@ public class SeasonController : Controller
         var response = await _seasonRepository.CreateSeason(newSeason);
         if (response.Status == HttpStatusCode.Created)
         {
-            return Ok(response);
+            return Created(response.Message, response.Data);
         }
-        return BadRequest(response.Message);
+        return BadRequest(response);
     }
 
     [HttpDelete("Seasons/{seasonId}")]
@@ -62,6 +62,19 @@ public class SeasonController : Controller
     public async Task<IActionResult> DeleteSeason(Guid seasonId)
     {
         var response = await _seasonRepository.DeleteSeason(seasonId);
+        if (response.Status == HttpStatusCode.OK)
+        {
+            return Ok(response);
+        }
+        return BadRequest(response.Message);
+    }
+
+    [HttpPut("Seasons/{seasonId}")]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateSeason(Guid seasonId, [FromBody] string? name)
+    {
+        var response = await _seasonRepository.UpdateSeason(name, seasonId);
         if (response.Status == HttpStatusCode.OK)
         {
             return Ok(response);

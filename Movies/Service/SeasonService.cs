@@ -54,32 +54,34 @@ namespace Movies.Repository
                 });
         }
 
-        public async Task<ResponseDTO> CreateSeason(NewSeason newSeason)
-        {
-            int? featureId = _movieService.GetFeatureIdByMovieId((Guid)newSeason.MovieId);
-            Guid? seasonId = Guid.NewGuid();
-            if(newSeason.SeasonId == null)
-            {
-                var seasonNumber = GenerateSeasonNumber((Guid)newSeason.MovieId);
-                Season season = new Season()
-                {
-                    SeasonId = seasonId,
-                    SeasonNumber = seasonNumber,
-                    MovieId = (Guid)newSeason.MovieId,
-                    Name = (newSeason.Name == null) ? ("Season " + seasonNumber) : newSeason.Name,
-                };
-                _context.Seasons.Add(season);
-                if(await _context.SaveChangesAsync() == 0)
-                {
-                    return new ResponseDTO(HttpStatusCode.BadRequest, "Server database Error! Fail while saving data.");
-                }
-            }
-            //save list episode
-            var responseDTO = _episodeService.CreateEpisodes(newSeason.Episodes,
-                                        ((newSeason.SeasonId == null) ? (Guid)seasonId : (Guid)newSeason.SeasonId));
+        //public async Task<ResponseDTO> CreateSeason(NewSeason newSeason)
+        //{
+        //    int? featureId = _movieService.GetFeatureIdByMovieId((Guid)newSeason.MovieId);
+        //    Guid? seasonId = Guid.NewGuid();
+        //    if(newSeason.SeasonId == null)
+        //    {
+        //        var seasonNumber = GenerateSeasonNumber((Guid)newSeason.MovieId);
+        //        Season season = new Season()
+        //        {
+        //            SeasonId = seasonId,
+        //            SeasonNumber = seasonNumber,
+        //            MovieId = (Guid)newSeason.MovieId,
+        //            Name = (newSeason.Name == null) ? ("Season " + seasonNumber) : newSeason.Name,
+        //        };
+        //        _context.Seasons.Add(season);
+        //        if(await _context.SaveChangesAsync() == 0)
+        //        {
+        //            return new ResponseDTO(HttpStatusCode.BadRequest, "Server database Error! Fail while saving data.");
+        //        }
+        //    }
+        //    //save list episode
+        //    var responseDTO = _episodeService.CreateEpisodes(newSeason.Episodes,
+        //                                ((newSeason.SeasonId == null) ? (Guid)seasonId : (Guid)newSeason.SeasonId));
 
-            return new ResponseDTO(HttpStatusCode.Created, "Create Season Successfully!", responseDTO);
-        }
+        //    return new ResponseDTO(HttpStatusCode.Created, "Create Season Successfully!", responseDTO);
+        //}
+
+
 
         public int GenerateSeasonNumber(Guid movieId)
         {
@@ -121,6 +123,50 @@ namespace Movies.Repository
             {
                 
             }
+        }
+
+        public async Task<ResponseDTO> CreateSeason(NewSeason newSeason)
+        {
+            var movie = _movieService.GetMovieById((Guid)newSeason.MovieId);
+            if(movie == null)
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Movie Not Found!", newSeason.MovieId);
+            }
+
+            Guid id = Guid.NewGuid();
+            Season season = new Season()
+            {
+                SeasonId = id,
+                MovieId = (Guid)newSeason.MovieId,
+                SeasonNumber = GenerateSeasonNumber((Guid)newSeason.MovieId),
+                Name =  newSeason.Name
+            };
+
+            await _context.Seasons.AddAsync(season);
+            if(await _context.SaveChangesAsync() == 0)
+            {
+                return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
+            }
+            return new ResponseDTO(HttpStatusCode.Created, "Create Season Successfully!", id);
+        }
+
+        public async Task<ResponseDTO> UpdateSeason(string? name, Guid seasonId)
+        {
+
+            var season = GetSeason(seasonId);
+            if(season == null)
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Season Not Found!", seasonId);
+            }
+
+            season.Name = name;
+
+            _context.Seasons.Update(season);
+            if (await _context.SaveChangesAsync() == 0)
+            {
+                return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
+            }
+            return new ResponseDTO(HttpStatusCode.OK, "Update Season Successfully!");
         }
     }
 }

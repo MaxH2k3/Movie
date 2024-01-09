@@ -8,10 +8,11 @@ namespace Movies.Interface
     {
         IEnumerable<Episode> GetEpisodes();
         IEnumerable<Episode> GetEpisodesBySeason(Guid seasonId);
-        ResponseDTO CreateEpisode(NewEpisode newEpisode, Guid seasonId);
-        IEnumerable<ResponseDTO> CreateEpisodes(IEnumerable<NewEpisode> newEpisodes, Guid seasonId);
+        Episode CreateEpisode(NewEpisode newEpisode, int episodeNumber);
+        Task<ResponseDTO> CreateEpisodes(IEnumerable<NewEpisode> newEpisodes);
         Episode? GetEpisode(Guid episodeId);
         Task<ResponseDTO> DeleteEpisode(Guid episodeId);
         IEnumerable<ResponseDTO> DeleteEpisodeBySeason(Guid seasonId);
+        Task<ResponseDTO> UpdateEpisode(NewEpisode newEpisode, Guid episodeId);
     }
 }

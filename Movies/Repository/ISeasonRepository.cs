@@ -12,5 +12,6 @@ namespace Movies.Interface
         IEnumerable<Season> GetSeasonsByMovieAndNumber(Guid movieId, int? seasonNumber);
         Task<ResponseDTO> CreateSeason(NewSeason newSeason);
         Task<ResponseDTO> DeleteSeason(Guid seasonId);
+        Task<ResponseDTO> UpdateSeason(string? name, Guid seasonId);
     }
 }

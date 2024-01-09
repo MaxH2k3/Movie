@@ -20,5 +20,6 @@ public class NewMovie
     public string? Trailer { get; set; }
     public string? NationId { get; set; }
     public int? FeatureId { get; set; }
+    public DateTime? DateCreated { get; set; }
     public IEnumerable<int> Categories { get; set; }
 }
