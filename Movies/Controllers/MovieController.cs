@@ -4,6 +4,7 @@ using Movies.Business.globals;
 using Movies.Business.movies;
 using Movies.Interface;
 using Movies.Models;
+using Movies.Repository;
 using Movies.Utilities;
 using System.Net;
 using static Movies.Utilities.Constraint;
@@ -16,14 +17,16 @@ public class MovieController : Controller
     private readonly IMovieRepository _movieRepository;
     private readonly IMapper _mapper;
     private readonly ISeasonRepository _seasonService;
+    private readonly IMovieCategoryRepository _movieCategoryService;
 
     public MovieController(IMovieRepository movieRepository,
         IMapper mapper,
-        ISeasonRepository seasonRepository)
+        ISeasonRepository seasonRepository, IMovieCategoryRepository movieCategoryRepository)
     {
         _movieRepository = movieRepository;
         _mapper = mapper;
         _seasonService = seasonRepository;
+        _movieCategoryService = movieCategoryRepository;
     }
 
     /// <summary>
@@ -140,8 +143,14 @@ public class MovieController : Controller
             BadRequest("Invalid the movie");
         }
         ResponseDTO responseDTO = await _movieRepository.CreateMovie(newMovie);
+
         if(responseDTO.Status == HttpStatusCode.Created)
         {
+            if(newMovie.Categories.Count() > 0)
+            {
+                await _movieCategoryService.CreateMovieCategory((Guid)responseDTO.Data, newMovie.Categories);
+            }
+            
             return Created(responseDTO.Message, responseDTO.Data);
         }
 

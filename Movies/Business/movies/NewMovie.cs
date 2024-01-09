@@ -12,13 +12,18 @@ public class NewMovie
     public string? Description { get; set; }
     [MaxLength(100)]
     [MinLength(2)]
+    [Required]
     public string? EnglishName { get; set; }
     [MaxLength(100)]
     [MinLength(2)]
+    [Required]
     public string? VietnamName { get; set; }
     public IFormFile? Thumbnail { get; set; }
+    [Required]
     public string? Trailer { get; set; }
+    [Required]
     public string? NationId { get; set; }
+    [Required]
     public int? FeatureId { get; set; }
     public DateTime? DateCreated { get; set; }
     public IEnumerable<int> Categories { get; set; }

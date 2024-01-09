@@ -37,6 +37,6 @@ public class MovieCategoryService : IMovieCategoryRepository
             await _context.SaveChangesAsync();
         }
 
-        return new ResponseDTO(HttpStatusCode.Created, "Create Movie Successfully!", $"MovieId: {movieId}");
+        return new ResponseDTO(HttpStatusCode.Created, "Create Movie Successfully!", movieId);
     }
 }
