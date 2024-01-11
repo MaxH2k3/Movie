@@ -7,6 +7,7 @@ using Movies.Models;
 using Movies.Repository;
 using Movies.Utilities;
 using System.Net;
+using static Google.Apis.Requests.BatchRequest;
 using static Movies.Utilities.Constraint;
 
 namespace Movies.Controllers;
@@ -128,7 +129,14 @@ public class MovieController : Controller
         ResponseDTO responseDTO = await _movieRepository.UpdateMovie(newMovie);
         if (responseDTO.Status == HttpStatusCode.OK)
         {
-            return Ok("Update Sucessfully!");
+            if (newMovie.Categories.Count() > 0)
+            {
+                responseDTO = await _movieCategoryService.UpdateMovieCategory((Guid)responseDTO.Data, newMovie.Categories);
+            }
+            if(responseDTO.Status == HttpStatusCode.OK)
+            {
+                return Ok("Update Sucessfully!");
+            }
         }
         return BadRequest(responseDTO);
     }
@@ -149,9 +157,8 @@ public class MovieController : Controller
             if(newMovie.Categories.Count() > 0)
             {
                 await _movieCategoryService.CreateMovieCategory((Guid)responseDTO.Data, newMovie.Categories);
+                return Created(responseDTO.Message, responseDTO.Data);
             }
-            
-            return Created(responseDTO.Message, responseDTO.Data);
         }
 
         return BadRequest(responseDTO);

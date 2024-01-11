@@ -149,14 +149,14 @@ namespace Movies.Repository
 
         public async Task<ResponseDTO> DeletePerson(Guid id)
         {
-            Person? person = GetPerson(id);
+            Person? person = _context.Persons.Find(id);
             if (person == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Person not found!");
             }
 
             _context.Persons.Remove(person);
-            _storageRepository.DeleteFile(person.Image);
+            await _storageRepository.DeleteFile(person.Image);
             if (await _context.SaveChangesAsync() > 0)
             {
                 return new ResponseDTO(HttpStatusCode.OK, "Person delete successfully!");

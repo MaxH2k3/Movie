@@ -69,14 +69,14 @@ namespace Movies.Repository
 
         */
 
-        public Episode CreateEpisode(NewEpisode newEpisode, int episodeNumber)
+        public Episode CreateEpisode(NewEpisode newEpisode, int episodeNumber, Guid seasonId)
         {
 
             var episodeId = Guid.NewGuid();
             Episode episode = new Episode()
             {
                 EpisodeId = episodeId,
-                SeasonId = newEpisode.SeasonId,
+                SeasonId = seasonId,
                 EpisodeNumber = episodeNumber,
                 Name = newEpisode.Name,
                 Video = newEpisode.Video,
@@ -100,16 +100,22 @@ namespace Movies.Repository
         }
         */
 
-        public async Task<ResponseDTO> CreateEpisodes(IEnumerable<NewEpisode> newEpisodes)
+        public async Task<ResponseDTO> CreateEpisodes(IEnumerable<NewEpisode> newEpisodes, Guid seasonId)
         {
+            var season = await _context.Seasons.FindAsync(seasonId);
+            if(season == null)
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Season Not Found");
+            }
+
             int count = newEpisodes.Count();
             LinkedList<Episode> episodes = new LinkedList<Episode>();
 
             for(int i = 0; i < count; i++)
             {
                 var episode = newEpisodes.ElementAt(i);
-                int episodeNumber = GenerateEpisodeNumber(episode.SeasonId) + i;
-                episodes.AddLast(CreateEpisode(newEpisodes.ElementAt(i), episodeNumber));
+                int episodeNumber = GenerateEpisodeNumber(seasonId) + i;
+                episodes.AddLast(CreateEpisode(newEpisodes.ElementAt(i), episodeNumber, seasonId));
             }
 
             await _context.Episodes.AddRangeAsync(episodes);

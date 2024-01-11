@@ -110,7 +110,7 @@ namespace Movies.Repository
                 {
                     return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
                 }
-                return new ResponseDTO(HttpStatusCode.OK, "Delete Season Successfully!", responses);
+                return new ResponseDTO(HttpStatusCode.OK, "Delete Season Successfully!");
             }
             return new ResponseDTO(HttpStatusCode.NotFound, "Season Not Found!", "seasonId: " + seasonId);
         }

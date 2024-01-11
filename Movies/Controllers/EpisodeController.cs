@@ -20,9 +20,9 @@ public class EpisodeController : Controller
     [HttpPost("episode")]
     [ProducesResponseType(typeof(IEnumerable<ResponseDTO>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateEpisode(IEnumerable<NewEpisode> newEpisodes)
+    public async Task<IActionResult> CreateEpisode(IEnumerable<NewEpisode> newEpisodes, Guid seasonId)
     {
-        var response = await _episodeRepository.CreateEpisodes(newEpisodes);
+        var response = await _episodeRepository.CreateEpisodes(newEpisodes, seasonId);
         if(response.Status == HttpStatusCode.Created)
         {
             return Created("Created episode successfully!", response.Data);

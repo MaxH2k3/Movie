@@ -43,7 +43,11 @@ namespace Movies.Repository
         {
             try
             {
-                await _gcpContext.StorageClient.DeleteObjectAsync(_gcpContext.GCPStorageBucket, fileName);
+                if(await _gcpContext.StorageClient.GetObjectAsync(_gcpContext.GCPStorageBucket, fileName) != null)
+                {
+                    await _gcpContext.StorageClient.DeleteObjectAsync(_gcpContext.GCPStorageBucket, fileName);
+                }
+                
             } catch (Exception e)
             {
                 Debug.WriteLine(e.Message);

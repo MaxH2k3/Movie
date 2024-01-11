@@ -91,7 +91,7 @@ CREATE TABLE [dbo].[Episode](
 	[DateUpdated] [datetime] NULL
 );
 
-/* Create trigger */
+/* Create trigger 
 CREATE TRIGGER [dbo].[UpdateTotalSeasons]
 ON [dbo].[Season]
 AFTER INSERT, DELETE
@@ -123,7 +123,7 @@ BEGIN
     SET [TotalEpisodes] = [TotalEpisodes] - 1
     WHERE [Movies].[MovieID] IN (SELECT [MovieID] FROM deleted);
 END;
-
+*/
 /*-----------------*/
 DROP TABLE [dbo].[Cast]
 

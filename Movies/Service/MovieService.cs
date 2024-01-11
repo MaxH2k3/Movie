@@ -156,6 +156,7 @@ namespace Movies.Repository
             int? totalSeasons = movie?.TotalSeasons;
             int? totalEpisodes = movie?.TotalEpisodes;
             DateTime? DateCreated = movie?.DateCreated;
+            string? Status = movie?.Status;
             if (movie == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Movie not found");
@@ -173,6 +174,7 @@ namespace Movies.Repository
             movie.TotalSeasons = totalSeasons;
             movie.TotalEpisodes = totalEpisodes;
             movie.DateCreated = DateCreated;
+            movie.Status = Status;
             if (movie.DateUpdated == null)
                 movie.DateUpdated = DateTime.Now;
 
