@@ -33,7 +33,7 @@ public class Program
         builder.Services.AddScoped<IAuthentication, Authentication>();
         builder.Services.AddScoped<IMailRepository, MailService>();
         builder.Services.AddScoped<INationRepository, NationService>();
-        builder.Services.AddScoped<PalmAIService>();
+        builder.Services.AddScoped<GeminiService>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

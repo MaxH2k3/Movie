@@ -2,10 +2,12 @@
 using GenerativeAI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Business.anothers;
+using Movies.Business.movies;
 using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Models;
 using Movies.Repository;
+using Movies.Service;
 using NuGet.Protocol;
 
 namespace Movies.Controllers;
@@ -14,34 +16,29 @@ namespace Movies.Controllers;
 public class GeminiController : Controller
 {
 
-    private readonly string apiKey = "AIzaSyCZCmjVY-awrPmxPDsfiE9Mi40CKs1HCnc";
-    private readonly IPersonRepository _personService;
-    private readonly IMapper _mapper;
-    private readonly IFeatureRepository _featureService;
-    private readonly ICategoryRepository _categoryService;
+    private readonly GeminiService _genminiService;
 
-    public GeminiController(IPersonRepository personRepository, IMapper mapper, 
-        IFeatureRepository featureService, ICategoryRepository categoryService)
+    public GeminiController(GeminiService geminiService)
     {
-        _personService = personRepository;
-        _mapper = mapper;
-        _featureService = featureService;
-        _categoryService = categoryService;
+        _genminiService = geminiService;
     }
 
-    [HttpPost("Chat")]
-    public async Task<IActionResult> Chat(string content)
+    [HttpGet("Chat")]
+    public async Task<IActionResult> Chat(string content, string? nation = null)
     {
-        var model = new GenerativeModel(apiKey);
-        var persons = _mapper.Map<IEnumerable<PersonAI>>(_personService.GetActos()).ToJson();
-        var features = _featureService.GetFeatures().ToJson();
-        var categories = _categoryService.GetCategories().ToJson();
+        var res = await _genminiService.Chat(content, nation);
 
-        var text = $"\"CREATE TABLE [dbo].[Movies](\r\n\r\n\t[MovieID] [uniqueidentifier] PRIMARY KEY,\r\n\r\n\t[FeatureId] [int] REFERENCES [dbo].[featurefilm]([FeatureId]),\r\n\r\n\t[NationID] [varchar](255) REFERENCES [dbo].[Nation]([NationID]),\r\n\r\n\t[Mark] [float] NULL,\r\n\r\n\t[Time] [int] NULL,\r\n\r\n\t[Viewer] [int] NULL,\r\n\r\n\t[Description] [nvarchar](max) NULL,\r\n\r\n);\r\n\r\nCREATE TABLE [dbo].[MovieCategory](\r\n\t[CategoryID] [int] REFERENCES [dbo].[Category]([CategoryID]),\r\n\t[MovieID] [uniqueidentifier] REFERENCES [dbo].[Movies]([MovieID]),\r\n);\r\n\r\n{categories}\r\n{features};\r\n\r\nGive me only one json about \"{content}\" for table Movies and MovieCategory using example from FeatureFilm and category.";
+        if(_genminiService.CheckNull(res))
+        {
+            return StatusCode(500, "Server Error! Please, Try Again.");
+        }
 
-        var res = await model.GenerateContentAsync(text);
+        if (_genminiService.IsJson(res))
+        {
+            return Ok(res);
+        }
         
-        
-        return Ok(res);
+
+        return NotFound($"{content} Not Found!");
     }
 }

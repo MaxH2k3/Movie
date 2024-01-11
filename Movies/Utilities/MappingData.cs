@@ -52,7 +52,6 @@ namespace Movies.Utilities
 
             CreateMap<NewPerson, Person>();
 
-            CreateMap<Person, PersonAI>();
             //season
             CreateMap<Season, SeasonDTO>();
 
