@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MimeKit;
 using MongoDB.Driver;
 using Movies.Business.globals;
 using Movies.Business.users;
@@ -15,23 +16,26 @@ public class UserService : IUserRepository
     private readonly MOVIESContext _context;
     private readonly IAuthentication _authentication;
     private readonly MovieMongoContext _MongoContext;
+    private readonly IMailRepository _mailService;
     private readonly IMapper _mapper;
 
     public UserService(MOVIESContext context, IAuthentication authentication, 
-        IMapper mapper, MovieMongoContext mongoContext)
+        IMapper mapper, MovieMongoContext mongoContext, IMailRepository mailRepository)
     {
         _context = context;
         _authentication = authentication;
         _mapper = mapper;
         _MongoContext = mongoContext;
+        _mailService = mailRepository;
     }
 
-    public UserService(IAuthentication authentication, IMapper mapper)
+    public UserService(IAuthentication authentication, IMapper mapper, IMailRepository mailRepository)
     {
         _context = new MOVIESContext();
         _MongoContext = new MovieMongoContext();
         _authentication = authentication;
         _mapper = mapper;
+        _mailService = mailRepository;
     }
 
     public User? GetUser(string username)
@@ -69,14 +73,33 @@ public class UserService : IUserRepository
             Status = Constraint.StatusUser.PENDING
         });
         //create token verify
+        string token = _authentication.CreateRandomToken();
         await _MongoContext.Tokens.InsertOneAsync(new VerifyToken()
         {
             UserId = id,
-            Token = _authentication.CreateRandomToken(),
+            Token = token,
             ExpiredDate = DateTime.UtcNow.AddMinutes(5)
         });
 
-        return new ResponseDTO(HttpStatusCode.Created, "Register successfully!");
+        Console.WriteLine("ID: " + id);
+        //send mail
+        MimeMessage mimeMessage = _mailService.CreateMail(new Mail()
+        {
+            To = registerUser.Email,
+            Subject = "Verify your account",
+            Body = Constraint.Resource.CONFIRM_MAIL
+        }, new UserMail()
+        {
+            UserName = registerUser.Username,
+            UserId = id.ToString(),
+            Token = token
+        });
+        if(await _mailService.SendMail(mimeMessage))
+        {
+            return new ResponseDTO(HttpStatusCode.Created, "Register successfully! Please check your email to verify your account!");
+        }
+
+        return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Fail to send an email!");
 
     }
 
@@ -172,6 +195,30 @@ public class UserService : IUserRepository
         verifyToken.Token = _authentication.CreateRandomToken();
         verifyToken.ExpiredDate = DateTime.UtcNow.AddMinutes(5);
         await _MongoContext.Tokens.ReplaceOneAsync(o => o.UserId.Equals(userId), verifyToken);
-        return new ResponseDTO(HttpStatusCode.OK, "Refresh token successfully!");
+
+
+        var userTemporary = await _MongoContext.Users.FindAsync(o => o.UserId.Equals(userId)).Result.FirstOrDefaultAsync();
+        if(userTemporary == null)
+        {
+            return new ResponseDTO(HttpStatusCode.NotFound, "User not found!");
+        }
+        //send mail
+        MimeMessage mimeMessage = _mailService.CreateMail(new Mail()
+        {
+            To = userTemporary.Email,
+            Subject = "Verify your account",
+            Body = Constraint.Resource.CONFIRM_MAIL
+        }, new UserMail()
+        {
+            UserName = userTemporary.Username,
+            UserId = userId.ToString(),
+            Token = verifyToken.Token
+        });
+        if (await _mailService.SendMail(mimeMessage))
+        {
+            return new ResponseDTO(HttpStatusCode.OK, "Resend token successfully! Please check your email to verify your account!");
+        }
+
+        return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Fail to send an email!");
     }
 }

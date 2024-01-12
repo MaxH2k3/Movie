@@ -20,7 +20,7 @@ public class MovieGemini
                 "\n Time: int," +
                 "\n Viewer: int," +
                 "\n Description: summarize content of film ranging from 100 to 200 words, " +
-                "\n DateCreated: datetime," +
+                "\n DateCreated: date of produced have format YYYY/MM/DD," +
                 "\n Categories: list int of category" +
                 "\n}";
     }

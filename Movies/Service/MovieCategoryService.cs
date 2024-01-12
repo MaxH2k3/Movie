@@ -48,25 +48,43 @@ public class MovieCategoryService : IMovieCategoryRepository
     {
         //get categories of movie
         IEnumerable<MovieCategory> movieCategories = GetMovieCategories(movieId);
-        //refress categories of movie
-        _context.MovieCategories.RemoveRange(movieCategories);
-        //add new categories of movie
-        MovieCategory movieCategory = new MovieCategory();
+        //Refress data
+        if(!await DeleteMovieCategory(movieCategories))
+        {
+            return new ResponseDTO(HttpStatusCode.NotModified, "Update Failed");
+        }
+        IEnumerable<ResponseDTO> responseDTOs = new LinkedList<ResponseDTO>();
         foreach (var categoryId in MovieCategories)
         {
+            MovieCategory movieCategory = new MovieCategory();
             movieCategory.MovieId = movieId;
             movieCategory.CategoryId = categoryId;
-            movieCategories.Append(movieCategory);
+            if (!movieCategories.Contains(movieCategory))
+            {
+                _context.MovieCategories.Add(movieCategory);
+                if (await _context.SaveChangesAsync() == 0)
+                {
+                    responseDTOs.Append(new ResponseDTO(HttpStatusCode.NotModified, "Update Failed", movieCategory.CategoryId));
+                }
+            }
         }
 
-        _context.MovieCategories.UpdateRange(movieCategories);
-
-        if(await _context.SaveChangesAsync() > 0)
+        if (responseDTOs.Count() > 0)
         {
-            return new ResponseDTO(HttpStatusCode.OK, "Update Successfully");
+            return new ResponseDTO(HttpStatusCode.NotModified, "One or more error!", responseDTOs);
         }
-        return new ResponseDTO(HttpStatusCode.NotModified, "Update Failed");
+
+        return new ResponseDTO(HttpStatusCode.OK, "Update Successfully");
 
     }
 
+    public async Task<bool> DeleteMovieCategory(IEnumerable<MovieCategory> categories)
+    {
+        _context.MovieCategories.RemoveRange(categories);
+        if(await _context.SaveChangesAsync() > 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }

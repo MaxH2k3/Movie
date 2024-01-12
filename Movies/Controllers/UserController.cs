@@ -110,18 +110,4 @@ public class UserController : Controller
         return Ok(response.Message);
     }
 
-    [HttpGet]
-    [Route("Mail")]
-    public IActionResult Mail()
-    {
-        MimeMessage mess = _mailService.CreateMail(new Models.Mail
-        {
-            Body = "ok",
-            Subject = "Hello",
-            To = "huy110903@gmail.com"
-        });
-
-        _mailService.SendMail(mess);
-        return Ok("ok");
-    }
 }

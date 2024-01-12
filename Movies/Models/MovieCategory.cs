@@ -10,5 +10,15 @@ namespace Movies.Models
 
         public virtual Category? Category { get; set; }
         public virtual Movie? Movie { get; set; }
+
+        public MovieCategory()
+        {
+        }
+
+        public MovieCategory(int? CategoryId, Guid? MovieId)
+        {
+            this.CategoryId = CategoryId;
+            this.MovieId = MovieId;
+        }
     }
 }

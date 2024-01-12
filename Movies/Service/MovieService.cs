@@ -139,9 +139,6 @@ namespace Movies.Repository
                 return response = new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
             }
 
-            //create movie category
-            //response = await _movieCategoryService.CreateMovieCategory((Guid)newMovie.MovieId, newMovie.Categories);
-            
             return response;
         }
 
@@ -206,13 +203,13 @@ namespace Movies.Repository
         private async Task<ResponseDTO> validateData(NewMovie newMovie)
         {
 
-            Nation? nation = _context.Nations.Find(newMovie.NationId);
+            Nation? nation = await _context.Nations.FindAsync(newMovie.NationId);
             if (nation == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Nation not found");
             }
 
-            FeatureFilm? feature = _context.FeatureFilms.Find(newMovie.FeatureId);
+            FeatureFilm? feature = await _context.FeatureFilms.FindAsync(newMovie.FeatureId);
             if (feature == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Feature Film not found");

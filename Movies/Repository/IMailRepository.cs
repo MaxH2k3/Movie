@@ -1,11 +1,12 @@
 ﻿using MimeKit;
+using Movies.Business.users;
 using Movies.Models;
 
-namespace Movies.Repository
+namespace Movies.Repository;
+
+public interface IMailRepository
 {
-    public interface IMailRepository
-    {
-        Task<string> SendMail(MimeMessage mimeMessage);
-        MimeMessage CreateMail(Mail mail); 
-    }
+    Task<bool> SendMail(MimeMessage mimeMessage);
+    MimeMessage CreateMail(Mail mail, UserMail userMail);
+    string TransferData(Dictionary<string, object> models, string htmlFile);
 }

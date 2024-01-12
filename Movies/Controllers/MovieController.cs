@@ -131,7 +131,7 @@ public class MovieController : Controller
         {
             if (newMovie.Categories.Count() > 0)
             {
-                responseDTO = await _movieCategoryService.UpdateMovieCategory((Guid)responseDTO.Data, newMovie.Categories);
+                responseDTO = await _movieCategoryService.UpdateMovieCategory((Guid)newMovie.MovieId, newMovie.Categories);
             }
             if(responseDTO.Status == HttpStatusCode.OK)
             {
@@ -229,6 +229,17 @@ public class MovieController : Controller
         if (responseDTO.Status == HttpStatusCode.OK)
         {
             return Ok("Update Sucessfully!");
+        }
+        return BadRequest(responseDTO);
+    }
+
+    [HttpPut("Movie/Categories")]
+    public async Task<IActionResult> UpdateMovieCategory(Guid movieId, IEnumerable<int> movieCategories)
+    {
+        ResponseDTO responseDTO = await _movieCategoryService.UpdateMovieCategory(movieId, movieCategories);
+        if (responseDTO.Status == HttpStatusCode.OK)
+        {
+            return Ok("Create Sucessfully!");
         }
         return BadRequest(responseDTO);
     }
