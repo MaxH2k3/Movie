@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MongoDB.Bson;
 using Movies.Business.movies;
 using Movies.Business.persons;
 using Movies.Business.seasons;

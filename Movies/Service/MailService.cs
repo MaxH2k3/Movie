@@ -33,7 +33,7 @@ namespace Movies.Service
             
             var builder = new BodyBuilder();
             //builder.HtmlBody = mail.Body;
-            var htmlPart = ReadFile(Constraint.Resource.CONFIRM_MAIL);
+            var htmlPart = ReadFile(mail.Body);
 
             //transfer data
             htmlPart = TransferData(new Dictionary<string, object>

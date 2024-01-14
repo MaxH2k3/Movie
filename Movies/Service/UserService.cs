@@ -70,7 +70,8 @@ public class UserService : IUserRepository
             Password = passwordHash,
             PasswordSalt = passwordSalt,
             Username = registerUser.Username,
-            Status = Constraint.StatusUser.PENDING
+            Status = Constraint.StatusUser.PENDING,
+            ExpiredDate = DateTime.UtcNow.AddMinutes(30)
         });
         //create token verify
         string token = _authentication.CreateRandomToken();
@@ -78,10 +79,10 @@ public class UserService : IUserRepository
         {
             UserId = id,
             Token = token,
-            ExpiredDate = DateTime.UtcNow.AddMinutes(5)
+            CreatedDate = DateTime.UtcNow.AddMinutes(5),
+            ExpiredDate = DateTime.UtcNow.AddMinutes(30)
         });
 
-        Console.WriteLine("ID: " + id);
         //send mail
         MimeMessage mimeMessage = _mailService.CreateMail(new Mail()
         {
@@ -96,7 +97,7 @@ public class UserService : IUserRepository
         });
         if(await _mailService.SendMail(mimeMessage))
         {
-            return new ResponseDTO(HttpStatusCode.Created, "Register successfully! Please check your email to verify your account!");
+            return new ResponseDTO(HttpStatusCode.Created, "Register successfully! Please check your email to verify your account!", id);
         }
 
         return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Fail to send an email!");
@@ -145,7 +146,7 @@ public class UserService : IUserRepository
         {
             return new ResponseDTO(HttpStatusCode.BadRequest, "Fail to validate token!");
         }
-        else if(verifyToken.ExpiredDate < DateTime.UtcNow)
+        else if(verifyToken.CreatedDate < DateTime.UtcNow)
         {
             return new ResponseDTO(HttpStatusCode.BadRequest, "Token expired!");
         }
@@ -193,7 +194,7 @@ public class UserService : IUserRepository
             return new ResponseDTO(HttpStatusCode.NotFound, "Your token not existed! You need to register first!");
         }
         verifyToken.Token = _authentication.CreateRandomToken();
-        verifyToken.ExpiredDate = DateTime.UtcNow.AddMinutes(5);
+        verifyToken.CreatedDate = DateTime.UtcNow.AddMinutes(5);
         await _MongoContext.Tokens.ReplaceOneAsync(o => o.UserId.Equals(userId), verifyToken);
 
 

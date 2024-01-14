@@ -6,6 +6,7 @@ using MimeKit;
 using Movies.Business.globals;
 using Movies.Business.users;
 using Movies.Interface;
+using Movies.Models;
 using Movies.Repository;
 using Movies.Security;
 using Movies.Utilities;
@@ -68,7 +69,7 @@ public class UserController : Controller
         {
             return BadRequest(response);
         }
-        return Ok(response.Message);
+        return Created(response.Message, response.Data);
     }
 
     /// <summary>
@@ -77,7 +78,7 @@ public class UserController : Controller
     /// <param name="token">token of user</param>
     /// <param name="userId">id of user</param>
     /// <returns></returns>
-    [HttpPost]
+    [HttpGet]
     [Route("Verify/{userId}/{token}")]
     [ProducesResponseType(typeof(string), (int) HttpStatusCode.OK)]
     [ProducesResponseType(typeof(ResponseDTO), (int) HttpStatusCode.BadRequest)]
@@ -88,6 +89,16 @@ public class UserController : Controller
         {
             return BadRequest(response);
         }
+
+        try
+        {
+            var client = new HttpClient();
+            var dispatch = await client.GetAsync("https://movie-nextjs-five.vercel.app/");
+            dispatch.EnsureSuccessStatusCode();
+        } catch (HttpRequestException) {
+            return StatusCode(500, "Failed to access website");
+        }
+        
         return Ok(response.Message);
     }
 
@@ -108,6 +119,12 @@ public class UserController : Controller
             return BadRequest(response);
         }
         return Ok(response.Message);
+    }
+
+    [HttpGet("Mail")]
+    public async Task GetMail()
+    {
+        
     }
 
 }

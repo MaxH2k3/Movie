@@ -13,5 +13,6 @@ namespace Movies.Business.users
         public string? Role { get; set; }
         public string? Status { get; set; }
         public DateTime? DateCreated { get; set; }
+        public DateTime ExpiredDate { get; set; }
     }
 }
