@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver.Linq;
 using Movies.Business.globals;
 using Movies.Business.movies;
 using Movies.Interface;
@@ -51,15 +52,20 @@ public class MovieController : Controller
     [HttpGet("Movies")]
     [ProducesResponseType(typeof(IEnumerable<MoviePreview>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    public IActionResult Movies(string? filterBy, string? key, int page = 1, int eachPage = 6)
+    public IActionResult Movies(string? filterBy, string? key, string? status, int page = 1, int eachPage = 6)
     {
+        if(status != null && !Constraint.StatusMovie.ALL.Contains(status))
+        {
+            return BadRequest("Invalid status!");
+        }
+
         IEnumerable<MoviePreview> movies;
         
         if (Constraint.FilterName.CATEGORY.Equals(filterBy?.Trim().ToLower()))
         {
             if (int.TryParse(key, out int id))
             {
-                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByCategory(id));
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByCategory(id, status));
             } else
             {
                 return BadRequest("Invalid your key! Key is a categoryId (int)");
@@ -68,31 +74,33 @@ public class MovieController : Controller
         {
             if (int.TryParse(key, out int id))
             {
-                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByFeature(id));
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByFeature(id, status));
             } else
             {
                 return BadRequest("Invalid your key! Key is a featureId (int)");
             }
         } else if (Constraint.FilterName.NATION.Equals(filterBy?.Trim().ToLower()))
         {
-            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByNation(key));
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByNation(key, status));
         } else if (Constraint.FilterName.ACTOR.Equals(filterBy?.Trim().ToLower()))
         {
-            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByActor(key));
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByActor(key, status));
         } else if (Constraint.FilterName.PRODUCER.Equals(filterBy?.Trim().ToLower()))
         {
-            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByProducer(key));
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByProducer(key, status));
         } else if(String.IsNullOrEmpty(filterBy) && !String.IsNullOrEmpty(key))
         {
-            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower()));
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower(), status));
         } else if(String.IsNullOrEmpty(filterBy))
         {
-            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies());
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies(status));
         } else
         {
             return NotFound("Your filter did not existed!");
         }
-        movies = movies.OrderByDescending(m => m.DateCreated).Skip((page - 1) * eachPage).Take(eachPage);
+
+        movies = movies.OrderByDescending(m => m.ProducedDate).Skip((page - 1) * eachPage).Take(eachPage);
+        
         return Ok(movies);
     }
 

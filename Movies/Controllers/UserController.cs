@@ -3,6 +3,7 @@ using MailKit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MimeKit;
+using MongoDB.Bson;
 using Movies.Business.globals;
 using Movies.Business.users;
 using Movies.Interface;
@@ -10,6 +11,10 @@ using Movies.Models;
 using Movies.Repository;
 using Movies.Security;
 using Movies.Utilities;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Interactions;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
@@ -22,13 +27,11 @@ public class UserController : Controller
 {
     private readonly IUserRepository _userRepository;
     private readonly JWTGenerator _tokenGenerator;
-    private readonly IMailRepository _mailService;
 
-    public UserController(IUserRepository userRepository, JWTGenerator jwtGenerator, IMailRepository mailService)
+    public UserController(IUserRepository userRepository, JWTGenerator jwtGenerator)
     {
         _userRepository = userRepository;
         _tokenGenerator = jwtGenerator;
-        _mailService = mailService;
     }
 
     [Route("Authenticate")]
@@ -89,15 +92,6 @@ public class UserController : Controller
         {
             return BadRequest(response);
         }
-
-        try
-        {
-            var client = new HttpClient();
-            var dispatch = await client.GetAsync("https://movie-nextjs-five.vercel.app/");
-            dispatch.EnsureSuccessStatusCode();
-        } catch (HttpRequestException) {
-            return StatusCode(500, "Failed to access website");
-        }
         
         return Ok(response.Message);
     }
@@ -122,9 +116,9 @@ public class UserController : Controller
     }
 
     [HttpGet("Mail")]
-    public async Task GetMail()
+    public IActionResult GetMail(string cookie)
     {
-        
+        return Ok("â");
     }
 
 }

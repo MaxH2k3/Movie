@@ -28,6 +28,7 @@ namespace Movies.Models
         public int? TotalEpisodes { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public DateTime? ProducedDate { get; set; }
         public virtual FeatureFilm? Feature { get; set; }
         public virtual Nation? Nation { get; set; }
         public virtual ICollection<Cast> Casts { get; set; }

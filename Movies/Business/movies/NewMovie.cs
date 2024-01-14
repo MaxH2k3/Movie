@@ -25,6 +25,7 @@ public class NewMovie
     public string? NationId { get; set; }
     [Required]
     public int? FeatureId { get; set; }
-    public DateTime? DateCreated { get; set; }
+    [Required]
+    public DateTime? ProducedDate { get; set; }
     public IEnumerable<int> Categories { get; set; }
 }

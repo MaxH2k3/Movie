@@ -8,7 +8,7 @@ public class MovieGemini
     public int? Time { get; set; }
     public int? Viewer { get; set; }
     public string? Description { get; set; }
-    public DateTime? DateCreated { get; set; }
+    public DateTime? ProducedDate { get; set; }
     public List<int>? Categories { get; set; }
 
     public override string? ToString()
@@ -20,7 +20,7 @@ public class MovieGemini
                 "\n Time: int," +
                 "\n Viewer: int," +
                 "\n Description: summarize content of film ranging from 100 to 200 words, " +
-                "\n DateCreated: date of produced have format YYYY/MM/DD," +
+                "\n ProducedDate: date of produced have format YYYY/MM/DD," +
                 "\n Categories: list int of category" +
                 "\n}";
     }

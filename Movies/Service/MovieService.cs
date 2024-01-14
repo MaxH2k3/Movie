@@ -53,47 +53,47 @@ namespace Movies.Repository
             return GetMovies().FirstOrDefault(m => m.MovieId.Equals(id));
         }
 
-        public IEnumerable<Movie>? GetMovieByName(string name)
+        public IEnumerable<Movie>? GetMovieByName(string name, string status)
         {
-            return GetMovies().Where(
+            return GetMovies(status).Where(
                 m => m.VietnamName.ToLower().Contains(name) || m.EnglishName.ToLower().Contains(name))?
                 .OrderByDescending(m => m.DateCreated)
                 .ToList();
         }
 
-        public IEnumerable<Movie> GetRecentUpdateMovies(int featureId)
+        public IEnumerable<Movie> GetRecentUpdateMovies(int featureId, string status)
         {
             if(featureId == 0)
             {
-                return GetMovies().OrderByDescending(m => m.DateUpdated).Take(8).ToList();
+                return GetMovies(status).OrderByDescending(m => m.DateCreated).Take(8).ToList();
             }
-            return GetMovies().Where(m => m.FeatureId == featureId).OrderByDescending(m => m.DateUpdated).Take(8).ToList();
+            return GetMovies().Where(m => m.FeatureId == featureId).OrderByDescending(m => m.DateCreated).Take(8).ToList();
         }
 
-        public IEnumerable<Movie> GetMovieByCategory(int categoryId)
+        public IEnumerable<Movie> GetMovieByCategory(int categoryId, string status)
         {
             return GetMovies().Where(m => m.MovieCategories.Any(mc => mc.CategoryId == categoryId)).OrderByDescending(m => m.DateCreated).ToList();
         }
 
-        public IEnumerable<Movie> GetMovieByActor(string actorId)
+        public IEnumerable<Movie> GetMovieByActor(string actorId, string status)
         {
-            return GetMovies().Where(m => 
+            return GetMovies(status).Where(m => 
                     m.Casts.Any(c => c.ActorId.Equals(new Guid(actorId)) &&
                     c.Actor.Role.ToLower().Equals(Constraint.RolePerson.ACTOR.ToLower())))
                     .OrderByDescending(m => m.DateCreated).ToList();
         }
 
-        public IEnumerable<Movie> GetMovieByProducer(string producerId)
+        public IEnumerable<Movie> GetMovieByProducer(string producerId, string status)
         {
-            return GetMovies().Where(m => 
+            return GetMovies(status).Where(m => 
                     m.Casts.Any(c => c.ActorId.Equals(new Guid(producerId)) && 
                     c.Actor.Role.ToLower().Equals(Constraint.RolePerson.PRODUCER.ToLower())))
                     .OrderByDescending(m => m.DateCreated).ToList();
         }
 
-        public IEnumerable<Movie> GetMovieByFeature(int featureId)
+        public IEnumerable<Movie> GetMovieByFeature(int featureId, string status)
         {
-            return GetMovies().Where(m => m.FeatureId == featureId).OrderByDescending(m => m.DateCreated).ToList();
+            return GetMovies(status).Where(m => m.FeatureId == featureId).OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public Movie? GetMovieNewest()
@@ -101,9 +101,9 @@ namespace Movies.Repository
             return GetMovies().OrderByDescending(m => m.DateCreated).FirstOrDefault();
         }
 
-        public IEnumerable<Movie> GetMovieByNation(string nationId)
+        public IEnumerable<Movie> GetMovieByNation(string nationId, string status)
         {
-            return GetMovies().Where(m => m.NationId.Equals(nationId.Trim().ToUpper())).OrderByDescending(m => m.DateCreated).ToList();
+            return GetMovies(status).Where(m => m.NationId.Equals(nationId.Trim().ToUpper())).OrderByDescending(m => m.DateCreated).ToList();
         }
 
         public async Task<ResponseDTO> CreateMovie(NewMovie newMovie)
@@ -125,9 +125,7 @@ namespace Movies.Repository
             movie.Status = Constraint.StatusMovie.UPCOMING;
             movie.NationId = movie.NationId?.ToUpper();
             movie.Thumbnail = responseDTO.Data?.ToString();
-            
-            if(movie.DateCreated == null)
-                movie.DateCreated = DateTime.Now;
+            movie.DateCreated = DateTime.Now;
 
             ResponseDTO response;
             _context.Movies.Add(movie);
@@ -172,8 +170,7 @@ namespace Movies.Repository
             movie.TotalEpisodes = totalEpisodes;
             movie.DateCreated = DateCreated;
             movie.Status = Status;
-            if (movie.DateUpdated == null)
-                movie.DateUpdated = DateTime.Now;
+            movie.DateUpdated = DateTime.Now;
 
             _context.Movies.Update(movie);
             if (await _context.SaveChangesAsync() > 0)

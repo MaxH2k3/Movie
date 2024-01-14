@@ -8,13 +8,13 @@ namespace Movies.Interface
     {
         IEnumerable<Movie> GetMovies(string? status = null);
         Movie? GetMovieById(Guid id);
-        IEnumerable<Movie> GetMovieByName(string name);
-        IEnumerable<Movie> GetRecentUpdateMovies(int featureId);
-        IEnumerable<Movie> GetMovieByCategory(int categoryId);
-        IEnumerable<Movie> GetMovieByActor(string actorId);
-        IEnumerable<Movie> GetMovieByProducer(string producerId);
-        IEnumerable<Movie> GetMovieByFeature(int featureId);
-        IEnumerable<Movie> GetMovieByNation(string nationId);
+        IEnumerable<Movie> GetMovieByName(string name, string status);
+        IEnumerable<Movie> GetRecentUpdateMovies(int featureId, string status);
+        IEnumerable<Movie> GetMovieByCategory(int categoryId, string status);
+        IEnumerable<Movie> GetMovieByActor(string actorId, string status);
+        IEnumerable<Movie> GetMovieByProducer(string producerId, string status);
+        IEnumerable<Movie> GetMovieByFeature(int featureId, string status);
+        IEnumerable<Movie> GetMovieByNation(string nationId, string status);
         Movie? GetMovieNewest();
         Task<ResponseDTO> CreateMovie(NewMovie newMovie);
         Task<ResponseDTO> UpdateMovie(NewMovie newMovie);

@@ -14,6 +14,7 @@ namespace Movies.Business.movies
         public int? TotalSeasons { get; set; }
         public int? TotalEpisodes { get; set; }
         public string? Status { get; set; }
+        public DateTime? ProducedDate { get; set; }
         public DateTime? DateCreated { get; set; }
         public virtual ICollection<Category>? Categories { get; set; }
     }
