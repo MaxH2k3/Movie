@@ -28,7 +28,7 @@ public class EpisodeController : Controller
         var response = await _episodeRepository.CreateEpisodes(newEpisodes, seasonId);
         if(response.Status == HttpStatusCode.Created)
         {
-            _movieService.UpdateStatusMovie((Guid)response.Data, Constraint.StatusMovie.PENDING);
+            await _movieService.UpdateStatusMovie((Guid)response.Data, Constraint.StatusMovie.PENDING);
             return Created("Created episode successfully!", response.Data);
         }
         return BadRequest(response);

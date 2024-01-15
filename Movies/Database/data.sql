@@ -51,6 +51,7 @@ CREATE TABLE [dbo].[Movies](
 	[Thumbnail] [varchar](255) NULL,
 	[Trailer] [varchar](255) NULL,
 	[Status] [varchar](255) NULL,
+	[ProducedDate] [datetime] NULL,
 	[DateCreated] [datetime] NULL,
 	[DateUpdated] [datetime] NULL,
 	[TotalSeasons] [int] NOT NULL DEFAULT 0,
