@@ -16,15 +16,10 @@ namespace Movies.Configuration
             options.AddArgument("--headless");
 
             // Khởi tạo trình duyệt Chrome với tùy chọn headless
-            driver = new ChromeDriver(options);
+            driver = new ChromeDriver();
 
             // Thiết lập thời gian chờ là 10 giây
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-        }
-
-        public void LoginNetflix(string cookie)
-        {
-            string a = cookie.ToJson();
         }
 
     }

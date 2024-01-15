@@ -2,6 +2,7 @@
 using Movies.Business.globals;
 using Movies.Business.seasons;
 using Movies.Interface;
+using Movies.Utilities;
 using System.Net;
 
 namespace Movies.Controllers;
@@ -11,10 +12,12 @@ public class EpisodeController : Controller
 {
 
     private readonly IEpisodeRepository _episodeRepository;
+    private readonly IMovieRepository _movieService;
 
-    public EpisodeController(IEpisodeRepository episodeRepository)
+    public EpisodeController(IEpisodeRepository episodeRepository, IMovieRepository movieRepository)
     {
         _episodeRepository = episodeRepository;
+        _movieService = movieRepository;
     }
 
     [HttpPost("episode")]
@@ -25,6 +28,7 @@ public class EpisodeController : Controller
         var response = await _episodeRepository.CreateEpisodes(newEpisodes, seasonId);
         if(response.Status == HttpStatusCode.Created)
         {
+            _movieService.UpdateStatusMovie((Guid)response.Data, Constraint.StatusMovie.PENDING);
             return Created("Created episode successfully!", response.Data);
         }
         return BadRequest(response);

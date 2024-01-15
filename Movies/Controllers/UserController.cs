@@ -1,24 +1,11 @@
-﻿using Google.Apis.Auth.OAuth2.Responses;
-using MailKit;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using MimeKit;
-using MongoDB.Bson;
+using Movies.Business.anothers;
 using Movies.Business.globals;
 using Movies.Business.users;
 using Movies.Interface;
-using Movies.Models;
-using Movies.Repository;
 using Movies.Security;
-using Movies.Utilities;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Interactions;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
-using System.Security.Claims;
-using System.Text;
 
 namespace Movies.Controllers;
 
@@ -113,12 +100,6 @@ public class UserController : Controller
             return BadRequest(response);
         }
         return Ok(response.Message);
-    }
-
-    [HttpGet("Mail")]
-    public IActionResult GetMail(string cookie)
-    {
-        return Ok("â");
     }
 
 }

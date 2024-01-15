@@ -52,7 +52,7 @@ public class MovieController : Controller
     [HttpGet("Movies")]
     [ProducesResponseType(typeof(IEnumerable<MoviePreview>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    public IActionResult Movies(string? filterBy, string? key, string? status, int page = 1, int eachPage = 6)
+    public IActionResult Movies(string? filterBy, string? key, string? status, string? sortBy, int page = 1, int eachPage = 6)
     {
         if(status != null && !Constraint.StatusMovie.ALL.Contains(status))
         {
@@ -99,7 +99,13 @@ public class MovieController : Controller
             return NotFound("Your filter did not existed!");
         }
 
-        movies = movies.OrderByDescending(m => m.ProducedDate).Skip((page - 1) * eachPage).Take(eachPage);
+        if(Constraint.SortName.PRODUCED_DATE.Equals(sortBy?.Trim().ToLower()))
+        {
+            movies = movies.OrderByDescending(m => m.ProducedDate).Skip((page - 1) * eachPage).Take(eachPage);
+        } else
+        {
+            movies = movies.OrderByDescending(m => m.DateCreated).Skip((page - 1) * eachPage).Take(eachPage);
+        }
         
         return Ok(movies);
     }

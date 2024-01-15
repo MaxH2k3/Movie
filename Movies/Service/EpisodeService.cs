@@ -122,7 +122,7 @@ namespace Movies.Repository
             
             if(await _context.SaveChangesAsync() > 0)
             {
-                return new ResponseDTO(HttpStatusCode.Created, "Create episode successfully!");
+                return new ResponseDTO(HttpStatusCode.Created, "Create episode successfully!", season.MovieId);
             }
 
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");

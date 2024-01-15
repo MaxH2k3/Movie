@@ -12,7 +12,13 @@
             public static string FEATURE = "feature";
             public static string NAME = "name";
         }
-        
+
+        public static class SortName
+        {
+            public static string PRODUCED_DATE = "produceddate";
+            public static string CREATED_DATE = "createddate";
+        }
+
         public static class StatusMovie
         {
             public static string UPCOMING = "Upcoming";

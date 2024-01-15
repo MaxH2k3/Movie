@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting.Internal;
+using Movies.Configuration;
 using Movies.ExceptionHandler;
 using Movies.Interface;
 using Movies.Models;
@@ -34,6 +35,8 @@ public class Program
         builder.Services.AddScoped<IMailRepository, MailService>();
         builder.Services.AddScoped<INationRepository, NationService>();
         builder.Services.AddScoped<GeminiService>();
+        builder.Services.AddScoped<SeleniumService>();
+        builder.Services.AddScoped<SeleniumConfig>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
