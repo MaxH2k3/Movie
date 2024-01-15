@@ -3,7 +3,6 @@ using Movies.Business.globals;
 using Movies.Business.seasons;
 using Movies.Interface;
 using Movies.Models;
-using Movies.Utilities;
 using System.Net;
 
 namespace Movies.Repository

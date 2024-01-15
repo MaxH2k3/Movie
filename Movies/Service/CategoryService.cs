@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Movies.Interface;
+﻿using Movies.Interface;
 using Movies.Models;
 using System.Diagnostics;
 

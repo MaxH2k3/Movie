@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Movies.Business.globals;
 using Movies.Business.seasons;
 using Movies.Interface;
-using Movies.Models;
-using System.Collections.Generic;
 using System.Net;
 
 namespace Movies.Controllers;

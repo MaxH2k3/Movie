@@ -3,12 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Movies.Business.globals;
 using Movies.Business.persons;
 using Movies.Interface;
-using Movies.Models;
-using Movies.Repository;
 using Movies.Utilities;
-using System.Diagnostics;
 using System.Net;
-using System.Xml.Linq;
 
 namespace Movies.Controllers;
 

@@ -4,7 +4,6 @@ using Movies.Business.users;
 using Movies.Configuration;
 using Movies.Models;
 using Movies.Repository;
-using Movies.Utilities;
 
 namespace Movies.Service
 {

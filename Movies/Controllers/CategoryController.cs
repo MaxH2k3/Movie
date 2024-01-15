@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Business;
+﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Interface;
 
 namespace Movies.Controllers;

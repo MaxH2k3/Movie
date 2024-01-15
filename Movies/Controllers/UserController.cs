@@ -1,6 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-using Movies.Business.anothers;
+﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Business.globals;
 using Movies.Business.users;
 using Movies.Interface;

@@ -12,14 +12,12 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Google.Cloud.Storage.V1" Version="4.7.0" />
     <PackageReference Include="Google_GenerativeAI" Version="0.1.12" />
-    <PackageReference Include="LLMSharp.Google.Palm" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.25" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.23">
       <PrivateAssets>all</PrivateAssets>

@@ -2,13 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Movies.Business.globals;
 using Movies.Business.movies;
-using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Models;
-using Movies.Service;
 using Movies.Utilities;
-using NuGet.Packaging;
-using System.Diagnostics;
 using System.Net;
 
 namespace Movies.Repository

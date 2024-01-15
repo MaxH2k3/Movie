@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Interface;
-using System.IO;
 
 namespace Movies.Controllers;
 

@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using GenerativeAI.Models;
-using GenerativeAI.Types;
-using LLMSharp.Google.Palm;
-using LLMSharp.Google.Palm.DiscussService;
+﻿using GenerativeAI.Models;
 using MongoDB.Bson;
 using Movies.Business.movies;
 using Movies.Interface;

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Movies.Business.globals;
-using Movies.Interface;
 using Movies.Models;
 using Movies.Repository;
 using System.Net;

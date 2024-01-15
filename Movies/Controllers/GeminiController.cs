@@ -1,14 +1,5 @@
-﻿using AutoMapper;
-using GenerativeAI.Models;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Business.anothers;
-using Movies.Business.movies;
-using Movies.Business.persons;
-using Movies.Interface;
-using Movies.Models;
-using Movies.Repository;
+﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Service;
-using NuGet.Protocol;
 
 namespace Movies.Controllers;
 

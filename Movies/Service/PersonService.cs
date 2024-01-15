@@ -5,7 +5,6 @@ using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Models;
 using Movies.Utilities;
-using System.Diagnostics;
 using System.Net;
 
 namespace Movies.Repository
