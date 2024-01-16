@@ -47,7 +47,9 @@ namespace Movies.Utilities
                 opt => opt.MapFrom(src => src.Nation.Name));
             CreateMap<PersonDetail, Person>();
 
-            CreateMap<Person, PersonDTO>();
+            CreateMap<Person, PersonDTO>()
+                .ForMember(dest => dest.NationName,
+                opt => opt.MapFrom(src => src.Nation.Name));
 
             CreateMap<Person, NewPerson>();
 

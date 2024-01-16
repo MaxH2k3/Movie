@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
 
@@ -36,6 +37,8 @@ public class GlobalException : IMiddleware
         {
             _logger.LogError(ex, ex.Message);
             await HandleException(context, ex);
+            Console.WriteLine(ex.Message);
+            Debug.WriteLine(ex.Message);
         }
     }
 
@@ -52,6 +55,8 @@ public class GlobalException : IMiddleware
         };
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = statusCode;
+        Console.WriteLine(errorResponse.ToString());
+        Debug.WriteLine(errorResponse.ToString());
         return context.Response.WriteAsync(errorResponse.ToString());
     }
 }
