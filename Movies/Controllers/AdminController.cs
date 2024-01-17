@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Business.persons;
 using Movies.Interface;
+using Movies.Repository;
 
 namespace Movies.Controllers;
 
@@ -42,5 +44,6 @@ public class AdminController : Controller
         return Ok(movies);
     }*/
 
-    
+   
+
 }

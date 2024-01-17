@@ -34,6 +34,7 @@ public class Program
         builder.Services.AddScoped<IAuthentication, Authentication>();
         builder.Services.AddScoped<IMailRepository, MailService>();
         builder.Services.AddScoped<INationRepository, NationService>();
+        builder.Services.AddScoped<ICastRepository, CastService>();
         builder.Services.AddScoped<GeminiService>();
 
         builder.Services.AddControllers();
@@ -47,6 +48,16 @@ public class Program
                 swagger.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Movies.xml"));
             });
         builder.Services.AddCors();
+
+        //Log file
+        builder.Services.AddLogging(logging =>
+        {
+            logging.ClearProviders();
+            logging.AddConsole();
+            logging.AddDebug();
+            logging.AddEventLog();
+            logging.AddEventSourceLogger();
+        });
 
         //set size limit for request
         builder.Services.Configure<KestrelServerOptions>(options =>

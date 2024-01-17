@@ -1,25 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Movies.Business.globals;
 using Movies.Business.seasons;
 using Movies.Interface;
 using Movies.Models;
 using System.Diagnostics;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Movies.Repository
 {
     public class EpisodeService : IEpisodeRepository
     {
         private readonly MOVIESContext _context;
+        private readonly IMapper _mapper;
 
-        public EpisodeService(MOVIESContext context)
+        public EpisodeService(MOVIESContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public EpisodeService()
+        public EpisodeService(IMapper mapper)
         {
             _context = new MOVIESContext();
+            _mapper = mapper;
         }
 
         public IEnumerable<Episode> GetEpisodes()
@@ -29,7 +34,7 @@ namespace Movies.Repository
 
         public IEnumerable<Episode> GetEpisodesBySeason(Guid seasonId)
         {
-            return GetEpisodes().Where(e => e.SeasonId.Equals(seasonId)).ToList();
+            return GetEpisodes().Where(e => e.SeasonId.Equals(seasonId)).OrderBy(e => e.EpisodeNumber).ToList();
         }
         /*
         public ResponseDTO CreateEpisode(NewEpisode newEpisode)
@@ -163,7 +168,7 @@ namespace Movies.Repository
         public IEnumerable<ResponseDTO> DeleteEpisodeBySeason(Guid seasonId)
         {
             IEnumerable<ResponseDTO> responses = new List<ResponseDTO>();
-            var episodes = _context.Episodes.Where(s => s.SeasonId.Equals(seasonId)).ToList();
+            var episodes = _context.Episodes.Where(s => s.SeasonId.Equals(seasonId)).OrderBy(e => e.EpisodeNumber).ToList();
             if (episodes.Count() > 0)
             {
                 episodes.ToList().ForEach(e =>
@@ -228,5 +233,23 @@ namespace Movies.Repository
         // 1 3 4 5 => 4, i = 1
         // 1 2 3 4
         //count = 5
+
+        public async Task<IEnumerable<ResponseDTO>> UpdateEpisodes(Guid seasonId, IEnumerable<EpisodeDTO> episodeDTOs)
+        {
+            IEnumerable<ResponseDTO> responses = new List<ResponseDTO>();
+
+            var episodes = GetEpisodesBySeason(seasonId).ToList();
+
+            episodeDTOs = episodeDTOs.OrderBy(e => e.EpisodeNumber);
+
+            for(int i = 0; i < episodeDTOs.Count(); i++)
+            {
+                var newEpisode = _mapper.Map<Episode, EpisodeDTO>(episodes.ElementAt(i), episodeDTOs.ElementAt(i));
+                Console.WriteLine(newEpisode.ToString());
+            }
+
+            return responses;
+        }
+
     }
 }

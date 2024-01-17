@@ -79,7 +79,7 @@ namespace Movies.Repository
             person = _mapper.Map<Person>(newPerson);
             person.Role = person.Role?.ToUpper();
             person.NationId = person.NationId?.ToUpper();
-            person.Image = person.Image ?? responseDTO.Data?.ToString();
+            person.Thumbnail = person.Thumbnail ?? responseDTO.Data?.ToString();
             
 
             _context.Persons.Add(person);
@@ -93,7 +93,7 @@ namespace Movies.Repository
         public async Task<ResponseDTO> UpdatePerson(NewPerson newPerson)
         {
             Person? person = GetPerson((Guid) newPerson.PersonId);
-            string? oldImage = person?.Image;
+            string? oldImage = person?.Thumbnail;
             if (person == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Person not found!");
@@ -108,7 +108,7 @@ namespace Movies.Repository
             person = _mapper.Map<Person>(newPerson);
             person.Role = person.Role?.ToUpper();
             person.NationId = person.NationId?.ToUpper();
-            person.Image = (newPerson.Thumbnail != null) ? responseDTO.Data?.ToString() : oldImage;
+            person.Thumbnail = (newPerson.Thumbnail != null) ? responseDTO.Data?.ToString() : oldImage;
   
 
             _context.Persons.Update(person);
@@ -155,7 +155,7 @@ namespace Movies.Repository
             }
 
             _context.Persons.Remove(person);
-            await _storageRepository.DeleteFile(person.Image);
+            await _storageRepository.DeleteFile(person.Thumbnail);
             if (await _context.SaveChangesAsync() > 0)
             {
                 return new ResponseDTO(HttpStatusCode.OK, "Person delete successfully!");
@@ -163,5 +163,6 @@ namespace Movies.Repository
 
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
         }
+
     }
 }

@@ -59,18 +59,25 @@ public class MovieMongoContext
 
     private void CreateIndex()
     {
-        //token
-        var tokensIndexKeyDefinition = Builders<VerifyToken>.IndexKeys.Ascending(token => token.ExpiredDate);
-        var tokensIndexOptions = new CreateIndexOptions { ExpireAfter = TimeSpan.Zero };
+        try
+        {
+            //token
+            var tokensIndexKeyDefinition = Builders<VerifyToken>.IndexKeys.Ascending(token => token.ExpiredDate);
+            var tokensIndexOptions = new CreateIndexOptions { ExpireAfter = TimeSpan.Zero };
 
-        Tokens.Indexes.CreateOne(new CreateIndexModel<VerifyToken>(tokensIndexKeyDefinition, tokensIndexOptions));
+            Tokens.Indexes.CreateOne(new CreateIndexModel<VerifyToken>(tokensIndexKeyDefinition, tokensIndexOptions));
 
-        //user
-        var usersIndexKeyDefinition = Builders<UserTemporary>.IndexKeys.Ascending(user => user.ExpiredDate);
-        var usersIndexOptions = new CreateIndexOptions { ExpireAfter = TimeSpan.Zero };
+            //user
+            var usersIndexKeyDefinition = Builders<UserTemporary>.IndexKeys.Ascending(user => user.ExpiredDate);
+            var usersIndexOptions = new CreateIndexOptions { ExpireAfter = TimeSpan.Zero };
 
-        Users.Indexes.CreateOne(new CreateIndexModel<UserTemporary>(usersIndexKeyDefinition, usersIndexOptions));
+            Users.Indexes.CreateOne(new CreateIndexModel<UserTemporary>(usersIndexKeyDefinition, usersIndexOptions));
 
-        Console.WriteLine("Create Index successfully!");
+            Console.WriteLine("Create Index successfully!");
+        } catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
     }
 }

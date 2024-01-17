@@ -8,13 +8,16 @@ namespace Movies.Models
 {
     public partial class MOVIESContext : DbContext
     {
+        private readonly ILoggerFactory _loggerFactory;
+
         public MOVIESContext()
         {
         }
 
-        public MOVIESContext(DbContextOptions<MOVIESContext> options)
+        public MOVIESContext(DbContextOptions<MOVIESContext> options, ILoggerFactory loggerFactory)
             : base(options)
         {
+            _loggerFactory = loggerFactory;
         }
 
         public virtual DbSet<User> Users { get; set; } = null!;
@@ -32,7 +35,8 @@ namespace Movies.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(GetConnectionString());
+                optionsBuilder.UseLoggerFactory(_loggerFactory);
+                optionsBuilder.UseSqlServer(GetConnectionString()).EnableSensitiveDataLogging();
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             }
         }
@@ -98,7 +102,8 @@ namespace Movies.Models
 
                 entity.Property(e => e.Role);
 
-                entity.Property(e => e.Image)
+                entity.Property(e => e.Thumbnail)
+                    .HasColumnName("Image")
                     .HasMaxLength(255);
 
                 entity.Property(e => e.NamePerson)

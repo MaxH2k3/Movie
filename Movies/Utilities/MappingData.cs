@@ -39,8 +39,8 @@ namespace Movies.Utilities
                 opt => opt.MapFrom(src => src.Actor.PersonId))
                 .ForMember(dest => dest.NamePerson,
                 opt => opt.MapFrom(src => src.Actor.NamePerson))
-                .ForMember(dest => dest.Image,
-                opt => opt.MapFrom(src => src.Actor.Image));
+                .ForMember(dest => dest.Thumbnail,
+                opt => opt.MapFrom(src => src.Actor.Thumbnail));
 
             CreateMap<Person, PersonDetail>()
                 .ForMember(dest => dest.NationName,

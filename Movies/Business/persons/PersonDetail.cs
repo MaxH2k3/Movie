@@ -7,7 +7,7 @@ namespace Movies.Business.persons
     public class PersonDetail
     {
         public Guid PersonId { get; set; }
-        public string? Image { get; set; }
+        public string? Thumbnail { get; set; }
         public string? NamePerson { get; set; }
         [Required]
         public string? NationId { get; set; }
