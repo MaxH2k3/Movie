@@ -8,16 +8,14 @@ namespace Movies.Models
 {
     public partial class MOVIESContext : DbContext
     {
-        private readonly ILoggerFactory _loggerFactory;
 
         public MOVIESContext()
         {
         }
 
-        public MOVIESContext(DbContextOptions<MOVIESContext> options, ILoggerFactory loggerFactory)
+        public MOVIESContext(DbContextOptions<MOVIESContext> options)
             : base(options)
         {
-            _loggerFactory = loggerFactory;
         }
 
         public virtual DbSet<User> Users { get; set; } = null!;
@@ -35,8 +33,7 @@ namespace Movies.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLoggerFactory(_loggerFactory);
-                optionsBuilder.UseSqlServer(GetConnectionString()).EnableSensitiveDataLogging();
+                optionsBuilder.UseSqlServer(GetConnectionString());
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             }
         }

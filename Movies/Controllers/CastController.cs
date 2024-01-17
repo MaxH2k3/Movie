@@ -8,12 +8,10 @@ namespace Movies.Controllers;
 public class CastController : Controller
 {
 
-    private readonly ILogger<CastController> _logger;
     private readonly ICastRepository _castService;
 
-    public CastController(ILogger<CastController> logger, ICastRepository castService)
+    public CastController(ICastRepository castService)
     {
-        _logger = logger;
         _castService = castService;
     }
 

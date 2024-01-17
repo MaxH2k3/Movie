@@ -9,12 +9,10 @@ namespace Movies.Controllers;
 public class CategoryController : Controller
 {
     private readonly ICategoryRepository _categoryRepository;
-    private readonly ILogger<CategoryController> _logger;
 
-    public CategoryController(ICategoryRepository categoryRepository, ILogger<CategoryController> logger)
+    public CategoryController(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
-        _logger = logger;
     }
 
     [HttpGet("Categories")]

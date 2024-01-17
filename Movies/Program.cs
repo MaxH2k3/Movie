@@ -49,16 +49,6 @@ public class Program
             });
         builder.Services.AddCors();
 
-        //Log file
-        builder.Services.AddLogging(logging =>
-        {
-            logging.ClearProviders();
-            logging.AddConsole();
-            logging.AddDebug();
-            logging.AddEventLog();
-            logging.AddEventSourceLogger();
-        });
-
         //set size limit for request
         builder.Services.Configure<KestrelServerOptions>(options =>
         {
