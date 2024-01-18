@@ -20,7 +20,6 @@ namespace Movies.Repository
 
         public IEnumerable<Category> GetCategories()
         {
-            Debug.WriteLine("GetCategories");
             return _context.Categories.ToList();
         }
     }

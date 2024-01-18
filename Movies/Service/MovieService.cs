@@ -130,7 +130,7 @@ namespace Movies.Repository
                 response = new ResponseDTO(HttpStatusCode.Created, "Create movie successfully!", newMovie.MovieId);
             } else
             {
-                return response = new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
+                response = new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
             }
 
             return response;

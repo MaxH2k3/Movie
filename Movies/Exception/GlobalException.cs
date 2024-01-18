@@ -1,4 +1,5 @@
 ﻿
+using Serilog;
 using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
@@ -29,17 +30,30 @@ public class GlobalException : IMiddleware
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
+        //var stopwatch = new Stopwatch();
+        //stopwatch.Start();
         try
         {
+            Log.Information($"Client ID: {context.Connection.Id}");
+            Log.Information($"Sent at {context.Request.Headers.UserAgent}");
+            //Log.Information($"Request starting {context.Request.Protocol} {context.Request.Method} {context.Request.Host}{context.Request.Path}");
+            //Log.Information($"Excuting action '{context.GetEndpoint()}'");
+
             await next(context);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
             await HandleException(context, ex);
-            Console.WriteLine(ex.Message);
-            Debug.WriteLine(ex.Message);
+        } finally
+        {
+            //Log.Information($"Excuting action '{context.GetEndpoint()}', returned result {context.Response.Body.GetType()}");
+            //stopwatch.Stop();
+            //var elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+            //Log.Information($"HTTP {context.Request.Method} {context.Request.Path} responded {context.Response.StatusCode} in {elapsedMilliseconds} ms");
+            //Log.Information($"Request finished {context.Request.Protocol} {context.Request.Method} https://{context.Request.Host}{context.Request.Path} - ContentType={context.Response.ContentType} {context.Response.Headers.AcceptCharset}");
         }
+       
     }
 
     private static Task HandleException(HttpContext context, Exception ex)
@@ -55,8 +69,7 @@ public class GlobalException : IMiddleware
         };
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = statusCode;
-        Console.WriteLine(errorResponse.ToString());
-        Debug.WriteLine(errorResponse.ToString());
+        
         return context.Response.WriteAsync(errorResponse.ToString());
     }
 }

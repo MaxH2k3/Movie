@@ -8,6 +8,7 @@ using Movies.Models;
 using Movies.Repository;
 using Movies.Security;
 using Movies.Service;
+using Serilog;
 
 namespace Movies;
 
@@ -49,7 +50,7 @@ public class Program
             });
         builder.Services.AddCors();
 
-        //set size limit for request
+        //Set size limit for request
         builder.Services.Configure<KestrelServerOptions>(options =>
         {
             options.Limits.MaxRequestBodySize = 1073741824; // 1GB
@@ -59,11 +60,16 @@ public class Program
         {
             options.MultipartBodyLengthLimit = 1073741824; // 1GB
         });
-        //
+
+        //Set log file
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+
+        builder.Host.UseSerilog();
 
         var app = builder.Build();
 
-        // configure cors
+        // Configure cors
         app.UseCors(builder =>
         {
             builder.AllowAnyOrigin()
@@ -77,6 +83,8 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseSerilogRequestLogging();
 
         app.UseHttpsRedirection();
 

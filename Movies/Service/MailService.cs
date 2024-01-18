@@ -60,6 +60,7 @@ namespace Movies.Service
                 await smtp.DisconnectAsync(true);
             } catch (System.Exception)
             {
+                Console.WriteLine("Error!");
                 return false;
             }
 

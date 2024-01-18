@@ -30,8 +30,8 @@
 
         public static class RolePerson
         {
-            public static string ACTOR = "AC";
-            public static string PRODUCER = "PR";
+            public static string ACTOR = "ACTOR";
+            public static string PRODUCER = "PRODUCER";
         }
 
         public static class RoleUser

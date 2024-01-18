@@ -2,6 +2,7 @@
 using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Repository;
+using Serilog;
 
 namespace Movies.Controllers;
 
@@ -19,6 +20,7 @@ public class CategoryController : Controller
     public IActionResult Categories()
     {
         var categories = _categoryRepository.GetCategories();
+
         return Ok(categories);
     }
 

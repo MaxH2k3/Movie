@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Serilog;
 
 namespace Movies.Models
 {
@@ -30,10 +31,11 @@ namespace Movies.Models
         public virtual DbSet<Season> Seasons { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        { 
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(GetConnectionString());
+                optionsBuilder.UseSqlServer(GetConnectionString())
+                    .LogTo((message) => Log.Logger.Information("SQL {sqlCommand}", message), LogLevel.Information);
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             }
         }

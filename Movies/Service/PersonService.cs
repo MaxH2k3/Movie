@@ -67,6 +67,16 @@ namespace Movies.Repository
 
         public async Task<ResponseDTO> CreatePerson(NewPerson newPerson)
         {
+            if(!CheckRole(newPerson.Role))
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Role must be actor (ACTOR) or producer (PRODUCER)");
+            }
+
+            if(CheckExistMovie(newPerson.NamePerson, null, newPerson.Role))
+            {
+                return new ResponseDTO(HttpStatusCode.Conflict, "Person already exist!");
+            }
+
             newPerson.PersonId = Guid.NewGuid();
             ResponseDTO responseDTO = await ValidateData(newPerson);
 
@@ -79,24 +89,34 @@ namespace Movies.Repository
             person = _mapper.Map<Person>(newPerson);
             person.Role = person.Role?.ToUpper();
             person.NationId = person.NationId?.ToUpper();
-            person.Thumbnail = person.Thumbnail ?? responseDTO.Data?.ToString();
+            person.Thumbnail = responseDTO.Data?.ToString();
             
 
             _context.Persons.Add(person);
             if (await _context.SaveChangesAsync() > 0)
             {
-                return new ResponseDTO(HttpStatusCode.Created, "Create person successfully");
+                return new ResponseDTO(HttpStatusCode.Created, "Create person successfully", newPerson.PersonId);
             }
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
         }
 
         public async Task<ResponseDTO> UpdatePerson(NewPerson newPerson)
         {
+            if (!CheckRole(newPerson.Role))
+            {
+                return new ResponseDTO(HttpStatusCode.NotFound, "Role must be actor (ACTOR) or producer (PRODUCER)");
+            }
+
             Person? person = GetPerson((Guid) newPerson.PersonId);
             string? oldImage = person?.Thumbnail;
             if (person == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Person not found!");
+            }
+
+            if (CheckExistMovie(newPerson.NamePerson, newPerson.PersonId, newPerson.Role))
+            {
+                return new ResponseDTO(HttpStatusCode.Conflict, "Person already exist!");
             }
 
             ResponseDTO responseDTO = await ValidateData(newPerson);
@@ -110,7 +130,6 @@ namespace Movies.Repository
             person.NationId = person.NationId?.ToUpper();
             person.Thumbnail = (newPerson.Thumbnail != null) ? responseDTO.Data?.ToString() : oldImage;
   
-
             _context.Persons.Update(person);
             if (await _context.SaveChangesAsync() > 0)
             {
@@ -136,14 +155,16 @@ namespace Movies.Repository
 
             //upload image
             string? filePath = null;
+            string url = "https://streamit-movie.azurewebsites.net/file?fileName=";
             if (newPerson.Thumbnail != null)
             {
                 var role = newPerson.Role.ToUpper().Equals(Constraint.RolePerson.ACTOR) ? "actor" : "producer";
                 filePath = $"person/{role}/{newPerson.PersonId}";
+                await _storageRepository.DeleteFile(filePath);
                 await _storageRepository.UploadFile(newPerson.Thumbnail, filePath);
             }
 
-            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", filePath);
+            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", url + filePath);
         }
 
         public async Task<ResponseDTO> DeletePerson(Guid id)
@@ -155,13 +176,37 @@ namespace Movies.Repository
             }
 
             _context.Persons.Remove(person);
-            await _storageRepository.DeleteFile(person.Thumbnail);
+            await _storageRepository.DeleteFile(person.Thumbnail.Replace("https://streamit-movie.azurewebsites.net/file?fileName=", ""));
             if (await _context.SaveChangesAsync() > 0)
             {
                 return new ResponseDTO(HttpStatusCode.OK, "Person delete successfully!");
             }
 
             return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
+        }
+
+        public bool CheckExistMovie(string namePerson, Guid? id, string role)
+        {
+            if (id == null)
+            {
+                if (role.ToUpper().Equals(Constraint.RolePerson.ACTOR))
+                    return GetActos().Any(m => m.NamePerson.ToLower().Equals(namePerson.ToLower()));
+                else
+                    return GetProducers().Any(m => m.NamePerson.ToLower().Equals(namePerson.ToLower()));
+
+            } else if (id != null)
+            {
+                if(role.ToUpper().Equals(Constraint.RoleUser.ADMIN))
+                    return GetActos().Any(m => m.NamePerson.ToLower().Equals(namePerson.ToLower()) && !m.PersonId.Equals(id));
+                else
+                    return GetProducers().Any(m => m.NamePerson.ToLower().Equals(namePerson.ToLower()) && !m.PersonId.Equals(id));
+            }
+            return false;
+        }
+
+        public bool CheckRole(string role)
+        {
+            return role.ToUpper().Equals(Constraint.RolePerson.ACTOR) || role.ToUpper().Equals(Constraint.RolePerson.PRODUCER);
         }
 
     }

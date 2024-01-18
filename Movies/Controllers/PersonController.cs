@@ -88,7 +88,7 @@ public class PersonController : Controller
     /// </param>
     /// <returns></returns>
     [HttpPost("Person")]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreatePerson([FromForm] NewPerson newPerson)
     {
@@ -99,7 +99,7 @@ public class PersonController : Controller
         ResponseDTO response = await _personRepository.CreatePerson(newPerson);
         if(response.Status == HttpStatusCode.Created)  
         {
-            return Ok(response.Message);
+            return Created(response.Message, response.Data);
         }
         return BadRequest(response);
     }
