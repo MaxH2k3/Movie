@@ -9,5 +9,6 @@
         public string? NationName { get; set; }
         public string? Role { get; set; }
         public string? DoB { get; set; }
+        public DateTime? DateCreated { get; set; }
     }
 }

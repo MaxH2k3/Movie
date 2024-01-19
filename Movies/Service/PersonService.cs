@@ -90,7 +90,7 @@ namespace Movies.Repository
             person.Role = person.Role?.ToUpper();
             person.NationId = person.NationId?.ToUpper();
             person.Thumbnail = responseDTO.Data?.ToString();
-            
+            person.DateCreated = DateTime.Now;
 
             _context.Persons.Add(person);
             if (await _context.SaveChangesAsync() > 0)

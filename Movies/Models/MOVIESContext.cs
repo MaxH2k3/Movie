@@ -35,8 +35,10 @@ namespace Movies.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(GetConnectionString())
-                    .LogTo((message) => Log.Logger.Information("SQL {sqlCommand}", message), LogLevel.Information);
+                        .LogTo((message) => Log.Logger.Information("SQL {sqlCommand}", message), LogLevel.Information);
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
+
             }
         }
 
@@ -111,6 +113,8 @@ namespace Movies.Models
                 entity.Property(e => e.NationId)
                     .HasMaxLength(255)
                     .HasColumnName("NationID");
+
+                entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Nation)
                     .WithMany()

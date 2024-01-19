@@ -50,6 +50,7 @@
         public static class Resource
         {
             public static string CONFIRM_MAIL = "Resources/ConfirmMail.html";
+            public static string ERROR_MAIL = "Resources/ErrorMail.html";
         }
     }
 }

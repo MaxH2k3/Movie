@@ -35,7 +35,8 @@ CREATE TABLE [dbo].[Person](
 	[NamePerson] [nvarchar](255) NULL,
 	[NationID] [varchar](255) REFERENCES [dbo].[Nation]([NationID]),
 	[Role] [varchar](255) NOT NULL,
-	[DoB] [datetime] NULL
+	[DoB] [datetime] NULL,
+	[DateCreated] [datetime] NULL
 );
 
 CREATE TABLE [dbo].[Movies](

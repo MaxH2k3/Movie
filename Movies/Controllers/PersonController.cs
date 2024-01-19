@@ -29,6 +29,10 @@ public class PersonController : Controller
     ///    <para>- producer: take all person which is producer</para>
     ///    <pra> Get all person if filterBy is empty </pra>
     /// </param>
+    /// <param name="sortBy">The sort option. Possible values:
+    ///    <para>- createddate: sort follow by date created</para>
+    ///    <para>- default: sort by name</para>
+    /// </param>
     /// <param name="key">
     ///     <para>Existed value: search by name person</para>
     ///     <para>Empty value: get all persons</para>
@@ -37,7 +41,7 @@ public class PersonController : Controller
 
     [HttpGet("Persons")]
     [ProducesResponseType(typeof(IEnumerable<PersonDetail>), StatusCodes.Status200OK)]
-    public IActionResult GetPersons(string? filterBy, string? key, int page = 1, int eachPage = 6)
+    public IActionResult GetPersons(string? filterBy, string? sortBy, string? key, int page = 1, int eachPage = 6)
     {
         IEnumerable<PersonDTO>? persons;
         if(Constraint.FilterName.ACTOR.Equals(filterBy?.Trim().ToLower()))
@@ -60,6 +64,14 @@ public class PersonController : Controller
         } else
         {
             return NotFound("Your filter did not existed!");
+        }
+
+        if(Constraint.SortName.CREATED_DATE.Equals(sortBy?.Trim().ToLower()))
+        {
+            persons = persons.OrderByDescending(p => p.DateCreated);
+        } else
+        {
+            persons = persons.OrderByDescending(p => p.DateCreated);
         }
         
         persons = persons.OrderBy(p => p.NamePerson).Skip((page - 1) * eachPage).Take(eachPage);

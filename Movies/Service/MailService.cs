@@ -48,6 +48,28 @@ namespace Movies.Service
             return email;
         }
 
+        public MimeMessage CreateMailWithAttachment(Mail mail, UserMail userMail, string attachmentFilePath)
+        {
+            var email = CreateMail(mail, userMail);
+
+            var builder = new BodyBuilder();
+
+            //attachment file
+            var attachment = new MimePart("application", "octet-stream")
+            {
+                Content = new MimeContent(File.OpenRead(attachmentFilePath)),
+                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                ContentTransferEncoding = ContentEncoding.Base64,
+                FileName = Path.GetFileName(attachmentFilePath)
+            };
+
+            builder.Attachments.Add(attachment);
+            
+            email.Body = builder.ToMessageBody();
+
+            return email;
+        }
+
         public async Task<bool> SendMail(MimeMessage mimeMessage)
         {
             try

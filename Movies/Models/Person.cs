@@ -18,6 +18,7 @@ namespace Movies.Models
         public string? Role { get; set; }
         public DateTime? DoB { get; set; }
 
+        public DateTime? DateCreated { get; set; }
         public virtual Nation? Nation { get; set; }
         public virtual ICollection<Cast> Casts { get; set; }
         public override string ToString()

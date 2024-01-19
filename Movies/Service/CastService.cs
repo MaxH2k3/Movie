@@ -23,6 +23,12 @@ public class CastService : ICastRepository
     public async Task<ResponseDTO> CreateCast(Guid movieId, IEnumerable<NewCast> newCasts)
     {
         LinkedList<Cast> casts = new LinkedList<Cast>();
+        ResponseDTO responseDTO = CheckExist(movieId, newCasts);
+
+        if(responseDTO.Status != HttpStatusCode.OK)
+        {
+            return responseDTO;
+        }
 
         foreach (var cast in newCasts)
         {
@@ -79,4 +85,18 @@ public class CastService : ICastRepository
 
         return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Cast Updated Failed");
     }
+
+    private ResponseDTO CheckExist(Guid movieId, IEnumerable<NewCast> newCasts)
+    {
+        var casts = _context.Casts.Where(c => c.MovieId == movieId).ToList();
+        foreach (var item in newCasts)
+        {
+            if(casts.Any(c => c.ActorId.Equals(item.PersonId)))
+            {
+                return new ResponseDTO(HttpStatusCode.Conflict, "Cast Already Exist", item);
+            }
+        }
+        return new ResponseDTO(HttpStatusCode.OK, "Cast Not Exist");
+    }
+
 }

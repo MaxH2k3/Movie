@@ -1,4 +1,11 @@
 ﻿
+using MimeKit;
+using Movies.Business.globals;
+using Movies.Business.users;
+using Movies.Models;
+using Movies.Repository;
+using Movies.Utilities;
+using NuGet.Common;
 using Serilog;
 using System.Diagnostics;
 using System.Net;
@@ -22,16 +29,16 @@ public class GlobalException : IMiddleware
     }
 
     private readonly ILogger<GlobalException> _logger;
+    private readonly IMailRepository _mailService;
 
-    public GlobalException(ILogger<GlobalException> logger)
+    public GlobalException(ILogger<GlobalException> logger, IMailRepository mailService)
     {
         _logger = logger;
+        _mailService = mailService;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        //var stopwatch = new Stopwatch();
-        //stopwatch.Start();
         try
         {
             Log.Information($"Client ID: {context.Connection.Id}");
@@ -44,13 +51,23 @@ public class GlobalException : IMiddleware
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
+
+            /*MimeMessage mimeMessage = _mailService.CreateMailWithAttachment(new Mail()
+            {
+                To = "huy110903@gmail.com",
+                Subject = "Some Error Found!",
+                Body = Constraint.Resource.ERROR_MAIL
+            }, new UserMail()
+            {
+                UserName = "We need help!",
+                UserId = "We get some error when try to use method on server. Please, check the logs and fix quickly before cause big problem.",
+                Token = ex.Message
+            }, "logs/log20240119.txt");
+            await _mailService.SendMail(mimeMessage);*/
+
             await HandleException(context, ex);
         } finally
         {
-            //Log.Information($"Excuting action '{context.GetEndpoint()}', returned result {context.Response.Body.GetType()}");
-            //stopwatch.Stop();
-            //var elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
-            //Log.Information($"HTTP {context.Request.Method} {context.Request.Path} responded {context.Response.StatusCode} in {elapsedMilliseconds} ms");
             //Log.Information($"Request finished {context.Request.Protocol} {context.Request.Method} https://{context.Request.Host}{context.Request.Path} - ContentType={context.Response.ContentType} {context.Response.Headers.AcceptCharset}");
         }
        
