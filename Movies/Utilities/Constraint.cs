@@ -17,6 +17,7 @@
         {
             public static string PRODUCED_DATE = "produceddate";
             public static string CREATED_DATE = "createddate";
+            public static string NAME = "name";
         }
 
         public static class StatusMovie

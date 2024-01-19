@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Movies.Business.globals;
 using Movies.Business.persons;
 using Movies.Interface;
@@ -30,8 +31,8 @@ public class PersonController : Controller
     ///    <pra> Get all person if filterBy is empty </pra>
     /// </param>
     /// <param name="sortBy">The sort option. Possible values:
-    ///    <para>- createddate: sort follow by date created</para>
-    ///    <para>- default: sort by name</para>
+    ///    <para>- Name: sort follow by name</para>
+    ///    <para>- default or CreatedDate: sort by CreatedDate</para>
     /// </param>
     /// <param name="key">
     ///     <para>Existed value: search by name person</para>
@@ -66,12 +67,16 @@ public class PersonController : Controller
             return NotFound("Your filter did not existed!");
         }
 
-        if(Constraint.SortName.CREATED_DATE.Equals(sortBy?.Trim().ToLower()))
+        if(sortBy.IsNullOrEmpty() || Constraint.SortName.NAME.Equals(sortBy?.Trim().ToLower()))
+        {
+            persons = persons.OrderByDescending(p => p.DateCreated);
+        }
+        else if(Constraint.SortName.CREATED_DATE.Equals(sortBy?.Trim().ToLower()))
         {
             persons = persons.OrderByDescending(p => p.DateCreated);
         } else
         {
-            persons = persons.OrderByDescending(p => p.DateCreated);
+            return BadRequest("Your sort did not existed!");
         }
         
         persons = persons.OrderBy(p => p.NamePerson).Skip((page - 1) * eachPage).Take(eachPage);
