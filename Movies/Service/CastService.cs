@@ -1,4 +1,4 @@
-﻿using Movies.Business.globals;
+using Movies.Business.globals;
 using Movies.Business.persons;
 using Movies.Models;
 using Movies.Repository;
@@ -90,7 +90,7 @@ public class CastService : ICastRepository
     {
         //check exist movie
         var movie = _context.Movies.Where(c => c.MovieId == movieId);
-        if(movie != null) {
+        if(movie == null) {
             return new ResponseDTO(HttpStatusCode.NotFound, "Movie Not Exist", movieId); 
         }
         //check exist person in cast of movie
