@@ -78,6 +78,10 @@ public class PersonController : Controller
         {
             return BadRequest("Your sort did not existed!");
         }
+
+        if(page == 0) {
+            return Ok(persons);
+        } 
         
         persons = persons.OrderBy(p => p.NamePerson).Skip((page - 1) * eachPage).Take(eachPage);
         return Ok(persons);

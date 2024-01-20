@@ -88,6 +88,12 @@ public class CastService : ICastRepository
 
     private ResponseDTO CheckExist(Guid movieId, IEnumerable<NewCast> newCasts)
     {
+        //check exist movie
+        var movie = _context.Movie.Where(c => c.MovieId == movieId);
+        if(movie != null) {
+            return new ResponseDTO(HttpStatusCode.NotFound, "Movie Not Exist", movieId); 
+        }
+        //check exist person in cast of movie
         var casts = _context.Casts.Where(c => c.MovieId == movieId).ToList();
         foreach (var item in newCasts)
         {
