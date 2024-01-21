@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WatchDog;
 
 namespace Movies.Models
 {
@@ -26,14 +27,14 @@ namespace Movies.Models
         public virtual DbSet<Season> Seasons { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        { 
+        {
+            
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(GetConnectionString());
-                        //.LogTo((message) => Log.Logger.Information("SQL {sqlCommand}", message), LogLevel.Information);
+                optionsBuilder
+                        .UseSqlServer(GetConnectionString(), opt => opt.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery))
+                        .LogTo((message) => WatchLogger.Log($"SQL {message}"), LogLevel.Information);
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
-
             }
         }
 

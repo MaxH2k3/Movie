@@ -48,7 +48,7 @@ public class Program
         builder.Services.AddWatchDogServices(opt =>
         {
             opt.IsAutoClear = true;
-            opt.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Daily;
+            opt.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Every6Hours;
             opt.SetExternalDbConnString = builder.Configuration.GetConnectionString("WatchDog");
             opt.DbDriverOption = WatchDogDbDriverEnum.MSSQL;
         });
