@@ -185,7 +185,7 @@ public class MovieService : IMovieRepository
         }
 
         _context.Movies.Remove(movie);
-        await _storageRepository.DeleteFile(movie.Thumbnail.Replace("https://streamit-movie.azurewebsites.net/file?fileName=", ""));
+        await _storageRepository.DeleteFile(movie.Thumbnail.Replace("https://storage.googleapis.com/streaming-movie/", ""));
         if (await _context.SaveChangesAsync() > 0)
         {
             return new ResponseDTO(HttpStatusCode.OK, "Remove movie successfully!");
@@ -210,7 +210,7 @@ public class MovieService : IMovieRepository
 
         //upload image
         string? filePath = null;
-        string url = "https://streamit-movie.azurewebsites.net/file?fileName=";
+        string url = "https://storage.googleapis.com/streaming-movie/";
         if (newMovie.Thumbnail != null)
         {
             filePath = $"movie/{feature.Name}/{newMovie.MovieId}";

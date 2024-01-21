@@ -155,7 +155,7 @@ namespace Movies.Repository
 
             //upload image
             string? filePath = null;
-            string url = "https://streamit-movie.azurewebsites.net/file?fileName=";
+            string url = "https://storage.googleapis.com/streaming-movie/";
             if (newPerson.Thumbnail != null)
             {
                 var role = newPerson.Role.ToUpper().Equals(Constraint.RolePerson.ACTOR) ? "actor" : "producer";
@@ -176,7 +176,7 @@ namespace Movies.Repository
             }
 
             _context.Persons.Remove(person);
-            await _storageRepository.DeleteFile(person.Thumbnail.Replace("https://streamit-movie.azurewebsites.net/file?fileName=", ""));
+            await _storageRepository.DeleteFile(person.Thumbnail.Replace("https://storage.googleapis.com/streaming-movie/", ""));
             if (await _context.SaveChangesAsync() > 0)
             {
                 return new ResponseDTO(HttpStatusCode.OK, "Person delete successfully!");

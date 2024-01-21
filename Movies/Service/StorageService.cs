@@ -1,4 +1,5 @@
-﻿using Movies.Interface;
+﻿using Google.Cloud.Storage.V1;
+using Movies.Interface;
 using Movies.Models;
 using System.Diagnostics;
 
@@ -31,7 +32,11 @@ namespace Movies.Repository
         {
             var stream = new MemoryStream();
             file.CopyTo(stream);
-            var storageObject = await _gcpContext.StorageClient.UploadObjectAsync(_gcpContext.GCPStorageBucket, filePath, file.ContentType, stream);
+            var storageObject = await _gcpContext.StorageClient.UploadObjectAsync(_gcpContext.GCPStorageBucket, filePath, file.ContentType, stream,
+                new UploadObjectOptions
+                {
+                    PredefinedAcl = PredefinedObjectAcl.PublicRead
+                });
             if(storageObject == null)
             {
                 throw new Exception("Upload file failed");
