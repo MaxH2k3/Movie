@@ -2,7 +2,6 @@
 using Movies.Business.persons;
 using Movies.Interface;
 using Movies.Repository;
-using Serilog;
 
 namespace Movies.Controllers;
 

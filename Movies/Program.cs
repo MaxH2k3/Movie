@@ -8,7 +8,8 @@ using Movies.Models;
 using Movies.Repository;
 using Movies.Security;
 using Movies.Service;
-using Serilog;
+using WatchDog;
+using WatchDog.src.Enums;
 
 namespace Movies;
 
@@ -43,6 +44,15 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddEndpointsApiExplorer();
+
+        builder.Services.AddWatchDogServices(opt =>
+        {
+            opt.IsAutoClear = true;
+            opt.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Daily;
+            opt.SetExternalDbConnString = builder.Configuration.GetConnectionString("WatchDog");
+            opt.DbDriverOption = WatchDogDbDriverEnum.MSSQL;
+        });
+
         builder.Services.AddSwaggerGen(
             swagger =>
             {
@@ -62,13 +72,6 @@ public class Program
             options.MultipartBodyLengthLimit = 1073741824; // 1GB
         });
 
-        //Set log file
-        Log.Logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Configuration)
-            .CreateLogger();
-
-        builder.Host.UseSerilog();
-
         var app = builder.Build();
 
         // Configure cors
@@ -86,7 +89,13 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UseSerilogRequestLogging();
+        //inject middleware watch dog logs
+        app.UseWatchDogExceptionLogger();
+        app.UseWatchDog(opt =>
+        {
+            opt.WatchPageUsername = "admin";
+            opt.WatchPagePassword = "123";
+        });
 
         app.UseHttpsRedirection();
 

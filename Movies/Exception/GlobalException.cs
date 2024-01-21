@@ -1,13 +1,5 @@
 ﻿
-using MimeKit;
-using Movies.Business.globals;
-using Movies.Business.users;
-using Movies.Models;
 using Movies.Repository;
-using Movies.Utilities;
-using NuGet.Common;
-using Serilog;
-using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
 
@@ -41,10 +33,6 @@ public class GlobalException : IMiddleware
     {
         try
         {
-            Log.Information($"Client ID: {context.Connection.Id}");
-            Log.Information($"Sent at {context.Request.Headers.UserAgent}");
-            //Log.Information($"Request starting {context.Request.Protocol} {context.Request.Method} {context.Request.Host}{context.Request.Path}");
-            //Log.Information($"Excuting action '{context.GetEndpoint()}'");
 
             await next(context);
         }
@@ -55,7 +43,6 @@ public class GlobalException : IMiddleware
             await HandleException(context, ex);
         } finally
         {
-            //Log.Information($"Request finished {context.Request.Protocol} {context.Request.Method} https://{context.Request.Host}{context.Request.Path} - ContentType={context.Response.ContentType} {context.Response.Headers.AcceptCharset}");
         }
        
     }

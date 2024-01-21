@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Serilog;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Movies.Models
 {
@@ -34,8 +29,8 @@ namespace Movies.Models
         { 
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(GetConnectionString())
-                        .LogTo((message) => Log.Logger.Information("SQL {sqlCommand}", message), LogLevel.Information);
+                optionsBuilder.UseSqlServer(GetConnectionString());
+                        //.LogTo((message) => Log.Logger.Information("SQL {sqlCommand}", message), LogLevel.Information);
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
 
