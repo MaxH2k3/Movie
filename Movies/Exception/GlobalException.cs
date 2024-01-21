@@ -52,19 +52,6 @@ public class GlobalException : IMiddleware
         {
             _logger.LogError(ex, ex.Message);
 
-            /*MimeMessage mimeMessage = _mailService.CreateMailWithAttachment(new Mail()
-            {
-                To = "huy110903@gmail.com",
-                Subject = "Some Error Found!",
-                Body = Constraint.Resource.ERROR_MAIL
-            }, new UserMail()
-            {
-                UserName = "We need help!",
-                UserId = "We get some error when try to use method on server. Please, check the logs and fix quickly before cause big problem.",
-                Token = ex.Message
-            }, "logs/log20240119.txt");
-            await _mailService.SendMail(mimeMessage);*/
-
             await HandleException(context, ex);
         } finally
         {
@@ -93,7 +80,7 @@ public class GlobalException : IMiddleware
 
 public static class ExceptionExtention
 {
-    public static void ConfigureExceptionHandler(this IApplicationBuilder app)
+    public static async void ConfigureExceptionHandler(this IApplicationBuilder app)
     {
         app.UseMiddleware<GlobalException>();
     }

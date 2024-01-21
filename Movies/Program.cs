@@ -64,7 +64,8 @@ public class Program
 
         //Set log file
         Log.Logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+            .ReadFrom.Configuration(builder.Configuration)
+            .CreateLogger();
 
         builder.Host.UseSerilog();
 
