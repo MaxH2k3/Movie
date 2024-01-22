@@ -44,14 +44,14 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddEndpointsApiExplorer();
-
-        builder.Services.AddWatchDogServices(opt =>
+        
+        /*builder.Services.AddWatchDogServices(opt =>
         {
             opt.IsAutoClear = true;
             opt.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Quarterly;
             opt.SetExternalDbConnString = builder.Configuration.GetConnectionString("WatchDog");
             opt.DbDriverOption = WatchDogDbDriverEnum.MSSQL;
-        });
+        });*/
 
         builder.Services.AddSwaggerGen(
             swagger =>
@@ -90,13 +90,13 @@ public class Program
         }
 
         //inject middleware watch dog logs
-        app.UseWatchDogExceptionLogger();
+        /*app.UseWatchDogExceptionLogger();
         app.UseWatchDog(opt =>
         {
             opt.WatchPageUsername = "admin";
             opt.WatchPagePassword = "123";
             opt.Blacklist = "Admin/Statistics, Movies";
-        });
+        });*/
 
         app.UseHttpsRedirection();
 

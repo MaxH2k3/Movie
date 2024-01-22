@@ -99,7 +99,11 @@ public class MovieController : Controller
             return NotFound("Your filter did not existed!");
         }
 
-        if(Constraint.SortName.PRODUCED_DATE.Equals(sortBy?.Trim().ToLower()))
+        Response.Headers.Add("X-Total-Element", movies.Count().ToString());
+        Response.Headers.Add("X-Total-Page", Math.Ceiling((double)movies.Count() / eachPage).ToString());
+        Response.Headers.Add("X-Current-Page", page.ToString());
+
+        if (Constraint.SortName.PRODUCED_DATE.Equals(sortBy?.Trim().ToLower()))
         {
             movies = movies.OrderByDescending(m => m.ProducedDate).Skip((page - 1) * eachPage).Take(eachPage);
         } else

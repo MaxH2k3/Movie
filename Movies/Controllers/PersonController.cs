@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Movies.Business.globals;
 using Movies.Business.persons;
 using Movies.Interface;
+using Movies.Models;
 using Movies.Utilities;
 using System.Net;
 
@@ -81,8 +82,12 @@ public class PersonController : Controller
 
         if(page == 0) {
             return Ok(persons);
-        } 
-        
+        }
+
+        Response.Headers.Add("X-Total-Element", persons.Count().ToString());
+        Response.Headers.Add("X-Total-Page", Math.Ceiling((double)persons.Count() / eachPage).ToString());
+        Response.Headers.Add("X-Current-Page", page.ToString());
+
         persons = persons.OrderBy(p => p.NamePerson).Skip((page - 1) * eachPage).Take(eachPage);
         return Ok(persons);
     }
