@@ -64,6 +64,7 @@ namespace Movies.Utilities
             CreateMap<RegisterUser, User>();
             CreateMap<User, RegisterUser>();
             CreateMap<UserTemporary, User>();
+            CreateMap<User, UserDetail>();
         }
     }
 }

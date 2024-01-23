@@ -172,11 +172,12 @@ public class UserService : IUserRepository
 
     public async Task<bool> ActiveAccount(User user)
     {
-        user.Status = Constraint.StatusUser.ACTIVE;
         if(GetUser(user.Username) != null || GetUser(user.Email) != null)
         {
             return false;
         }
+        user.Status = Constraint.StatusUser.ACTIVE;
+        user.DateCreated = DateTime.UtcNow;
         await _context.Users.AddAsync(user);
         if(await _context.SaveChangesAsync() > 0)
         {

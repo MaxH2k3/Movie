@@ -3,15 +3,16 @@
     public class JWTSetting
     {
         public string? SecurityKey { get; set; }
-        public double? ExpiryMinutes { get; set; }
+        public double? TokenExpiry { get; set; }
+        public string? Issuer { get; set; }
+        public string? Audience { get; set; }
 
         public JWTSetting()
         {
-            SecurityKey = GetConnectionString();
-            ExpiryMinutes = 20;
+            GetSettingConfig();
         }
 
-        private string GetConnectionString()
+        private void GetSettingConfig()
         {
             IConfiguration config = new ConfigurationBuilder()
 
@@ -21,9 +22,10 @@
 
             .Build();
 
-            var strConn = config["JWTSetting:securitykey"];
-
-            return strConn;
+            this.SecurityKey = config["JWTSetting:Securitykey"];
+            this.Issuer = config["JWTSetting:Issuer"];
+            this.Audience = config["JWTSetting:Audience"];
+            this.TokenExpiry = Convert.ToDouble(config["JWTSetting:TokenExpiry"]);
 
         }
     }

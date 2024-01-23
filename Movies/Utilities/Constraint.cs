@@ -37,8 +37,8 @@
 
         public static class RoleUser
         {
-            public static string ADMIN = "ADMIN";
-            public static string USER = "USER";
+            public const string ADMIN = "ADMIN";
+            public const string USER = "USER";
         }
 
         public static class StatusUser

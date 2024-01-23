@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Movies.Business.globals;
 using Movies.Business.users;
 using Movies.Interface;
 using Movies.Security;
+using Movies.Utilities;
 using System.Net;
 
 namespace Movies.Controllers;
@@ -12,11 +15,14 @@ public class UserController : Controller
 {
     private readonly IUserRepository _userRepository;
     private readonly JWTGenerator _tokenGenerator;
+    private readonly IMapper _mapper;
 
-    public UserController(IUserRepository userRepository, JWTGenerator jwtGenerator)
+    public UserController(IUserRepository userRepository, JWTGenerator jwtGenerator,
+        IMapper mapper)
     {
         _userRepository = userRepository;
         _tokenGenerator = jwtGenerator;
+        _mapper = mapper;
     }
 
     [Route("Authenticate")]
@@ -38,11 +44,12 @@ public class UserController : Controller
         return Ok(token);
     }
 
+    [Authorize(Policy = Constraint.RoleUser.ADMIN)]
     [HttpGet]
     [Route("User")]
     public IActionResult GetUser()
     {
-        var user = _userRepository.GetUsers();
+        var user = _mapper.Map<IEnumerable<UserDetail>>(_userRepository.GetUsers());
         return Ok(user);
     }
 

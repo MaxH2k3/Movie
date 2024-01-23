@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.IdentityModel.Tokens;
 using Movies.Configuration;
 using Movies.ExceptionHandler;
 using Movies.Interface;
@@ -8,6 +10,8 @@ using Movies.Models;
 using Movies.Repository;
 using Movies.Security;
 using Movies.Service;
+using Movies.Utilities;
+using System.Text;
 using WatchDog;
 using WatchDog.src.Enums;
 
@@ -44,7 +48,7 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddEndpointsApiExplorer();
-        
+
         /*builder.Services.AddWatchDogServices(opt =>
         {
             opt.IsAutoClear = true;
@@ -52,6 +56,34 @@ public class Program
             opt.SetExternalDbConnString = builder.Configuration.GetConnectionString("WatchDog");
             opt.DbDriverOption = WatchDogDbDriverEnum.MSSQL;
         });*/
+
+        //set up configuration JWT
+
+        builder.Services.AddAuthentication(opt =>
+        {
+            opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = builder.Configuration["JWTSetting:Issuer"],
+                    ValidAudience = builder.Configuration["JWTSetting:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSetting:Securitykey"])),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    RequireExpirationTime = true
+                };
+            });
+
+        builder.Services.AddAuthorization(opt =>
+        {
+            opt.AddPolicy(Constraint.RoleUser.USER, policy => policy.RequireClaim("Role", Constraint.RoleUser.USER));
+            opt.AddPolicy(Constraint.RoleUser.ADMIN, policy => policy.RequireClaim("Role", Constraint.RoleUser.ADMIN));
+        });
 
         builder.Services.AddSwaggerGen(
             swagger =>
@@ -97,6 +129,8 @@ public class Program
             opt.WatchPagePassword = "123";
             opt.Blacklist = "Admin/Statistics, Movies";
         });*/
+
+        app.UseAuthentication();
 
         app.UseHttpsRedirection();
 

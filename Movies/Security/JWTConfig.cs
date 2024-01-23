@@ -44,7 +44,9 @@ namespace Movies.Security
                         new Claim("Role", user.Role)
                     }
                 ),
-                Expires = DateTime.Now.AddMinutes((double) _jwtsetting.ExpiryMinutes),
+                Expires = DateTime.Now.AddMinutes((double) _jwtsetting.TokenExpiry),
+                Issuer = _jwtsetting.Issuer,
+                Audience = _jwtsetting.Audience,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenkey), SecurityAlgorithms.HmacSha256)
             };
             var token = tokenhandler.CreateToken(tokenDescriptor);
