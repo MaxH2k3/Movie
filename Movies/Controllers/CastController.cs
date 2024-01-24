@@ -15,10 +15,10 @@ public class CastController : Controller
         _castService = castService;
     }
 
-    [HttpPost("/Cast")]
+    [HttpPost("/Cast/{movieId}")]
     public async Task<IActionResult> CreateCast([FromBody] IEnumerable<NewCast> newCasts, Guid movieId)
     {
-        var result = await _castService.CreateCast(movieId, newCasts);
+        var result = await _castService.CreateCast((Guid)movieId, newCasts);
         return Ok(result);
     }
 

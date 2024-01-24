@@ -127,7 +127,7 @@ public class Program
         {
             opt.WatchPageUsername = "admin";
             opt.WatchPagePassword = "123";
-            opt.Blacklist = "Admin/Statistics, Movies";
+            opt.Blacklist = "Admin/Statistics, Movies, Admin/Statistics, Categories, Features, Chat, Movies/Newest, nations, Persons, Person/{PersonId}, Seasons, User, Movie/{MovieId}";
         });*/
 
         app.UseAuthentication();
