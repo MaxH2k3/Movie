@@ -54,4 +54,4 @@ jobs:
           app-name: 'streamit-movie'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A574546579DB4A63BD0B86EA8C4E98E7 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9DF7078A89DD46689F0EF148A742CF51 }}
