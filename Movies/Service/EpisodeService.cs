@@ -165,11 +165,10 @@ namespace Movies.Repository
             return new ResponseDTO(HttpStatusCode.NotFound, "Season Not Found!", $"EpisodeId: {episodeId}");
         }
 
-        public IEnumerable<ResponseDTO> DeleteEpisodeBySeason(Guid seasonId)
+        public async Task<ResponseDTO> DeleteEpisodeBySeason(Guid seasonId)
         {
-            IEnumerable<ResponseDTO> responses = new List<ResponseDTO>();
             var episodes = _context.Episodes.Where(s => s.SeasonId.Equals(seasonId)).OrderBy(e => e.EpisodeNumber).ToList();
-            if (episodes.Count() > 0)
+            /*if (episodes.Count() > 0)
             {
                 episodes.ToList().ForEach(e =>
                 {
@@ -177,17 +176,29 @@ namespace Movies.Repository
                     _context.Episodes.Remove(e);
                     if (_context.SaveChanges() > 0)
                     {
-                        responses = responses.Append(new ResponseDTO(HttpStatusCode.OK, "Delete Episode Successfully!", $"EpisodeID: {id}"));
+                        responses = responses.Append(new ResponseDTO(HttpStatusCode.OK, "Delete Episode Successfully!", id));
 
                     } else
                     {
-                        responses = responses.Append(new ResponseDTO(HttpStatusCode.NotModified, "Fail to delete episode", $"EpisodeId: {id}"));
+                        responses = responses.Append(new ResponseDTO(HttpStatusCode.NotModified, "Fail to delete episode", id));
 
                     }
 
                 });
+            }*/
+            if(episodes.Count() <= 0)
+            {
+                return new ResponseDTO(HttpStatusCode.OK, "Delete Episode Successfully!", seasonId);
             }
-            return responses;
+
+            _context.Episodes.RemoveRange(episodes);
+            
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                return new ResponseDTO(HttpStatusCode.OK, "Delete Episode Successfully!", seasonId);
+            }
+
+            return new ResponseDTO(HttpStatusCode.InternalServerError, "Server Error!");
         }
 
         public async Task<ResponseDTO> UpdateEpisode(NewEpisode newEpisode, Guid episodeId)
@@ -234,21 +245,41 @@ namespace Movies.Repository
         // 1 2 3 4
         //count = 5
 
-        public async Task<IEnumerable<ResponseDTO>> UpdateEpisodes(Guid seasonId, IEnumerable<EpisodeDTO> episodeDTOs)
+        public async Task<ResponseDTO> UpdateEpisodes(Guid seasonId, IEnumerable<EpisodeDTO> newEpisodes)
         {
-            IEnumerable<ResponseDTO> responses = new List<ResponseDTO>();
-
-            var episodes = GetEpisodesBySeason(seasonId).ToList();
-
-            episodeDTOs = episodeDTOs.OrderBy(e => e.EpisodeNumber);
-
-            for(int i = 0; i < episodeDTOs.Count(); i++)
+            LinkedList<Episode> episodes = new LinkedList<Episode>();
+            Console.WriteLine("newEpisodes.Count(): " + newEpisodes.Count());
+            for (int i = 0; i < newEpisodes.Count(); i++)
             {
-                var newEpisode = _mapper.Map<Episode, EpisodeDTO>(episodes.ElementAt(i), episodeDTOs.ElementAt(i));
-                Console.WriteLine(newEpisode.ToString());
+                episodes.AddLast(new Episode()
+                {
+                    EpisodeId = newEpisodes.ElementAt(i).EpisodeId,
+                    SeasonId = seasonId,
+                    EpisodeNumber = i + 1,
+                    Name = newEpisodes.ElementAt(i).Name,
+                    Video = newEpisodes.ElementAt(i).Video,
+                    DateCreated = newEpisodes.ElementAt(i).DateCreated,
+                    DateUpdated = DateTime.Now
+                });
             }
 
-            return responses;
+            //get episode by seasonId
+            var existEpisodes = GetEpisodesBySeason(seasonId).ToList();
+
+            //delete episode not in newEpisodes
+            var episodesToDelete = existEpisodes.Where(e => !episodes.Any(ep => ep.EpisodeId == e.EpisodeId)).ToList();
+            _context.Episodes.RemoveRange(episodesToDelete);
+
+            //update episode in newEpisodes
+            _context.Episodes.UpdateRange(episodes);
+
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                return new ResponseDTO(HttpStatusCode.OK, "Update Episode Successfully!");
+            }
+                
+
+            return new ResponseDTO(HttpStatusCode.InternalServerError, "Serer Error!");
         }
 
     }

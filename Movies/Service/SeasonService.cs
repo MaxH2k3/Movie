@@ -95,23 +95,23 @@ namespace Movies.Repository
 
         public async Task<ResponseDTO> DeleteSeason(Guid seasonId)
         {
-            var responses = _episodeService.DeleteEpisodeBySeason(seasonId);
-            if (responses.Any(response => response.Status != HttpStatusCode.OK))
+            var response = await _episodeService.DeleteEpisodeBySeason(seasonId);
+            if (response.Status != HttpStatusCode.OK)
             {
-                return new ResponseDTO(HttpStatusCode.InternalServerError, "Failt while deleting episode", responses);
+                return response;
             }
 
             var season = GetSeason(seasonId);
             if(season != null)
             {
                 _context.Seasons.Remove(season);
-                if(await _context.SaveChangesAsync() == 0)
+                if(await _context.SaveChangesAsync() >= 0)
                 {
-                    return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
+                    return new ResponseDTO(HttpStatusCode.OK, "Delete Season Successfully!");
                 }
-                return new ResponseDTO(HttpStatusCode.OK, "Delete Season Successfully!");
+                return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
             }
-            return new ResponseDTO(HttpStatusCode.NotFound, "Season Not Found!", "seasonId: " + seasonId);
+            return new ResponseDTO(HttpStatusCode.NotFound, "Not found your season!");
         }
 
         public void CheckSeasonNumber(Guid MovieId, int position = 0)
@@ -167,5 +167,33 @@ namespace Movies.Repository
             }
             return new ResponseDTO(HttpStatusCode.OK, "Update Season Successfully!");
         }
+
+        public async Task<ResponseDTO> DeleteSeasonByMovie(Guid id)
+        {
+            var seasons = GetSeasonsByMovie(id);
+
+            if(seasons.Count() <=  0)
+            {
+                return new ResponseDTO(HttpStatusCode.OK, "Delete successfully!");
+            }
+
+            foreach(var season in seasons)
+            {
+                var response = await _episodeService.DeleteEpisodeBySeason((Guid)season.SeasonId);
+                if (response.Status != HttpStatusCode.OK)
+                {
+                    return response;
+                }
+            }
+
+            _context.Seasons.RemoveRange(seasons);
+            if (await _context.SaveChangesAsync() >= 0)
+            {
+                return new ResponseDTO(HttpStatusCode.OK, "Delete Successffully!");
+            }
+
+            return new ResponseDTO(HttpStatusCode.InternalServerError, "Server Error!");
+        }
+
     }
 }

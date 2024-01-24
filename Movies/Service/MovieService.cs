@@ -37,16 +37,19 @@ public class MovieService : IMovieRepository
             .Include(m => m.Feature)
             .Include(m => m.Casts).ThenInclude(c => c.Actor)
             .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category);
-        if(status == null)
+        if (status == null)
             movies = movies.Where(m => !m.Status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower()));
-        else if(status != null)
+        else if (status.Equals(Constraint.StatusMovie.ALL_STATUS))
+            return movies;
+        else if (status != null)
             movies = movies.Where(m => m.Status.ToLower().Equals(status.ToLower()));
+        
         return movies;
     }
 
-    public Movie? GetMovieById(Guid id)
+    public Movie? GetMovieById(Guid id, string? status = null)
     {
-        return GetMovies().FirstOrDefault(m => m.MovieId.Equals(id));
+        return GetMovies(status).FirstOrDefault(m => m.MovieId.Equals(id));
     }
 
     public IEnumerable<Movie>? GetMovieByName(string name, string status)
@@ -254,7 +257,7 @@ public class MovieService : IMovieRepository
 
     public async Task<ResponseDTO> UpdateStatusMovie(Guid movieId, string status)
     {
-        var movie = GetMovieById(movieId);
+        var movie = GetMovieById(movieId, Constraint.StatusMovie.ALL_STATUS);
         if(movie == null)
         {
             return new ResponseDTO(HttpStatusCode.NotFound, "Movie not found");
@@ -277,6 +280,21 @@ public class MovieService : IMovieRepository
             movies.Where(m => m.EnglishName.ToLower().Contains(name.ToLower()) ||
                         m.VietnamName.ToLower().Contains(name.ToLower()));
         }
-        return movies;
+        return movies.ToList();
+    }
+
+    public async Task<ResponseDTO> DeleteMovieByStatus(string status)
+    {
+        var movies = GetMovies(status);
+        if(movies.Count() <= 0)
+        {
+            return new ResponseDTO(HttpStatusCode.OK, "Delete successfully!");
+        }
+        _context.Movies.RemoveRange(movies);
+        if(await _context.SaveChangesAsync() > 0)
+        {
+            return new ResponseDTO(HttpStatusCode.OK, "Delete successfully!");
+        }
+        return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
     }
 }

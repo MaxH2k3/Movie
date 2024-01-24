@@ -7,7 +7,7 @@ namespace Movies.Interface
     public interface IMovieRepository
     {
         IEnumerable<Movie> GetMovies(string? status = null);
-        Movie? GetMovieById(Guid id);
+        Movie? GetMovieById(Guid id, string? status = null);
         IEnumerable<Movie> GetMovieByName(string name, string status);
         IEnumerable<Movie> GetRecentUpdateMovies(int featureId, string status);
         IEnumerable<Movie> GetMovieByCategory(int categoryId, string status);
@@ -23,5 +23,6 @@ namespace Movies.Interface
         Dictionary<string, int> GetStatistic();
         Task<ResponseDTO> UpdateStatusMovie(Guid movieId, string status);
         IEnumerable<Movie> FilterMovie(string? name, string? status = null);
+        Task<ResponseDTO> DeleteMovieByStatus(string status);
     }
 }

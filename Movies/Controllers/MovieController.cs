@@ -6,6 +6,8 @@ using Movies.Business.movies;
 using Movies.Interface;
 using Movies.Repository;
 using Movies.Utilities;
+using Org.BouncyCastle.Asn1.Ocsp;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace Movies.Controllers;
@@ -248,15 +250,28 @@ public class MovieController : Controller
         return BadRequest(responseDTO);
     }
 
-    [HttpPut("Movie/Categories")]
-    public async Task<IActionResult> UpdateMovieCategory(Guid movieId, IEnumerable<int> movieCategories)
+    [HttpDelete("Movies")]
+    public async Task<IActionResult> DeleteMovieByStatus([Required] string status)
     {
-        ResponseDTO responseDTO = await _movieCategoryService.UpdateMovieCategory(movieId, movieCategories);
-        if (responseDTO.Status == HttpStatusCode.OK)
+        var movies = _movieRepository.FilterMovie(null, status);
+        if(movies == null)
         {
-            return Ok("Create Sucessfully!");
+            return BadRequest("Invalid status!");
         }
-        return BadRequest(responseDTO);
+
+        foreach (var movie in movies)
+        {
+            await _seasonService.DeleteSeasonByMovie(movie.MovieId);
+        }
+        
+        var response = await _movieRepository.DeleteMovieByStatus(status);
+
+        if(response.Status == HttpStatusCode.ServiceUnavailable)
+        {
+            return BadRequest(response);
+        }
+
+        return Ok("Delete Sucessfully!");
     }
 
 }

@@ -12,7 +12,8 @@ namespace Movies.Interface
         Task<ResponseDTO> CreateEpisodes(IEnumerable<NewEpisode> newEpisodes, Guid seasonId);
         Episode? GetEpisode(Guid episodeId);
         Task<ResponseDTO> DeleteEpisode(Guid episodeId);
-        IEnumerable<ResponseDTO> DeleteEpisodeBySeason(Guid seasonId);
+        Task<ResponseDTO> DeleteEpisodeBySeason(Guid seasonId);
         Task<ResponseDTO> UpdateEpisode(NewEpisode newEpisode, Guid episodeId);
+        Task<ResponseDTO> UpdateEpisodes(Guid seasonId, IEnumerable<EpisodeDTO> newEpisodes);
     }
 }

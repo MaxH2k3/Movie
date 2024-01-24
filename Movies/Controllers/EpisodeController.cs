@@ -47,18 +47,17 @@ public class EpisodeController : Controller
         return BadRequest(response);
     }
 
-    [HttpPut("episode/{episodeId}")]
+    [HttpPut("episode/{seasonId}")]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateEpisode(NewEpisode newEpisode, Guid episodeId)
+    public async Task<IActionResult> UpdateEpisode(IEnumerable<EpisodeDTO> newEpisodes, Guid seasonId)
     {
-        var response = await _episodeRepository.UpdateEpisode(newEpisode, episodeId);
+        var response = await _episodeRepository.UpdateEpisodes(seasonId, newEpisodes);
         if (response.Status == HttpStatusCode.OK)
         {
             return Ok(response.Message);
         }
         return BadRequest(response);
     }
-
 
 }
