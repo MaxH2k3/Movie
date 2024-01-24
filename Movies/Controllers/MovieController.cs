@@ -4,12 +4,9 @@ using MongoDB.Driver.Linq;
 using Movies.Business.globals;
 using Movies.Business.movies;
 using Movies.Interface;
-using Movies.Models;
 using Movies.Repository;
 using Movies.Utilities;
 using System.Net;
-using static Google.Apis.Requests.BatchRequest;
-using static Movies.Utilities.Constraint;
 
 namespace Movies.Controllers;
 

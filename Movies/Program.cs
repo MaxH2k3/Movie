@@ -49,13 +49,13 @@ public class Program
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddEndpointsApiExplorer();
 
-        /*builder.Services.AddWatchDogServices(opt =>
+        builder.Services.AddWatchDogServices(opt =>
         {
             opt.IsAutoClear = true;
             opt.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Quarterly;
             opt.SetExternalDbConnString = builder.Configuration.GetConnectionString("WatchDog");
             opt.DbDriverOption = WatchDogDbDriverEnum.MSSQL;
-        });*/
+        });
 
         //set up configuration JWT
 
@@ -122,13 +122,13 @@ public class Program
         }
 
         //inject middleware watch dog logs
-        /*app.UseWatchDogExceptionLogger();
+        app.UseWatchDogExceptionLogger();
         app.UseWatchDog(opt =>
         {
             opt.WatchPageUsername = "admin";
             opt.WatchPagePassword = "123";
-            opt.Blacklist = "Admin/Statistics, Movies, Admin/Statistics, Categories, Features, Chat, Movies/Newest, nations, Persons, Person/{PersonId}, Seasons, User, Movie/{MovieId}";
-        });*/
+            opt.Blacklist = "Admin/Statistics, Movies, Admin/Statistics, Categories, Features, Chat, Movies/Newest, nations, Persons, Person/{PersonId}, Seasons, User";
+        });
 
         app.UseAuthentication();
 
