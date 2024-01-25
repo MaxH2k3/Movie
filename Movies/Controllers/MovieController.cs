@@ -184,19 +184,19 @@ public class MovieController : Controller
     [HttpDelete("Movie/{id}")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteMovie(Guid id, Boolean? DeleteForever)
+    public async Task<IActionResult> DeleteMovie(Guid id, Boolean? permanently)
     {
         if(!ModelState.IsValid)
         {
             BadRequest("Invalid the movie");
         }
         ResponseDTO responseDTO;
-        if (DeleteForever == null || !(bool)DeleteForever)
+        if (permanently == null || !(bool)permanently)
         {
             responseDTO = await _movieRepository.UpdateStatusMovie(id, Constraint.StatusMovie.DELETED);
         } else
         {
-            responseDTO = await _seasonService.DeleteSeason(id);
+            responseDTO = await _seasonService.DeleteSeasonByMovie(id);
             if(responseDTO.Status == HttpStatusCode.OK || responseDTO.Status == HttpStatusCode.NotFound)
             {
                 responseDTO = await _movieRepository.DeleteMovie(id);

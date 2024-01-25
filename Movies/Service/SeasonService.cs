@@ -107,21 +107,36 @@ namespace Movies.Repository
                 _context.Seasons.Remove(season);
                 if(await _context.SaveChangesAsync() >= 0)
                 {
-                    return new ResponseDTO(HttpStatusCode.OK, "Delete Season Successfully!");
+                    var check  = await CheckSeasonNumber((Guid)season.MovieId, (int)season.SeasonNumber);
+                    if(check)
+                    {
+                        return new ResponseDTO(HttpStatusCode.OK, "Delete Season Successfully!");
+                    }
+                    return new ResponseDTO(HttpStatusCode.InternalServerError, "Error When checking season number!");
                 }
                 return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
             }
             return new ResponseDTO(HttpStatusCode.NotFound, "Not found your season!");
         }
 
-        public void CheckSeasonNumber(Guid MovieId, int position = 0)
+        public async Task<bool> CheckSeasonNumber(Guid movieId, int seasonNumber)
         {
-            var seasons = GetSeasonsByMovie(MovieId).OrderBy(m => m.SeasonNumber);
+            var seasons = _context.Seasons.Where(s => s.MovieId.Equals(movieId)).OrderBy(s => s.SeasonNumber).ToList();
             int count = seasons.Count();
-            for(int i = position - 1; i < count; i++)
+            if(count <= 0)
             {
-                
+                return true;
             }
+            for(int i = seasonNumber - 1; i < count; i++)
+            {
+                seasons[i].SeasonNumber = i + 1;
+            }
+            _context.Seasons.UpdateRange(seasons);
+            if(await _context.SaveChangesAsync() >= 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public async Task<ResponseDTO> CreateSeason(NewSeason newSeason)
