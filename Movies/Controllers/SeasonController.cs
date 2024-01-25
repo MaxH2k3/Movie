@@ -29,9 +29,9 @@ public class SeasonController : Controller
 
         if (seasonNumber != null)
         {
-            seasons = _mapper.Map<IEnumerable<SeasonDTO>>(_seasonRepository.GetSeasonsByMovieAndNumber(movieId, seasonNumber));
+            seasons = _mapper.Map<IEnumerable<SeasonDTO>>(_seasonRepository.GetSeasonsByMovieAndNumber(movieId, seasonNumber).OrderBy(s => s.SeasonNumber));
         } else if (seasonNumber == null) {
-            seasons = _mapper.Map<IEnumerable<SeasonDTO>>(_seasonRepository.GetSeasonsByMovie(movieId));
+            seasons = _mapper.Map<IEnumerable<SeasonDTO>>(_seasonRepository.GetSeasonsByMovie(movieId).OrderBy(s => s.SeasonNumber));
         } else
         {
             BadRequest("Error!");
@@ -64,7 +64,7 @@ public class SeasonController : Controller
         {
             return Ok(response);
         }
-        return BadRequest(response.Message);
+        return BadRequest(response);
     }
 
     [HttpPut("Seasons/{seasonId}")]

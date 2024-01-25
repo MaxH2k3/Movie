@@ -142,11 +142,12 @@ namespace Movies.Repository
             };
 
             await _context.Seasons.AddAsync(season);
-            if(await _context.SaveChangesAsync() == 0)
+            if(await _context.SaveChangesAsync() >= 0)
             {
-                return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
+                return new ResponseDTO(HttpStatusCode.Created, "Create Season Successfully!", id);
+                
             }
-            return new ResponseDTO(HttpStatusCode.Created, "Create Season Successfully!", id);
+            return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server Database Error!");
         }
 
         public async Task<ResponseDTO> UpdateSeason(string? name, Guid seasonId)
