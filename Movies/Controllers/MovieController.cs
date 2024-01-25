@@ -254,7 +254,7 @@ public class MovieController : Controller
     public async Task<IActionResult> DeleteMovieByStatus([Required] string status)
     {
         var movies = _movieRepository.FilterMovie(null, status);
-        if(movies == null)
+        if(movies.Count() <= 0)
         {
             return BadRequest("Invalid status!");
         }

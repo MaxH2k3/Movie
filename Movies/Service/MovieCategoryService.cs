@@ -48,7 +48,8 @@ public class MovieCategoryService : IMovieCategoryRepository
         //get categories of movie
         IEnumerable<MovieCategory> movieCategories = GetMovieCategories(movieId);
         //Refress data
-        if(!await DeleteMovieCategory(movieCategories))
+
+        if(movieCategories.Count() > 0 && !await DeleteMovieCategory(movieCategories))
         {
             return new ResponseDTO(HttpStatusCode.NotModified, "Update Failed");
         }

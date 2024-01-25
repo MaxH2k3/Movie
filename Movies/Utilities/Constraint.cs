@@ -24,7 +24,7 @@
         {
             public static string UPCOMING = "Upcoming";
             public static string PENDING = "Pending";
-            public static string RELEASE = "Release";
+            public static string RELEASE = "Released";
             public static string DELETED = "Deleted";
             public static string ALL_STATUS = "All";
             public static IEnumerable<string> ALL = new List<string> { UPCOMING, PENDING, RELEASE, DELETED };

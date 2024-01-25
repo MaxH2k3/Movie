@@ -186,6 +186,7 @@ namespace Movies.Repository
                 }
             }
 
+            seasons = GetSeasonsByMovie(id);
             _context.Seasons.RemoveRange(seasons);
             if (await _context.SaveChangesAsync() >= 0)
             {
