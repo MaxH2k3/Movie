@@ -248,7 +248,7 @@ namespace Movies.Repository
         public async Task<ResponseDTO> UpdateEpisodes(Guid seasonId, IEnumerable<EpisodeDTO> newEpisodes)
         {
             LinkedList<Episode> episodes = new LinkedList<Episode>();
-            Console.WriteLine("newEpisodes.Count(): " + newEpisodes.Count());
+
             for (int i = 0; i < newEpisodes.Count(); i++)
             {
                 episodes.AddLast(new Episode()
@@ -264,11 +264,11 @@ namespace Movies.Repository
             }
 
             //get episode by seasonId
-            var existEpisodes = GetEpisodesBySeason(seasonId).ToList();
+            //var existEpisodes = GetEpisodesBySeason(seasonId).ToList();
 
             //delete episode not in newEpisodes
-            var episodesToDelete = existEpisodes.Where(e => !episodes.Any(ep => ep.EpisodeId == e.EpisodeId)).ToList();
-            _context.Episodes.RemoveRange(episodesToDelete);
+            //var episodesToDelete = existEpisodes.Where(e => !episodes.Any(ep => ep.EpisodeId == e.EpisodeId)).ToList();
+            //_context.Episodes.RemoveRange(episodesToDelete);
 
             //update episode in newEpisodes
             _context.Episodes.UpdateRange(episodes);

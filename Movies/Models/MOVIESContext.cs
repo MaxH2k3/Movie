@@ -160,6 +160,8 @@ namespace Movies.Models
             {
                 entity.ToTable("Episode");
 
+                entity.HasKey(e => e.EpisodeId);
+
                 entity.Property(e => e.EpisodeId).HasColumnName("EpisodeID");
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
@@ -179,6 +181,7 @@ namespace Movies.Models
                 entity.HasOne(d => d.Season)
                     .WithMany(p => p.Episodes)
                     .HasForeignKey(d => d.SeasonId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Episode__SeasonI__6383C8BA");
             });
 
