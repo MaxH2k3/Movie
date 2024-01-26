@@ -11,6 +11,7 @@
             public static string PRODUCER = "producer";
             public static string FEATURE = "feature";
             public static string NAME = "name";
+            public static string RECOMMEND = "recommend";
         }
 
         public static class SortName

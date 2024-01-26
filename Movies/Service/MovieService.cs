@@ -297,4 +297,15 @@ public class MovieService : IMovieRepository
         }
         return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
     }
+
+    public IEnumerable<Movie> GetMovieRelated(Guid movieId)
+    {
+        var movie = GetMovieById(movieId);
+        var moviescategories = movie.MovieCategories.Select(mc => mc.CategoryId).ToList();
+        var movies = GetMovies()
+            .Where(m => m.MovieCategories.Any(mc => moviescategories.Contains(mc.CategoryId)))
+            .OrderByDescending(m => m.MovieCategories.Count(mc => moviescategories.Contains(mc.CategoryId)));
+        return movies;
+    }
+
 }

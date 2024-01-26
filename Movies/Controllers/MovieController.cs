@@ -39,6 +39,7 @@ public class MovieController : Controller
     ///    <para>- actor: take all movie cast by actor </para>
     ///    <para>- producer: take all movie published by producer </para>
     ///    <para>- nation: take all movie by nation </para>
+    ///    <para>- recommend: take all movie related to categories </para>
     ///    <pra> Get all movies if filterBy is empty </pra>
     /// </param>
     /// <param name="key">The value option. Possible values:
@@ -59,7 +60,7 @@ public class MovieController : Controller
         }
 
         IEnumerable<MoviePreview> movies;
-        
+
         if (Constraint.FilterName.CATEGORY.Equals(filterBy?.Trim().ToLower()))
         {
             if (int.TryParse(key, out int id))
@@ -83,14 +84,34 @@ public class MovieController : Controller
             movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByNation(key, status));
         } else if (Constraint.FilterName.ACTOR.Equals(filterBy?.Trim().ToLower()))
         {
-            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByActor(key, status));
+            if (Guid.TryParse(key, out Guid id))
+            {
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByActor(key, status));
+            } else
+            {
+                return BadRequest("Invalid your key! Key is a actorId (Guid)");
+            }
         } else if (Constraint.FilterName.PRODUCER.Equals(filterBy?.Trim().ToLower()))
         {
-            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByProducer(key, status));
-        } else if(String.IsNullOrEmpty(filterBy) && !String.IsNullOrEmpty(key))
+            if (Guid.TryParse(key, out Guid id))
+            {
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByProducer(key, status));
+            } else
+            {
+                return BadRequest("Invalid your key! Key is a producerId (Guid)");
+            }
+        } else if (Constraint.FilterName.RECOMMEND.Equals(filterBy?.Trim().ToLower())) {
+            if(Guid.TryParse(key, out Guid id))
+            {
+                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieRelated(id));
+            } else
+            {
+                return BadRequest("Invalid your key! Key is a movieId (Guid)");
+            }
+        } else if (String.IsNullOrEmpty(filterBy) && !String.IsNullOrEmpty(key))
         {
             movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower(), status));
-        } else if(String.IsNullOrEmpty(filterBy))
+        } else if (String.IsNullOrEmpty(filterBy))
         {
             movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies(status));
         } else

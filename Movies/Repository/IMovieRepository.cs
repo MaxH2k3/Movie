@@ -24,5 +24,6 @@ namespace Movies.Interface
         Task<ResponseDTO> UpdateStatusMovie(Guid movieId, string status);
         IEnumerable<Movie> FilterMovie(string? name, string? status = null);
         Task<ResponseDTO> DeleteMovieByStatus(string status);
+        IEnumerable<Movie> GetMovieRelated(Guid movieId);
     }
 }
