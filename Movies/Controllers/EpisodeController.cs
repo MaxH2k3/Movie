@@ -25,6 +25,10 @@ public class EpisodeController : Controller
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateEpisode(IEnumerable<NewEpisode> newEpisodes, Guid seasonId)
     {
+        if (newEpisodes.Count() == 0)
+        {
+            return BadRequest("No episode to create!");
+        }
         var response = await _episodeRepository.CreateEpisodes(newEpisodes, seasonId);
         if(response.Status == HttpStatusCode.Created)
         {
@@ -52,6 +56,10 @@ public class EpisodeController : Controller
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateEpisode(IEnumerable<EpisodeDTO> newEpisodes, Guid seasonId)
     {
+        if(newEpisodes.Count() == 0)
+        {
+            return BadRequest("No episode to update!");
+        }
         var response = await _episodeRepository.UpdateEpisodes(seasonId, newEpisodes);
         if (response.Status == HttpStatusCode.OK)
         {

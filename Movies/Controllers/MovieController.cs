@@ -152,6 +152,7 @@ public class MovieController : Controller
         {
             return NotFound("The movie did not existed");
         }
+        Console.WriteLine(movie);
         return Ok(movie);
     }
 
@@ -188,6 +189,7 @@ public class MovieController : Controller
         {
             BadRequest("Invalid the movie");
         }
+
         ResponseDTO responseDTO = await _movieRepository.CreateMovie(newMovie);
 
         if(responseDTO.Status == HttpStatusCode.Created)
