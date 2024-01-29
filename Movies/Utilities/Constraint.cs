@@ -30,7 +30,7 @@
             public static string RELEASE = "Released";
             public static string DELETED = "Deleted";
             public static string ALL_STATUS = "All";
-            public static IEnumerable<string> ALL = new List<string> { UPCOMING.ToLower(), PENDING.ToLower(), RELEASE.ToLower() };
+            public static IEnumerable<string> ALL = new List<string> { UPCOMING.ToLower(), PENDING.ToLower(), RELEASE.ToLower(), ALL_STATUS.ToLower() };
         }
 
         public static class RolePerson

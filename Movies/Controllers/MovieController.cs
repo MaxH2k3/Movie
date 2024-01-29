@@ -47,6 +47,10 @@ public class MovieController : Controller
     ///    <para>- category: categoryId (int)</para>
     ///    <para>- empty filterBy: search by englishName and vietnamName (string) </para>
     /// </param>
+    /// <param name="status">The value option. Possible values: Upcoming, Pending, Release, All, Deleted
+    ///     <para>- Deleted: just take deleted</para>
+    ///     <para>- All: take without deleted</para>
+    /// </param>
     /// <returns></returns>
 
     [HttpGet("Movies")]
