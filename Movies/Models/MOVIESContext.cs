@@ -201,7 +201,6 @@ namespace Movies.Models
                 entity.Property(e => e.MovieId).HasColumnName("MovieID");
 
                 entity.Property(e => e.DateCreated)
-                    .HasDefaultValue(DateTime.Now)
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.DateUpdated).HasColumnType("datetime");

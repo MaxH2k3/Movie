@@ -41,8 +41,8 @@ public class MovieService : IMovieRepository
             movies = movies.Where(m => m.DateDeleted != null);
         else if (status == null)
             movies = movies.Where(m => !m.Status.ToLower().Equals(Constraint.StatusMovie.UPCOMING.ToLower()) && m.DateDeleted == null);
-        else if (status.Equals(Constraint.StatusMovie.ALL_STATUS))
-            return movies.Where(m => m.DateDeleted == null);
+        else if (status.Trim().ToLower().Equals(Constraint.StatusMovie.ALL_STATUS.ToLower()))
+            movies.Where(m => m.DateDeleted == null);
         else if (status != null)
             movies = movies.Where(m => m.Status.ToLower().Equals(status.ToLower()) && m.DateDeleted == null);
         
@@ -51,7 +51,12 @@ public class MovieService : IMovieRepository
 
     public Movie? GetMovieById(Guid id, string? status = null)
     {
-        return GetMovies(status).FirstOrDefault(m => m.MovieId.Equals(id));
+        return _context.Movies
+            .Include(m => m.Nation)
+            .Include(m => m.Feature)
+            .Include(m => m.Casts).ThenInclude(c => c.Actor)
+            .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category)
+            .FirstOrDefault(m => m.MovieId.Equals(id) && m.DateDeleted == null);
     }
 
     public IEnumerable<Movie>? GetMovieByName(string name, string status)

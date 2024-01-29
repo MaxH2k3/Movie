@@ -155,7 +155,7 @@ public class MovieController : Controller
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public IActionResult Movie(Guid MovieId)
     {
-        var movie = _mapper.Map<MovieDetail>(_movieRepository.GetMovieById(MovieId));
+        var movie = _mapper.Map<MovieDetail>(_movieRepository.GetMovieById(MovieId, Constraint.StatusMovie.ALL_STATUS));
         if (movie == null)
         {
             return NotFound("The movie did not existed");
