@@ -206,6 +206,8 @@ namespace Movies.Models
 
                 entity.Property(e => e.DateUpdated).HasColumnType("datetime");
 
+                entity.Property(e => e.DateDeleted).HasColumnType("datetime");
+
                 entity.Property(e => e.TotalEpisodes)
                     .HasDefaultValue(0);
 

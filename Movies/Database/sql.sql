@@ -171,6 +171,130 @@ VALUES ('52C7FA50-058F-4178-B2AD-4CA58FC08479', 1, 'US', 7.2, 120, 123344, 'The 
 INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [ProducedDate], [DateUpdated], [TotalSeasons], [TotalEpisodes])
 VALUES ('F153BBFE-E593-45A1-80EC-33B6BC7CEAB3', 2, 'US', 8.2, 180, 6000000, 'Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.', 'The Wolf of Wall Street', N'Sói già phố Wall', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/F153BBFE-E593-45A1-80EC-33B6BC7CEAB3.png', 'wolf-2013-trailer.mp4', 'Released', '2013-12-25', '2013-12-25', 0, 0);
 
+INSERT INTO [dbo].[Movies]
+(
+    [MovieID],
+    [FeatureId],
+    [NationID],
+    [Mark],
+    [Time],
+    [Viewer],
+    [Description],
+    [EnglishName],
+    [VietnamName],
+    [Thumbnail],
+    [Trailer],
+    [Status],
+    [ProducedDate],
+    [DateCreated],
+    [DateUpdated],
+    [TotalSeasons],
+    [TotalEpisodes]
+)
+VALUES
+(
+    '7998498f-d884-4206-a969-d6a91c431029', -- MovieID - a new uniqueidentifier
+    3, -- FeatureId - assuming 1 is a valid FeatureId in the featurefilm table
+    'KR', -- NationID - 'VN' for Vietnam
+    9.2, -- Mark - assuming the movie has a mark of 8.2
+    120, -- Time - assuming the movie's duration is 120 minutes
+    10000, -- Viewer - assuming the movie has been viewed by 10,000 viewers
+    N'Dưa Hấu Lấp Lánh – Twinkling Watermelon nói về Eun Gyeol sinh ra trong gia đình khiếm thính nhưng lại có năng khiếu và đam mê với âm nhạc. Trong một lần ghé thăm cửa hàng nhạc cụ bí ẩn nọ, cậu bất ngờ bị đưa vào dòng thời gian khác. Tại đây, cậu gặp gỡ bố mẹ mình thời cấp ba. Để giúp bố và mẹ ở thời quá khứ đến với nhau, cậu quyết định gia nhập ban nhạc học đường của họ.', -- Description - a brief description of the movie
+    'Twinkling Watermelon', -- EnglishName - the English name of the movie
+    N'Dưa Hấu Lấp Lánh', -- VietnamName - the Vietnamese name of the movie
+    'https://streamit-movie.azurewebsites.net/file?fileName=movie/TV Series/7998498f-d884-4206-a969-d6a91c431029.jpg', -- Thumbnail - assuming 'thumbnail.jpg' is the filename of the thumbnail image
+    'https://www.youtube.com/watch?v=HtWloirZmrg', -- Trailer - assuming 'trailer.mp4' is the filename of the trailer video
+    'Upcoming', -- Status - the current status of the movie
+    '2024-01-01T00:00:00', -- ProducedDate - assuming the movie was produced on January 1, 2024
+    GETDATE(), -- DateCreated - the current date and time
+    GETDATE(), -- DateUpdated - the current date and time
+    0, -- TotalSeasons - assuming the movie has 1 season
+    0 -- TotalEpisodes - assuming the movie has 10 episodes
+);
+
+INSERT INTO [dbo].[Movies]
+(
+    [MovieID],
+    [FeatureId],
+    [NationID],
+    [Mark],
+    [Time],
+    [Viewer],
+    [Description],
+    [EnglishName],
+    [VietnamName],
+    [Thumbnail],
+    [Trailer],
+    [Status],
+    [ProducedDate],
+    [DateCreated],
+    [DateUpdated],
+    [TotalSeasons],
+    [TotalEpisodes]
+)
+VALUES
+(
+    'b13d411d-398a-4405-ac44-b64eca88ed66', -- MovieID - a new uniqueidentifier
+    3, -- FeatureId - assuming 1 is a valid FeatureId in the featurefilm table
+    'KR', -- NationID - 'VN' for Vietnam
+    8.5, -- Mark - assuming the movie has a mark of 8.5
+    100, -- Time - assuming the movie's duration is 100 minutes
+    5000, -- Viewer - assuming the movie has been viewed by 5,000 viewers
+    N'Ngay sau khi vào đại học, Jian nhận được cuộc gọi từ cảnh sát địa phương thông báo về việc chú cô “tự sát”. Người chăm sóc cô, kể từ cái chết của cha mẹ cô, chú Jeong Jin Man, luôn trầm lặng và bí ẩn nhưng chưa bao giờ tự tử. Nhưng trước khi Jian có cơ hội suy nghĩ, cuộc sống của cô bị đảo lộn bởi hàng loạt tiếng súng, máy bay không người lái giết người và hơn thế nữa, khi một nhóm sát thủ có tay nghề cao không thể giải thích được chuyển trọng tâm của họ sang giết cô. Bị giam giữ trong nhà của chú cô, Jian sẽ buộc phải xem lại một số khóa huấn luyện kỳ ​​lạ mà chú cô đã giao cho cô trong suốt những năm trưởng thành nếu cô hy vọng sống sót đủ lâu để khám phá chuyện gì đang xảy ra.', -- Description - a brief description of the movie
+    'A Shop for Killers', -- EnglishName - the English name of the movie
+    N'Cửa Hàng Mua Sắm Của Kẻ Sát Nhân', -- VietnamName - the Vietnamese name of the movie
+    'https://streamit-movie.azurewebsites.net/file?fileName=movie/TV Series/b13d411d-398a-4405-ac44-b64eca88ed66.jpg', -- Thumbnail - assuming 'thumbnail.jpg' is the filename of the thumbnail image
+    'https://www.youtube.com/watch?v=LbHiDQJHwbg', -- Trailer - assuming 'trailer.mp4' is the filename of the trailer video
+    'Upcoming', -- Status - the current status of the movie
+    '2024-01-01T00:00:00', -- ProducedDate - assuming the movie was produced on January 1, 2024
+    GETDATE(), -- DateCreated - the current date and time
+    GETDATE(), -- DateUpdated - the current date and time
+    0, -- TotalSeasons - assuming the movie has 1 season
+    0 -- TotalEpisodes - assuming the movie has 10 episodes
+);
+
+INSERT INTO [dbo].[Movies]
+(
+    [MovieID],
+    [FeatureId],
+    [NationID],
+    [Mark],
+    [Time],
+    [Viewer],
+    [Description],
+    [EnglishName],
+    [VietnamName],
+    [Thumbnail],
+    [Trailer],
+    [Status],
+    [ProducedDate],
+    [DateCreated],
+    [DateUpdated],
+    [TotalSeasons],
+    [TotalEpisodes]
+)
+VALUES
+(
+    'a3d26d5a-218e-4aea-be8d-118625d17d37', -- MovieID - a new uniqueidentifier
+    1, -- FeatureId - assuming 1 is a valid FeatureId in the featurefilm table
+    'VN', -- NationID - 'VN' for Vietnam
+    7.5, -- Mark - assuming the movie has a mark of 7.5
+    90, -- Time - assuming the movie's duration is 90 minutes
+    2000, -- Viewer - assuming the movie has been viewed by 2,000 viewers
+    N'Trong Quỷ Cẩu, cả nhà ông Mạnh làm nghề giết mổ chó đã ngót nghét 3 thập kỷ. Họ thường bỏ mối cho những hàng quán thịt chó xung quanh nhà. Lò mổ nhà ông lớn nhất vùng, còn có chú Quyết và vợ chú, cùng cô Thúy, em gái ông Mạnh cùng nhau kinh doanh hàng thịt của gia đình. Còn con trai Nam (Quang Tuấn) thì sống và lập nghiệp trên thành phố, không mặn mà với nghề nghiệp gia đình. Một ngày, ông Mạnh đang đi bỏ mối thịt thì chết bất đắc kỳ tử. Từ đó, những tai ương liên tiếp đổ xuống các thành viên còn lại, gieo rắc họa sát thân.', -- Description - a brief description of the movie
+    'The Demon Dog', -- EnglishName - the English name of the movie
+    N'Quỷ Cẩu', -- VietnamName - the Vietnamese name of the movie
+    'https://storage.googleapis.com/streaming-movie/movie/Cinema%20Film/a3d26d5a-218e-4aea-be8d-118625d17d37.jpg', -- Thumbnail - assuming 'thumbnail.jpg' is the filename of the thumbnail image
+    'https://www.youtube.com/watch?v=cYCOcxWgPVU', -- Trailer - assuming 'trailer.mp4' is the filename of the trailer video
+    'Released', -- Status - the current status of the movie
+    '2024-01-01T00:00:00', -- ProducedDate - assuming the movie was produced on January 1, 2024
+    GETDATE(), -- DateCreated - the current date and time
+    GETDATE(), -- DateUpdated - the current date and time
+    0, -- TotalSeasons - assuming the movie has 1 season
+    0 -- TotalEpisodes - assuming the movie has 10 episodes
+);
+
+
 
 INSERT INTO dbo.Cast (PersonID, MovieID, CharacterName)
 VALUES 
@@ -241,7 +365,9 @@ INSERT INTO Season (SeasonID, MovieID, SeasonNumber) VALUES
 ('BB0EDA61-8853-42F1-AC43-E9D26AE4DD24', '751AB02D-33A1-455F-9875-FEC992B5382B', 1),
 ('3B6D4792-F516-4349-A215-F4611158A0D3', '52233AA9-5FE5-4A9C-9A03-768A809BD228', 1),
 ('077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 'F9E3C7B1-0F4A-4D8F-9F8E-6C5F9F9C2E0A', 1),
-('22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 1);
+('22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 1),
+('b3b4b148-10bc-4e15-ad2f-e22fb5934478', 'a3d26d5a-218e-4aea-be8d-118625d17d37', 1),
+('47ea3d1a-a855-444e-955b-3ea2042236b9', 'b13d411d-398a-4405-ac44-b64eca88ed66', 1);
 
 INSERT INTO Episode (EpisodeID, SeasonID, EpisodeNumber, Name, Video) VALUES
 ('FA59ED42-3FDD-423A-8448-0188AF065C8D', 'F81AFFFB-3739-4B7D-AF27-01FBC1B5BB5E', 1, 'Black Panther', '1oBS-q7Rybq01LFhFULfoTftInX6QK6GQ'),
@@ -272,7 +398,12 @@ INSERT INTO Episode (EpisodeID, SeasonID, EpisodeNumber, Name, Video) VALUES
 (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 9, N'Episdode 9', '1UZPh1T8YC_aAPvBqwZd3G5Bq5xhSmBzE'),
 (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 10, N'Episdode 10', '1MEcfE9T_0vK2vIwGbNKyMauxXP6njcKR'),
 (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 11, N'Episdode 11', '1kKlHw_gr1na-OI42TO6aRnf84ResKSMQ'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 12, N'Episdode 12', '1GeBHJHR7O4rUhzN3G7AZ3a01PpPRs-gf');
+(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 12, N'Episdode 12', '1GeBHJHR7O4rUhzN3G7AZ3a01PpPRs-gf'),
+(newid(), 'b3b4b148-10bc-4e15-ad2f-e22fb5934478', 1, N'Quỷ Cẩu', '1f6iJzKzKmZnlryMqQC2M57U_1jI6O3vR'),
+(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 1, N'Episode 1', '1ZfnXZTR98t5m4PMkDCFLS3MonVyMoVGb'),
+(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 2, N'Episode 2', '1MnrrI62w32ICIVFMk7RFNBIYW8V0eMJK'),
+(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 3, N'Episode 3', '1ZF6pdaqnmZlSF86zF71gXGnofEHB2XPK'),
+(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 4, N'Episode 4', '1IaCd8SP4ABvicU_WljvdtN5twDeFZ0kK');
 
 
 

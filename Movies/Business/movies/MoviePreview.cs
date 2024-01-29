@@ -16,6 +16,7 @@ namespace Movies.Business.movies
         public string? Status { get; set; }
         public DateTime? ProducedDate { get; set; }
         public DateTime? DateCreated { get; set; }
+        public DateTime? DateDeleted { get; set; }
         public virtual ICollection<Category>? Categories { get; set; }
     }
 }

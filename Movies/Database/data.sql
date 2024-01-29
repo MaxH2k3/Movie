@@ -57,6 +57,7 @@ CREATE TABLE [dbo].[Movies](
 	[DateUpdated] [datetime] NULL,
 	[TotalSeasons] [int] NOT NULL DEFAULT 0,
 	[TotalEpisodes] [int] NOT NULL DEFAULT 0,
+	[DateDeleted] [datetime] NULL
 );
 
 CREATE TABLE [dbo].[MovieCategory](

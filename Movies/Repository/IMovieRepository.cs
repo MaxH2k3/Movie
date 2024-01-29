@@ -6,7 +6,7 @@ namespace Movies.Interface
 {
     public interface IMovieRepository
     {
-        IEnumerable<Movie> GetMovies(string? status = null);
+        IEnumerable<Movie> GetMovies(string? status = null, bool deleted = false);
         Movie? GetMovieById(Guid id, string? status = null);
         IEnumerable<Movie> GetMovieByName(string name, string status);
         IEnumerable<Movie> GetRecentUpdateMovies(int featureId, string status);

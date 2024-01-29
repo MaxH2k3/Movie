@@ -12,12 +12,14 @@
             public static string FEATURE = "feature";
             public static string NAME = "name";
             public static string RECOMMEND = "recommend";
+            public static string DELETED = "deleted";
         }
 
         public static class SortName
         {
             public static string PRODUCED_DATE = "produceddate";
             public static string CREATED_DATE = "createddate";
+            public static string DELETED_DATE = "deleteddate";
             public static string NAME = "name";
         }
 
@@ -28,7 +30,7 @@
             public static string RELEASE = "Released";
             public static string DELETED = "Deleted";
             public static string ALL_STATUS = "All";
-            public static IEnumerable<string> ALL = new List<string> { UPCOMING, PENDING, RELEASE, DELETED };
+            public static IEnumerable<string> ALL = new List<string> { UPCOMING.ToLower(), PENDING.ToLower(), RELEASE.ToLower() };
         }
 
         public static class RolePerson

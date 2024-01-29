@@ -30,19 +30,21 @@ public class MovieService : IMovieRepository
         _storageRepository = storageRepository;
     }
 
-    public IEnumerable<Movie> GetMovies(string? status = null)
+    public IEnumerable<Movie> GetMovies(string? status = null, bool deleted = false)
     {
         IEnumerable<Movie> movies = _context.Movies
             .Include(m => m.Nation)
             .Include(m => m.Feature)
             .Include(m => m.Casts).ThenInclude(c => c.Actor)
             .Include(m => m.MovieCategories).ThenInclude(mc => mc.Category);
-        if (status == null)
-            movies = movies.Where(m => !m.Status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower()));
+        if (deleted)
+            movies = movies.Where(m => m.DateDeleted != null);
+        else if (status == null)
+            movies = movies.Where(m => !m.Status.ToLower().Equals(Constraint.StatusMovie.UPCOMING.ToLower()) && m.DateDeleted == null);
         else if (status.Equals(Constraint.StatusMovie.ALL_STATUS))
-            return movies;
+            return movies.Where(m => m.DateDeleted == null);
         else if (status != null)
-            movies = movies.Where(m => m.Status.ToLower().Equals(status.ToLower()));
+            movies = movies.Where(m => m.Status.ToLower().Equals(status.ToLower()) && m.DateDeleted == null);
         
         return movies;
     }
@@ -250,7 +252,7 @@ public class MovieService : IMovieRepository
         statistics.Add(Constraint.StatusMovie.UPCOMING, GetMovies(Constraint.StatusMovie.UPCOMING).Count());
         statistics.Add(Constraint.StatusMovie.PENDING, GetMovies(Constraint.StatusMovie.PENDING).Count());
         statistics.Add(Constraint.StatusMovie.RELEASE, GetMovies(Constraint.StatusMovie.RELEASE).Count());
-        statistics.Add(Constraint.StatusMovie.DELETED, GetMovies(Constraint.StatusMovie.DELETED).Count());
+        statistics.Add(Constraint.StatusMovie.DELETED, GetMovies(null, true).Count());
         
         return statistics;
     }
@@ -262,8 +264,17 @@ public class MovieService : IMovieRepository
         {
             return new ResponseDTO(HttpStatusCode.NotFound, "Movie not found");
         }
-        movie.Status = status;
-        movie.DateUpdated = DateTime.Now;
+
+        if(status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower()))
+        {
+            movie.DateDeleted = DateTime.Now;
+        } else
+        {
+            movie.DateDeleted = null;
+            movie.Status = status;
+            movie.DateUpdated = DateTime.Now;
+        }
+        
         _context.Movies.Update(movie);
         if(await _context.SaveChangesAsync() > 0)
         {
@@ -285,10 +296,10 @@ public class MovieService : IMovieRepository
 
     public async Task<ResponseDTO> DeleteMovieByStatus(string status)
     {
-        var movies = GetMovies(status);
+        var movies = GetMovies(null, true);
         if(movies.Count() <= 0)
         {
-            return new ResponseDTO(HttpStatusCode.OK, "Delete successfully!");
+            return new ResponseDTO(HttpStatusCode.NotFound, "Not Found!");
         }
         _context.Movies.RemoveRange(movies);
         if(await _context.SaveChangesAsync() > 0)

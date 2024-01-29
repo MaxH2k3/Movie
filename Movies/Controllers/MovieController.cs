@@ -54,7 +54,7 @@ public class MovieController : Controller
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     public IActionResult Movies(string? filterBy, string? key, string? status, string? sortBy, int page = 1, int eachPage = 6)
     {
-        if(status != null && !Constraint.StatusMovie.ALL.Contains(status))
+        if(status != null && !Constraint.StatusMovie.ALL.Contains(status.Trim().ToLower()))
         {
             return BadRequest("Invalid status!");
         }
@@ -101,13 +101,15 @@ public class MovieController : Controller
                 return BadRequest("Invalid your key! Key is a producerId (Guid)");
             }
         } else if (Constraint.FilterName.RECOMMEND.Equals(filterBy?.Trim().ToLower())) {
-            if(Guid.TryParse(key, out Guid id))
+            if (Guid.TryParse(key, out Guid id))
             {
                 movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieRelated(id));
             } else
             {
                 return BadRequest("Invalid your key! Key is a movieId (Guid)");
             }
+        } else if (Constraint.FilterName.DELETED.Equals(filterBy?.Trim().ToLower())) {
+            movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovies(null, true));
         } else if (String.IsNullOrEmpty(filterBy) && !String.IsNullOrEmpty(key))
         {
             movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieByName(key.Trim().ToLower(), status));
@@ -126,10 +128,12 @@ public class MovieController : Controller
         if (Constraint.SortName.PRODUCED_DATE.Equals(sortBy?.Trim().ToLower()))
         {
             movies = movies.OrderByDescending(m => m.ProducedDate).Skip((page - 1) * eachPage).Take(eachPage);
+        } else if (Constraint.SortName.DELETED_DATE.Equals(sortBy?.Trim().ToLower())) {
+            movies = movies.OrderByDescending(m => m.DateDeleted).Skip((page - 1) * eachPage).Take(eachPage);
         } else
         {
             movies = movies.OrderByDescending(m => m.DateCreated).Skip((page - 1) * eachPage).Take(eachPage);
-        }
+        } 
         
         return Ok(movies);
     }
