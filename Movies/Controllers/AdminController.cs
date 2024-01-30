@@ -10,23 +10,17 @@ namespace Movies.Controllers;
 public class AdminController : Controller
 {
     private readonly IMovieRepository _movieService;
-    private readonly IUserRepository _userService;
-    private readonly IMapper _mapper;
 
-    public AdminController(IMovieRepository movieRepository, IMapper mapper,
-                    IUserRepository userRepository)
+    public AdminController(IMovieRepository movieRepository)
     {
         _movieService = movieRepository;
-        _userService = userRepository;
-        _mapper = mapper;
     }
 
     [HttpGet("Admin/Statistics")]
     [ProducesResponseType(typeof(Dictionary<string, int>), StatusCodes.Status200OK)]
-    public IActionResult Statistics()
+    public async Task<IActionResult> Statistics()
     {
-        var result = _movieService.GetStatistic();
-        result.Add("Account", _userService.GetUsers().Count());
+        var result = await _movieService.GetStatistic();
         return Ok(result);
     }
 
@@ -44,6 +38,16 @@ public class AdminController : Controller
         return Ok(movies);
     }*/
 
-   
+    [HttpGet("Admin/Features")]
+    public async Task<IActionResult> StatisticFeatures()
+    {
+        return Ok(await _movieService.GetStatisticFeature());
+    }
+
+    [HttpGet("Admin/Categories")]
+    public async Task<IActionResult> StatisticCategories()
+    {
+        return Ok(await _movieService.GetStatisticCategory());
+    }
 
 }

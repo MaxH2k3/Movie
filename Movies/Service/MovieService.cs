@@ -42,7 +42,7 @@ public class MovieService : IMovieRepository
         else if (status == null)
             movies = movies.Where(m => !m.Status.ToLower().Equals(Constraint.StatusMovie.UPCOMING.ToLower()) && m.DateDeleted == null);
         else if (status.Trim().ToLower().Equals(Constraint.StatusMovie.ALL_STATUS.ToLower()))
-            movies.Where(m => m.DateDeleted == null);
+            movies = movies.Where(m => m.DateDeleted == null);
         else if (status != null)
             movies = movies.Where(m => m.Status.ToLower().Equals(status.ToLower()) && m.DateDeleted == null);
         
@@ -251,13 +251,15 @@ public class MovieService : IMovieRepository
         return GetMovieById(movieId)?.FeatureId;
     }
 
-    public Dictionary<string, int> GetStatistic()
+    public async Task<Dictionary<string, int>> GetStatistic()
     {
         Dictionary<string, int> statistics = new Dictionary<string, int>();
-        statistics.Add(Constraint.StatusMovie.UPCOMING, GetMovies(Constraint.StatusMovie.UPCOMING).Count());
-        statistics.Add(Constraint.StatusMovie.PENDING, GetMovies(Constraint.StatusMovie.PENDING).Count());
-        statistics.Add(Constraint.StatusMovie.RELEASE, GetMovies(Constraint.StatusMovie.RELEASE).Count());
-        statistics.Add(Constraint.StatusMovie.DELETED, GetMovies(null, true).Count());
+        var movies = _context.Movies;
+        statistics.Add(Constraint.StatusMovie.UPCOMING, await movies.CountAsync(m => m.Status.ToLower().Equals(Constraint.StatusMovie.UPCOMING) && m.DateDeleted == null));
+        statistics.Add(Constraint.StatusMovie.PENDING, await movies.CountAsync(m => m.Status.ToLower().Equals(Constraint.StatusMovie.PENDING) && m.DateDeleted == null));
+        statistics.Add(Constraint.StatusMovie.RELEASE, await movies.CountAsync(m => m.Status.ToLower().Equals(Constraint.StatusMovie.RELEASE) && m.DateDeleted == null));
+        statistics.Add(Constraint.StatusMovie.DELETED, await movies.CountAsync(m => m.DateDeleted != null));
+        statistics.Add("Account", await _context.Users.CountAsync());
         
         return statistics;
     }
@@ -340,4 +342,32 @@ public class MovieService : IMovieRepository
         return movies;
     }
 
+    public async Task<Dictionary<string, int>> GetStatisticFeature()
+    {
+        Dictionary<string, int> statistics = new Dictionary<string, int>();
+
+        var features = _context.FeatureFilms.ToList();
+        var movies = _context.Movies;
+        foreach (var item in features)
+        {
+            statistics.Add(item.Name, await movies.CountAsync(m => (m.FeatureId == item.FeatureId) && (m.DateDeleted == null)));
+        }
+
+        return statistics;
+    }
+
+    public async Task<Dictionary<string, int>> GetStatisticCategory()
+    {
+        Dictionary<string, int> statistics = new Dictionary<string, int>();
+
+        var categories = _context.Categories.ToList();
+        var movies = _context.MovieCategories;
+
+        foreach (var item in categories)
+        {
+            statistics.Add(item.Name, await movies.CountAsync(c => c.CategoryId == item.CategoryId));
+        }
+
+        return statistics;
+    }
 }

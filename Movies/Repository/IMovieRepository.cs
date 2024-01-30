@@ -20,10 +20,12 @@ namespace Movies.Interface
         Task<ResponseDTO> UpdateMovie(NewMovie newMovie);
         Task<ResponseDTO> DeleteMovie(Guid id);
         int? GetFeatureIdByMovieId(Guid movieId);
-        Dictionary<string, int> GetStatistic();
+        Task<Dictionary<string, int>> GetStatistic();
         Task<ResponseDTO> UpdateStatusMovie(Guid movieId, string status);
         IEnumerable<Movie> FilterMovie(string? name, string? status = null);
         Task<ResponseDTO> DeleteMovieByStatus(string status);
         IEnumerable<Movie> GetMovieRelated(Guid movieId);
+        Task<Dictionary<string, int>> GetStatisticFeature();
+        Task<Dictionary<string, int>> GetStatisticCategory();
     }
 }

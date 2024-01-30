@@ -32,8 +32,8 @@ namespace Movies.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                        .UseSqlServer(GetConnectionString(), opt => opt.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery));
-                        //.LogTo((message) => WatchLogger.Log($"SQL {message}"), LogLevel.Information);
+                        .UseSqlServer(GetConnectionString(), opt => opt.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery))
+                        .LogTo((message) => WatchLogger.Log($"SQL {message}"), LogLevel.Information);
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             }
         }
