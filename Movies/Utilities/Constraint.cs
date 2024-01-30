@@ -25,12 +25,15 @@
 
         public static class StatusMovie
         {
-            public static string UPCOMING = "Upcoming";
-            public static string PENDING = "Pending";
-            public static string RELEASE = "Released";
-            public static string DELETED = "Deleted";
-            public static string ALL_STATUS = "All";
+            public static string UPCOMING = "upcoming";
+            public static string PENDING = "pending";
+            public static string RELEASE = "released";
+            public static string DELETED = "deleted";
+            public static string ALL_STATUS = "all";
+            public static string REVERT = "revert";
             public static IEnumerable<string> ALL = new List<string> { UPCOMING.ToLower(), PENDING.ToLower(), RELEASE.ToLower(), ALL_STATUS.ToLower() };
+            public static IEnumerable<string> FILTER = new List<string> { UPCOMING.ToLower(), PENDING.ToLower(), RELEASE.ToLower(), REVERT.ToLower() };
+            
         }
 
         public static class RolePerson

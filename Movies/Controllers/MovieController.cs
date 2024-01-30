@@ -249,7 +249,9 @@ public class MovieController : Controller
     /// 
     /// </summary>
     /// <param name="movieId"></param>
-    /// <param name="status">The filter option. Possible values: Upcoming, Pending, Release</param>
+    /// <param name="status">The filter option. Possible values: Upcoming, Pending, Release, Revert
+    /// <para>Revert: revert previous data</para>
+    /// </param>
     /// <returns></returns>
 
     [HttpPatch("Movie/{movieId}")]
@@ -257,22 +259,11 @@ public class MovieController : Controller
     [ProducesResponseType(typeof(ResponseDTO), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateStatusMovie(Guid movieId, string status)
     {
-        if(status.Trim().ToLower().Equals(Constraint.StatusMovie.UPCOMING.ToLower()))
-        {
-            status = Constraint.StatusMovie.UPCOMING;
-        }
-        else if(status.Trim().ToLower().Equals(Constraint.StatusMovie.PENDING.ToLower()))
-        {
-            status = Constraint.StatusMovie.PENDING;
-        }
-        else if(status.Trim().ToLower().Equals(Constraint.StatusMovie.RELEASE.ToLower()))
-        {
-            status = Constraint.StatusMovie.RELEASE;
-        }
-        else
+        if(!Constraint.StatusMovie.FILTER.Contains(status.Trim().ToLower()))
         {
             return BadRequest("Invalid status!");
         }
+
         ResponseDTO responseDTO = await _movieRepository.UpdateStatusMovie(movieId, status);
         if (responseDTO.Status == HttpStatusCode.OK)
         {
@@ -281,13 +272,19 @@ public class MovieController : Controller
         return BadRequest(responseDTO);
     }
 
+    /// <summary>
+    /// Delete all movie have status. Movie will be deleted permanently include season and episode
+    /// </summary>
+    /// <param name="status">Upcoming, Pending, Release, Deleted</param>
+    /// <returns></returns>
+
     [HttpDelete("Movies")]
     public async Task<IActionResult> DeleteMovieByStatus([Required] string status)
     {
         var movies = _movieRepository.FilterMovie(null, status);
         if(movies.Count() <= 0)
         {
-            return BadRequest("Invalid status!");
+            return NotFound("Not Found any movie have status " + status);
         }
 
         foreach (var movie in movies)

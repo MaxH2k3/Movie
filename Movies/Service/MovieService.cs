@@ -264,15 +264,18 @@ public class MovieService : IMovieRepository
 
     public async Task<ResponseDTO> UpdateStatusMovie(Guid movieId, string status)
     {
-        var movie = GetMovieById(movieId, Constraint.StatusMovie.ALL_STATUS);
+        var movie = await _context.Movies.FirstOrDefaultAsync(m => m.MovieId.Equals(movieId));
         if(movie == null)
         {
             return new ResponseDTO(HttpStatusCode.NotFound, "Movie not found");
         }
 
-        if(status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower()))
+        if(status.Trim().ToLower().Equals(Constraint.StatusMovie.DELETED))
         {
             movie.DateDeleted = DateTime.Now;
+        } else if(status.Trim().ToLower().Equals(Constraint.StatusMovie.REVERT))
+        {
+            movie.DateDeleted = null;
         } else
         {
             movie.DateDeleted = null;
@@ -290,8 +293,14 @@ public class MovieService : IMovieRepository
 
     public IEnumerable<Movie> FilterMovie(string? name, string? status = null)
     {
-        IEnumerable<Movie> movies = GetMovies(status);
-        if(name != null)
+
+        IEnumerable<Movie> movies;
+        if (status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower()))
+            movies = GetMovies(null, true);
+        else
+            movies = GetMovies(status);
+
+        if (name != null)
         {
             movies.Where(m => m.EnglishName.ToLower().Contains(name.ToLower()) ||
                         m.VietnamName.ToLower().Contains(name.ToLower()));
@@ -301,12 +310,19 @@ public class MovieService : IMovieRepository
 
     public async Task<ResponseDTO> DeleteMovieByStatus(string status)
     {
-        var movies = GetMovies(null, true);
+        IEnumerable<Movie> movies;
+        if(status.ToLower().Equals(Constraint.StatusMovie.DELETED.ToLower()))
+            movies = _context.Movies.Where(m => m.DateDeleted != null);
+        else 
+            movies = _context.Movies.Where(m => m.Status.Trim().ToLower().Equals(status.ToLower()) && m.DateDeleted == null);
+
         if(movies.Count() <= 0)
         {
             return new ResponseDTO(HttpStatusCode.NotFound, "Not Found!");
         }
+        
         _context.Movies.RemoveRange(movies);
+
         if(await _context.SaveChangesAsync() > 0)
         {
             return new ResponseDTO(HttpStatusCode.OK, "Delete successfully!");
