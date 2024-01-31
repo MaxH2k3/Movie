@@ -102,9 +102,31 @@ public class MovieService : IMovieRepository
         return GetMovies(status).Where(m => m.FeatureId == featureId).OrderByDescending(m => m.DateCreated).ToList();
     }
 
-    public Movie? GetMovieNewest()
+    public async Task<Movie?> GetMovieNewest()
     {
-        return GetMovies().OrderByDescending(m => m.DateCreated).FirstOrDefault();
+        return await _context.Movies
+            .Include(m => m.MovieCategories).ThenInclude(c => c.Category)
+            .Where(m => m.DateDeleted == null && !m.Status.Equals(Constraint.StatusMovie.UPCOMING))
+            .OrderByDescending(m => m.ProducedDate)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<Movie?> GetMovieTopRating()
+    {
+        return await _context.Movies
+            .Include(m => m.MovieCategories).ThenInclude(c => c.Category)
+            .Where(m => m.DateDeleted == null && !m.Status.Equals(Constraint.StatusMovie.UPCOMING))
+            .OrderByDescending(m => m.Mark)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<Movie?> GetMovieTopViewer()
+    {
+        return await _context.Movies
+            .Include(m => m.MovieCategories).ThenInclude(c => c.Category)
+            .Where(m => m.DateDeleted == null && !m.Status.Equals(Constraint.StatusMovie.UPCOMING))
+            .OrderByDescending(m => m.Viewer)
+            .FirstOrDefaultAsync();
     }
 
     public IEnumerable<Movie> GetMovieByNation(string nationId, string status)

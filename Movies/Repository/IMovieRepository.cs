@@ -15,7 +15,7 @@ namespace Movies.Interface
         IEnumerable<Movie> GetMovieByProducer(string producerId, string status);
         IEnumerable<Movie> GetMovieByFeature(int featureId, string status);
         IEnumerable<Movie> GetMovieByNation(string nationId, string status);
-        Movie? GetMovieNewest();
+        Task<Movie?> GetMovieNewest();
         Task<ResponseDTO> CreateMovie(NewMovie newMovie);
         Task<ResponseDTO> UpdateMovie(NewMovie newMovie);
         Task<ResponseDTO> DeleteMovie(Guid id);
@@ -27,5 +27,7 @@ namespace Movies.Interface
         IEnumerable<Movie> GetMovieRelated(Guid movieId);
         Task<Dictionary<string, int>> GetStatisticFeature();
         Task<Dictionary<string, int>> GetStatisticCategory();
+        Task<Movie?> GetMovieTopRating();
+        Task<Movie?> GetMovieTopViewer();
     }
 }

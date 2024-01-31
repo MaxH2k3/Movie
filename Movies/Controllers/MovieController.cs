@@ -144,10 +144,25 @@ public class MovieController : Controller
 
     [HttpGet("Movies/Newest")]
     [ProducesResponseType(typeof(MovieNewest), StatusCodes.Status200OK)]
-    public IActionResult MoviesNewest()
+    public async Task<IActionResult> MoviesNewest()
     {
-        var movies = _mapper.Map<MovieNewest>(_movieRepository.GetMovieNewest());
-        return Ok(movies);
+        int number = Utiles.RandomNumber(1, 4);
+        MovieNewest movie;
+        if (number == 1)
+        {
+            movie = _mapper.Map<MovieNewest>(await _movieRepository.GetMovieNewest());
+            movie.Tag = "Newest Movie";
+        } else if(number == 2)
+        {
+            movie = _mapper.Map<MovieNewest>(await _movieRepository.GetMovieTopRating());
+            movie.Tag = "Top Rating";
+        } else
+        {
+            movie = _mapper.Map<MovieNewest>(await _movieRepository.GetMovieTopViewer());
+            movie.Tag = "Top Views";
+        }
+        
+        return Ok(movie);
     }
 
     [HttpGet("Movie/{MovieId}")]

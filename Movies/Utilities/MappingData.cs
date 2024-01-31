@@ -29,7 +29,10 @@ namespace Movies.Utilities
 
             CreateMap<MovieCategory, MoviePreview>();
 
-            CreateMap<Movie, MovieNewest>();
+            CreateMap<Movie, MovieNewest>()
+                .ForMember(dest => dest.Categories,
+                opt => opt.MapFrom(src => src.MovieCategories));
+
             CreateMap<Movie, NewMovie>();
             CreateMap<NewMovie, Movie>();
 
