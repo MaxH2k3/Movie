@@ -262,6 +262,7 @@ namespace Movies.Models
                 entity.HasOne(d => d.Category)
                     .WithMany()
                     .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__movie_cat__Categ__59063A47");
 
                 entity.HasOne(d => d.Movie)

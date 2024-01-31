@@ -291,7 +291,12 @@ public class MovieController : Controller
         {
             await _seasonService.DeleteSeasonByMovie(movie.MovieId);
         }
-        
+
+        foreach (var item in movies)
+        {
+            await _movieCategoryService.DeleteCategoryByMovie(item.MovieId);
+        }
+
         var response = await _movieRepository.DeleteMovieByStatus(status);
 
         if(response.Status == HttpStatusCode.ServiceUnavailable)

@@ -87,4 +87,18 @@ public class MovieCategoryService : IMovieCategoryRepository
         }
         return false;
     }
+
+    public async Task<ResponseDTO> DeleteCategoryByMovie(Guid movieId)
+    {
+        IEnumerable<MovieCategory> movieCategories = GetMovieCategories(movieId);
+        if(movieCategories.Count() == 0)
+        {
+            return new ResponseDTO(HttpStatusCode.NotFound, "category not found");
+        }
+        else if (await DeleteMovieCategory(movieCategories))
+        {
+            return new ResponseDTO(HttpStatusCode.OK, "Delete Successfully");
+        }
+        return new ResponseDTO(HttpStatusCode.NotModified, "Delete Failed");
+    }
 }
