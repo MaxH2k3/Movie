@@ -367,7 +367,8 @@ INSERT INTO Season (SeasonID, MovieID, SeasonNumber) VALUES
 ('077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 'F9E3C7B1-0F4A-4D8F-9F8E-6C5F9F9C2E0A', 1),
 ('22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 1),
 ('b3b4b148-10bc-4e15-ad2f-e22fb5934478', 'a3d26d5a-218e-4aea-be8d-118625d17d37', 1),
-('47ea3d1a-a855-444e-955b-3ea2042236b9', 'b13d411d-398a-4405-ac44-b64eca88ed66', 1);
+('47ea3d1a-a855-444e-955b-3ea2042236b9', 'b13d411d-398a-4405-ac44-b64eca88ed66', 1),
+('df15ae99-225c-4498-bfe0-789e561ba277', 'f153bbfe-e593-45a1-80ec-33b6bc7ceab3', 1);
 
 INSERT INTO Episode (EpisodeID, SeasonID, EpisodeNumber, Name, Video) VALUES
 ('FA59ED42-3FDD-423A-8448-0188AF065C8D', 'F81AFFFB-3739-4B7D-AF27-01FBC1B5BB5E', 1, 'Black Panther', '1oBS-q7Rybq01LFhFULfoTftInX6QK6GQ'),
@@ -403,7 +404,9 @@ INSERT INTO Episode (EpisodeID, SeasonID, EpisodeNumber, Name, Video) VALUES
 (newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 1, N'Episode 1', '1ZfnXZTR98t5m4PMkDCFLS3MonVyMoVGb'),
 (newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 2, N'Episode 2', '1MnrrI62w32ICIVFMk7RFNBIYW8V0eMJK'),
 (newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 3, N'Episode 3', '1ZF6pdaqnmZlSF86zF71gXGnofEHB2XPK'),
-(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 4, N'Episode 4', '1IaCd8SP4ABvicU_WljvdtN5twDeFZ0kK');
+(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 4, N'Episode 4', '1IaCd8SP4ABvicU_WljvdtN5twDeFZ0kK'),
+(newid(), 'df15ae99-225c-4498-bfe0-789e561ba277', 1, 'The Wolf of Wall Street', '1BSdwgsMrCA0NShju8hGi4ZusnR6613dc');
+
 
 
 

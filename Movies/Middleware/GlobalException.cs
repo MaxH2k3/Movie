@@ -21,12 +21,10 @@ public class GlobalException : IMiddleware
     }
 
     private readonly ILogger<GlobalException> _logger;
-    private readonly IMailRepository _mailService;
 
-    public GlobalException(ILogger<GlobalException> logger, IMailRepository mailService)
+    public GlobalException(ILogger<GlobalException> logger)
     {
         _logger = logger;
-        _mailService = mailService;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)

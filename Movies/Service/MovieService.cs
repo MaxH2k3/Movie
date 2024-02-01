@@ -354,7 +354,7 @@ public class MovieService : IMovieRepository
         return new ResponseDTO(HttpStatusCode.ServiceUnavailable, "Server error!");
     }
 
-    public IEnumerable<Movie> GetMovieRelated(Guid movieId)
+    /*public IEnumerable<Movie> GetMovieRelated(Guid movieId)
     {
         var movie = GetMovieById(movieId);
         var moviescategories = movie.MovieCategories.Select(mc => mc.CategoryId).ToList();
@@ -362,6 +362,31 @@ public class MovieService : IMovieRepository
             .Where(m => m.MovieCategories.Any(mc => moviescategories.Contains(mc.CategoryId)))
             .OrderByDescending(m => m.MovieCategories.Count(mc => moviescategories.Contains(mc.CategoryId)));
         return movies;
+    }*/
+
+    public IEnumerable<Movie> GetMovieRelated(Guid movieId)
+    {
+       var movie = _context.Movies.Include(m => m.MovieCategories)
+            .FirstOrDefault(m => m.MovieId.Equals(movieId));
+
+        if(movie == null)
+        {
+            return new List<Movie>();
+        }
+
+        var moviescategories = movie.MovieCategories.Select(mc => mc.CategoryId).ToList();
+
+        var query = $@"SELECT m.*
+                FROM Movies m
+                LEFT JOIN MovieCategory mc ON m.MovieID = mc.MovieID
+                WHERE m.MovieID != '{movieId}'
+                GROUP BY m.MovieID, m.FeatureId, m.NationID, m.Mark, m.Time, m.Viewer, m.Description, m.EnglishName, 
+                m.VietnamName, m.Thumbnail, m.Trailer, m.Status, m.ProducedDate, m.DateCreated, m.DateUpdated, m.TotalSeasons, m.TotalEpisodes, m.DateDeleted
+                ORDER BY COUNT(CASE WHEN mc.CategoryID IN ({string.Join(",", moviescategories)}) THEN 1 ELSE NULL END) DESC, m.ProducedDate DESC";
+
+        var result = _context.Movies.FromSqlRaw(query).ToList();
+
+        return result;
     }
 
     public async Task<Dictionary<string, int>> GetStatisticFeature()

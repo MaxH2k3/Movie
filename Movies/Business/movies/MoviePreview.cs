@@ -11,8 +11,6 @@ namespace Movies.Business.movies
         public string? EnglishName { get; set; }
         public string? Thumbnail { get; set; }
         public virtual FeatureFilm? Feature { get; set; }
-        public int? TotalSeasons { get; set; }
-        public int? TotalEpisodes { get; set; }
         public string? Status { get; set; }
         public DateTime? ProducedDate { get; set; }
         public DateTime? DateCreated { get; set; }

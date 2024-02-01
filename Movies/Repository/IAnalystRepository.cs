@@ -2,5 +2,6 @@
 
 public interface IAnalystRepository
 {
-      
+    Task AddViewerMovie(Guid movieId);
+    Task ConvertToPrevious();
 }

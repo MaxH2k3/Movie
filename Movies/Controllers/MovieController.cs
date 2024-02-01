@@ -1,9 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MongoDB.Driver.Linq;
 using Movies.Business.globals;
 using Movies.Business.movies;
 using Movies.Interface;
+using Movies.Models;
 using Movies.Repository;
 using Movies.Utilities;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -40,7 +42,7 @@ public class MovieController : Controller
     ///    <para>- producer: take all movie published by producer </para>
     ///    <para>- nation: take all movie by nation </para>
     ///    <para>- recommend: take all movie related to categories </para>
-    ///    <pra> Get all movies if filterBy is empty </pra>
+    ///    <para> Get all movies if filterBy is empty </para>
     /// </param>
     /// <param name="key">The value option. Possible values:
     ///    <para>- recentupdate: featureId (int)</para>
@@ -51,10 +53,17 @@ public class MovieController : Controller
     ///     <para>- Deleted: just take deleted</para>
     ///     <para>- All: take without deleted</para>
     /// </param>
+    /// <param name="sortBy">The value option. Possible values: ProducedDate, CreatedDate, DeletedDate
+    ///     <para>- ProducedDate: sort by produced date</para>
+    ///     <para>- CreatedDate: sort by created date</para>
+    ///     <para>- DeletedDate: sort by deleted date</para>
+    ///     <para>- Empty sortBy: not sort, default value when get from data</para>
+    /// </param>
     /// <returns></returns>
 
     [HttpGet("Movies")]
     [ProducesResponseType(typeof(IEnumerable<MoviePreview>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<MovieRecommend>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     public IActionResult Movies(string? filterBy, string? key, string? status, string? sortBy, int page = 1, int eachPage = 6)
     {
@@ -63,7 +72,7 @@ public class MovieController : Controller
             return BadRequest("Invalid status!");
         }
 
-        IEnumerable<MoviePreview> movies;
+        IEnumerable<dynamic> movies;
 
         if (Constraint.FilterName.CATEGORY.Equals(filterBy?.Trim().ToLower()))
         {
@@ -107,7 +116,7 @@ public class MovieController : Controller
         } else if (Constraint.FilterName.RECOMMEND.Equals(filterBy?.Trim().ToLower())) {
             if (Guid.TryParse(key, out Guid id))
             {
-                movies = _mapper.Map<IEnumerable<MoviePreview>>(_movieRepository.GetMovieRelated(id));
+                movies = _mapper.Map<IEnumerable<MovieRecommend>>(_movieRepository.GetMovieRelated(id));
             } else
             {
                 return BadRequest("Invalid your key! Key is a movieId (Guid)");
@@ -134,13 +143,15 @@ public class MovieController : Controller
             movies = movies.OrderByDescending(m => m.ProducedDate).Skip((page - 1) * eachPage).Take(eachPage);
         } else if (Constraint.SortName.DELETED_DATE.Equals(sortBy?.Trim().ToLower())) {
             movies = movies.OrderByDescending(m => m.DateDeleted).Skip((page - 1) * eachPage).Take(eachPage);
-        } else
+        } else if(Constraint.SortName.CREATED_DATE.Equals(sortBy?.Trim().ToLower()))
         {
             movies = movies.OrderByDescending(m => m.DateCreated).Skip((page - 1) * eachPage).Take(eachPage);
         } 
         
         return Ok(movies);
     }
+
+    
 
     [HttpGet("Movies/Newest")]
     [ProducesResponseType(typeof(MovieNewest), StatusCodes.Status200OK)]

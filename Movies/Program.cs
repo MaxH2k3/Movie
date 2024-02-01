@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Movies.Configuration;
@@ -42,7 +43,11 @@ public class Program
         builder.Services.AddScoped<IMailRepository, MailService>();
         builder.Services.AddScoped<INationRepository, NationService>();
         builder.Services.AddScoped<ICastRepository, CastService>();
+        builder.Services.AddScoped<IAnalystRepository, AnalystService>();
+        builder.Services.AddScoped<IIPService, IPService>();
         builder.Services.AddScoped<GeminiService>();
+        builder.Services.AddDbContext<MOVIESContext>();
+
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -130,6 +135,8 @@ public class Program
             opt.Blacklist = "Admin/Statistics, Movies, Admin/Statistics, Categories, Features, Chat, Movies/Newest, nations, Persons, Person/{PersonId}, Seasons, User";
         });
 
+        app.ConfigureExceptionHandler();
+
         app.UseAuthentication();
 
         app.UseHttpsRedirection();
@@ -137,8 +144,6 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllers();
-
-        app.ConfigureExceptionHandler();
 
         app.Run();
     }

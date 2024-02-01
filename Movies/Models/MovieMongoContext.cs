@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
+using Movies.Business.anothers;
+using Movies.Business.movies;
 using Movies.Business.users;
-using System.Numerics;
-using System.Text.Json;
+using System.Net;
 
 namespace Movies.Models;
 
@@ -11,9 +10,13 @@ public class MovieMongoContext
 {
     private readonly MongoClient _client;
     private readonly IMongoDatabase _database;
+    private static bool _isIndexCreated = false;
 
     public IMongoCollection<UserTemporary> Users { get; set; }
     public IMongoCollection<VerifyToken> Tokens { get; set;} 
+    public IMongoCollection<AnalystMovie> CurrentTopMovies { get; set; }
+    public IMongoCollection<AnalystMovie> PreviousTopMovies{ get; set; }
+    public IMongoCollection<BlackIP> BlackListIP { get; set; }
 
     public MovieMongoContext()
     {
@@ -26,9 +29,15 @@ public class MovieMongoContext
         // Access a specific collection
         Users = _database.GetCollection<UserTemporary>("User");
         Tokens = _database.GetCollection<VerifyToken>("Token");
+        CurrentTopMovies = _database.GetCollection<AnalystMovie>("CurrentTopMovie");
+        PreviousTopMovies = _database.GetCollection<AnalystMovie>("PreviousTopMovie");
+        BlackListIP = _database.GetCollection<BlackIP>("BlackListIP");
 
         //Create Index for collection
-        CreateIndex();
+        if(!_isIndexCreated)
+        {
+            CreateIndex();
+        }
     }
 
     private string GetConnectionString()
@@ -72,6 +81,9 @@ public class MovieMongoContext
             var usersIndexOptions = new CreateIndexOptions { ExpireAfter = TimeSpan.Zero };
 
             Users.Indexes.CreateOne(new CreateIndexModel<UserTemporary>(usersIndexKeyDefinition, usersIndexOptions));
+
+            //set complete config index
+            _isIndexCreated = true;
 
             Console.WriteLine("Create Index successfully!");
         } catch (Exception e)

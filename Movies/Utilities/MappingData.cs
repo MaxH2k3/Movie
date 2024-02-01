@@ -35,6 +35,7 @@ namespace Movies.Utilities
 
             CreateMap<Movie, NewMovie>();
             CreateMap<NewMovie, Movie>();
+            CreateMap<Movie, MovieRecommend>();
 
             //Person
             CreateMap<Cast, CastCharacter>()
