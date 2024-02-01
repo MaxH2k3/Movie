@@ -42,7 +42,7 @@ public class MovieController : Controller
     ///    <para>- producer: take all movie published by producer </para>
     ///    <para>- nation: take all movie by nation </para>
     ///    <para>- recommend: take all movie related to categories </para>
-    ///    <para> Get all movies if filterBy is empty </para>
+    ///    <para>- Get all movies if filterBy is empty </para>
     /// </param>
     /// <param name="key">The value option. Possible values:
     ///    <para>- recentupdate: featureId (int)</para>
