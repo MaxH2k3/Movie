@@ -16,21 +16,21 @@ namespace Movies.Repository
 
         public StorageService()
         {
-            _gcpContext = new GCPContext();
+            //_gcpContext = new GCPContext();
         }
 
         public async Task<Stream> GetFile(string fileName)
         {
-            var stream = new MemoryStream();
+            /*var stream = new MemoryStream();
             await _gcpContext.StorageClient.DownloadObjectAsync(_gcpContext.GCPStorageBucket, fileName, stream);
             stream.Position = 0;
-            return stream;
-
+            return stream;*/
+            return null;
         }
 
         public async Task UploadFile(IFormFile file, string filePath)
         {
-            var stream = new MemoryStream();
+            /*var stream = new MemoryStream();
             file.CopyTo(stream);
             var storageObject = await _gcpContext.StorageClient.UploadObjectAsync(_gcpContext.GCPStorageBucket, filePath, file.ContentType, stream,
                 new UploadObjectOptions
@@ -40,12 +40,12 @@ namespace Movies.Repository
             if(storageObject == null)
             {
                 throw new Exception("Upload file failed");
-            }
+            }*/
         }
 
         public async Task<bool> DeleteFile(string fileName)
         {
-            try
+            /*try
             {
                 if(await _gcpContext.StorageClient.GetObjectAsync(_gcpContext.GCPStorageBucket, fileName) != null)
                 {
@@ -56,7 +56,7 @@ namespace Movies.Repository
             {
                 Debug.WriteLine(e.Message);
                 return false;
-            }
+            }*/
             return true;
         }
     }

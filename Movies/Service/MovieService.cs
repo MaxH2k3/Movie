@@ -241,16 +241,16 @@ public class MovieService : IMovieRepository
         }
 
         //upload image
-        string? filePath = null;
+        /*string? filePath = null;
         string url = "https://storage.googleapis.com/streaming-movie/";
         if (newMovie.Thumbnail != null)
         {
             filePath = $"movie/{feature.Name}/{newMovie.MovieId}";
             await _storageRepository.DeleteFile(filePath);
             await _storageRepository.UploadFile(newMovie.Thumbnail, filePath);
-        }
+        }*/
 
-        return new ResponseDTO(HttpStatusCode.Continue, "Validate successfully!", url + filePath);
+        return new ResponseDTO(HttpStatusCode.Continue, "Validate successfully!", "");
     }
 
     public bool CheckExistMovie(string englishName, string vietNamName, Guid? id)

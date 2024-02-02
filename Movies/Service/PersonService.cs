@@ -154,7 +154,7 @@ namespace Movies.Repository
             }
 
             //upload image
-            string? filePath = null;
+            /*string? filePath = null;
             string url = "https://storage.googleapis.com/streaming-movie/";
             if (newPerson.Thumbnail != null)
             {
@@ -162,9 +162,9 @@ namespace Movies.Repository
                 filePath = $"person/{role}/{newPerson.PersonId}";
                 await _storageRepository.DeleteFile(filePath);
                 await _storageRepository.UploadFile(newPerson.Thumbnail, filePath);
-            }
+            }*/
 
-            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", url + filePath);
+            return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", "");
         }
 
         public async Task<ResponseDTO> DeletePerson(Guid id)

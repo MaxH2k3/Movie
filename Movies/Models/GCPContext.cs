@@ -13,8 +13,8 @@ public class GCPContext
     public GCPContext()
     {
         GetConnectionString();
-        _googleCredential = GoogleCredential.FromFile(GCPStorageAuthFile);
-        StorageClient = StorageClient.Create(_googleCredential);
+        //_googleCredential = GoogleCredential.FromFile(GCPStorageAuthFile);
+        //StorageClient = StorageClient.Create(_googleCredential);
     }
 
     private void GetConnectionString()
