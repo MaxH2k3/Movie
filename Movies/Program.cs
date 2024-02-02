@@ -1,5 +1,7 @@
 using Hangfire;
 using Hangfire.Mongo;
+using Hangfire.Mongo.Migration.Strategies.Backup;
+using Hangfire.Mongo.Migration.Strategies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -92,6 +94,9 @@ public class Program
             opt.AddPolicy(Constraint.RoleUser.ADMIN, policy => policy.RequireClaim("Role", Constraint.RoleUser.ADMIN));
         });
 
+        //set up Hangfire
+        builder.Services.AddHangfireService();
+
         builder.Services.AddSwaggerGen(
             swagger =>
             {
@@ -146,6 +151,10 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.UseHangfireDashboard();
+
+        app.MapHangfireDashboard(); 
 
         app.Run();
     }

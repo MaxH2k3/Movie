@@ -34,57 +34,57 @@ VALUES
 -- Insert some records into the Person table
 INSERT INTO [dbo].[Person] ([PersonID], [Image], [NamePerson], [NationID], [Role], [DoB])
 VALUES
-('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/E1CB11EF-1753-4DA7-A352-25D7F2969329.jpg', N'Lee Jong Suk', 'KR', 'PR', '1989-09-14'),
-('7B885328-C701-46DF-871B-3C8344A87809', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/7B885328-C701-46DF-871B-3C8344A87809.jpg', N'Song Kang', 'KR', 'AC', '1993-05-16'),
-('9B46E82B-279E-43F3-BC36-60A45E10015D', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/9B46E82B-279E-43F3-BC36-60A45E10015D.jpg', N'Han So Hee', 'KR', 'AC', '1982-09-25'),
-('1401FC65-44FD-4881-A16A-640CF36F835C', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/1401FC65-44FD-4881-A16A-640CF36F835C.webp', N'Kim Yoo-Jung', 'KR', 'AC', '1979-07-10'),
-('8E379873-B309-4890-9271-6A66E4291BEA', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/8E379873-B309-4890-9271-6A66E4291BEA.jpg', N'Park Seo Joon', 'KR', 'PR', '1985-09-19'),
-('572A3A53-1F81-4251-B886-6ADF4E62389C', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/572A3A53-1F81-4251-B886-6ADF4E62389C.jpeg', N'Ji Chang Wook', 'KR', 'AC', '1985-09-19'),
-('04031A5E-AE87-4D20-AE8B-E639444768BD', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/04031A5E-AE87-4D20-AE8B-E639444768BD.jpg', N'Shin Hye Sun', 'KR', 'PR', '1985-09-19'),
-('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 'https://streamit-movie.azurewebsites.net/file?fileName=person/producer/E1C3CE6E-FC60-47E7-8172-F0E970444F61.webp', N'Trấn Thành', 'VN', 'PR', '1985-09-19'),
-('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/EA879220-F69F-4256-BDC3-F55637E2E8A1.jpg', N'Yoon Chan-Young', 'KR', 'AC', '1985-09-19'),
-('751AB02D-33A1-455F-9875-FEC992B5382B', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/751AB02D-33A1-455F-9875-FEC992B5382B.jpg', N'Cho Yi-Hyun', 'KR', 'AC', '1985-09-19'),
-('A3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9F', 'https://streamit-movie.azurewebsites.net/file?fileName=person/actor/F3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9.jpg', N'Park Ji Hu', 'KR', 'AC', '1985-09-19'),
-('0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F', 'https://streamit-movie.azurewebsites.net/file?fileName=person/producer/0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F.webp', N'Lee Jae Gyu', 'KR', 'PR', '1985-09-19'),
-('88876642-8167-4A4C-8380-D1734A98132B', 'https://streamit-movie.azurewebsites.net/file?fileName=person/producer/88876642-8167-4A4C-8380-D1734A98132B.jpg', N'Michael Bay', 'US', 'PR', '1985-09-19'),
-('1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA', 'https://streamit-movie.azurewebsites.net/file?fileName=person/producer/1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA.jpg', N'Terence Winter', 'US', 'PR', '1985-09-19');
+('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'https://storage.googleapis.com/streaming-movie/person/actor/E1CB11EF-1753-4DA7-A352-25D7F2969329.jpg', N'Lee Jong Suk', 'KR', 'PR', '1989-09-14'),
+('7B885328-C701-46DF-871B-3C8344A87809', 'https://storage.googleapis.com/streaming-movie/person/actor/7B885328-C701-46DF-871B-3C8344A87809.jpg', N'Song Kang', 'KR', 'AC', '1993-05-16'),
+('9B46E82B-279E-43F3-BC36-60A45E10015D', 'https://storage.googleapis.com/streaming-movie/person/actor/9B46E82B-279E-43F3-BC36-60A45E10015D.jpg', N'Han So Hee', 'KR', 'AC', '1982-09-25'),
+('1401FC65-44FD-4881-A16A-640CF36F835C', 'https://storage.googleapis.com/streaming-movie/person/actor/1401FC65-44FD-4881-A16A-640CF36F835C.webp', N'Kim Yoo-Jung', 'KR', 'AC', '1979-07-10'),
+('8E379873-B309-4890-9271-6A66E4291BEA', 'https://storage.googleapis.com/streaming-movie/person/actor/8E379873-B309-4890-9271-6A66E4291BEA.jpg', N'Park Seo Joon', 'KR', 'PR', '1985-09-19'),
+('572A3A53-1F81-4251-B886-6ADF4E62389C', 'https://storage.googleapis.com/streaming-movie/person/actor/572A3A53-1F81-4251-B886-6ADF4E62389C.jpeg', N'Ji Chang Wook', 'KR', 'AC', '1985-09-19'),
+('04031A5E-AE87-4D20-AE8B-E639444768BD', 'https://storage.googleapis.com/streaming-movie/person/actor/04031A5E-AE87-4D20-AE8B-E639444768BD.jpg', N'Shin Hye Sun', 'KR', 'PR', '1985-09-19'),
+('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 'https://storage.googleapis.com/streaming-movie/person/producer/E1C3CE6E-FC60-47E7-8172-F0E970444F61.webp', N'Trấn Thành', 'VN', 'PR', '1985-09-19'),
+('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'https://storage.googleapis.com/streaming-movie/person/actor/EA879220-F69F-4256-BDC3-F55637E2E8A1.jpg', N'Yoon Chan-Young', 'KR', 'AC', '1985-09-19'),
+('751AB02D-33A1-455F-9875-FEC992B5382B', 'https://storage.googleapis.com/streaming-movie/person/actor/751AB02D-33A1-455F-9875-FEC992B5382B.jpg', N'Cho Yi-Hyun', 'KR', 'AC', '1985-09-19'),
+('A3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9F', 'https://storage.googleapis.com/streaming-movie/person/actor/F3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9.jpg', N'Park Ji Hu', 'KR', 'AC', '1985-09-19'),
+('0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F', 'https://storage.googleapis.com/streaming-movie/person/producer/0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F.webp', N'Lee Jae Gyu', 'KR', 'PR', '1985-09-19'),
+('88876642-8167-4A4C-8380-D1734A98132B', 'https://storage.googleapis.com/streaming-movie/person/producer/88876642-8167-4A4C-8380-D1734A98132B.jpg', N'Michael Bay', 'US', 'PR', '1985-09-19'),
+('1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA', 'https://storage.googleapis.com/streaming-movie/person/producer/1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA.jpg', N'Terence Winter', 'US', 'PR', '1985-09-19');
 
     
 -- Thêm bộ phim Spider-Man: No Way Home
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated)
-VALUES ('B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 3, 'US', 9.5, 148, 1000000, N'Sau khi danh tính của Spider-Man bị tiết lộ, Peter Parker phải tìm cách khôi phục lại cuộc sống bình thường của mình và đối mặt với những kẻ thù đến từ nhiều vũ trụ khác nhau.', 'Spider-Man: No Way Home', N'Người Nhện: Không Còn Nhà', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/B83F35D3-0B41-404D-AD0F-E909E45C2F5D.jpg', 'https://www.youtube.com/watch?v=fp6NrvO1Hso', 'Release', GETDATE(), GETDATE());
+VALUES ('B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 3, 'US', 9.5, 148, 1000000, N'Sau khi danh tính của Spider-Man bị tiết lộ, Peter Parker phải tìm cách khôi phục lại cuộc sống bình thường của mình và đối mặt với những kẻ thù đến từ nhiều vũ trụ khác nhau.', 'Spider-Man: No Way Home', N'Người Nhện: Không Còn Nhà', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/B83F35D3-0B41-404D-AD0F-E909E45C2F5D.jpg', 'https://www.youtube.com/watch?v=fp6NrvO1Hso', 'Release', GETDATE(), GETDATE());
 
 -- Thêm bộ phim Spider-Man: Far From Home
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated)
-VALUES ('7626213A-FDC6-4291-BF57-DABD768CD1C8', 3, 'US', 8.5, 129, 800000, N'Spider-Man phải đối mặt với những thách thức mới khi anh ta tham gia chuyến du lịch châu Âu cùng bạn bè và gặp phải một kẻ thù bí ẩn có tên là Mysterio.', 'Spider-Man: Far From Home', N'Người Nhện: Xa Nhà', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/7626213A-FDC6-4291-BF57-DABD768CD1C8.jpg', 'https://www.youtube.com/watch?v=lgk59G4m7gE', 'Release', GETDATE(), GETDATE());
+VALUES ('7626213A-FDC6-4291-BF57-DABD768CD1C8', 3, 'US', 8.5, 129, 800000, N'Spider-Man phải đối mặt với những thách thức mới khi anh ta tham gia chuyến du lịch châu Âu cùng bạn bè và gặp phải một kẻ thù bí ẩn có tên là Mysterio.', 'Spider-Man: Far From Home', N'Người Nhện: Xa Nhà', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/7626213A-FDC6-4291-BF57-DABD768CD1C8.jpg', 'https://www.youtube.com/watch?v=lgk59G4m7gE', 'Release', GETDATE(), GETDATE());
 
 -- Thêm bộ phim Đặc Vụ Tự Do - Freelance
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated)
-VALUES ('99D5840E-DD16-497D-96C5-8A448B9AF19A', 3, 'VN', 7.0, 100, 500000, N'Một nhóm đặc vụ tự do được thuê để thực hiện một nhiệm vụ nguy hiểm nhưng lại bị mắc kẹt trong một âm mưu đen tối.', 'Freelance Agent', N'Đặc Vụ Tự Do - Freelance', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/99D5840E-DD16-497D-96C5-8A448B9AF19A.jpg', 'https://www.youtube.com/watch?v=0u5E1pQK8Fc', 'Release', GETDATE(), GETDATE());
+VALUES ('99D5840E-DD16-497D-96C5-8A448B9AF19A', 3, 'VN', 7.0, 100, 500000, N'Một nhóm đặc vụ tự do được thuê để thực hiện một nhiệm vụ nguy hiểm nhưng lại bị mắc kẹt trong một âm mưu đen tối.', 'Freelance Agent', N'Đặc Vụ Tự Do - Freelance', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/99D5840E-DD16-497D-96C5-8A448B9AF19A.jpg', 'https://www.youtube.com/watch?v=0u5E1pQK8Fc', 'Release', GETDATE(), GETDATE());
 
 -- Thêm bộ phim Black Panther
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated)
-VALUES ('2A866A68-5DBF-40D2-B773-12D4202CE028', 3, 'US', 8.0, 134, 700000, N'Black Panther là vị vua của Wakanda, một quốc gia giàu có và bí ẩn ở châu Phi. Anh ta phải bảo vệ người dân của mình khỏi những kẻ thù bên trong và bên ngoài.', 'Black Panther', N'Chiến Binh Báo Đen', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/2A866A68-5DBF-40D2-B773-12D4202CE028.png', 'https://www.youtube.com/watch?v=xjDjIWPwcPU', 'Release', GETDATE(), GETDATE());
+VALUES ('2A866A68-5DBF-40D2-B773-12D4202CE028', 3, 'US', 8.0, 134, 700000, N'Black Panther là vị vua của Wakanda, một quốc gia giàu có và bí ẩn ở châu Phi. Anh ta phải bảo vệ người dân của mình khỏi những kẻ thù bên trong và bên ngoài.', 'Black Panther', N'Chiến Binh Báo Đen', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/2A866A68-5DBF-40D2-B773-12D4202CE028.png', 'https://www.youtube.com/watch?v=xjDjIWPwcPU', 'Release', GETDATE(), GETDATE());
 
 -- Thêm bộ phim Spider-Man: Across the Spider-Verse
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated)
-VALUES ('751AB02D-33A1-455F-9875-FEC992B5382B', 2, 'US', 7.4, 123, 23134, N'Spider-Man: Across the Spider-Verse là phần tiếp theo của Spider-Man: Into the Spider-Verse, một bộ phim hoạt hình về Miles Morales, một cậu bé trở thành Người Nhện của một vũ trụ song song. Trong phần này, Miles sẽ phiêu lưu qua các vũ trụ khác và gặp gỡ những Người Nhện khác.', 'Spider-Man: Across the Spider-Verse', N'Người Nhện: Du Hành Vũ Trụ', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Standalone Film/15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888.jpg', 'https://www.youtube.com/watch?v=uuDeh9-f-rc', 'Pending', GETDATE(), GETDATE());
+VALUES ('751AB02D-33A1-455F-9875-FEC992B5382B', 2, 'US', 7.4, 123, 23134, N'Spider-Man: Across the Spider-Verse là phần tiếp theo của Spider-Man: Into the Spider-Verse, một bộ phim hoạt hình về Miles Morales, một cậu bé trở thành Người Nhện của một vũ trụ song song. Trong phần này, Miles sẽ phiêu lưu qua các vũ trụ khác và gặp gỡ những Người Nhện khác.', 'Spider-Man: Across the Spider-Verse', N'Người Nhện: Du Hành Vũ Trụ', 'https://storage.googleapis.com/streaming-movie/movie/Standalone Film/15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888.jpg', 'https://www.youtube.com/watch?v=uuDeh9-f-rc', 'Pending', GETDATE(), GETDATE());
 
 -- Thêm bộ phim Conan: Cú Đấm Sapphire Xanh
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated)
-VALUES ('7B885328-C701-46DF-871B-3C8344A87809', 1, 'JP', 7.5, 110, 300000, N'Conan và nhóm bạn của mình phải ngăn chặn một âm mưu khủng bố liên quan đến một viên ngọc quý có tên là Sapphire Xanh.', 'Detective Conan: The Fist of Blue Sapphire', N'Conan: Cú Đấm Sapphire Xanh', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/New Movies/7B885328-C701-46DF-871B-3C8344A87809.webp', 'https://www.youtube.com/watch?v=_PzW3BLKZvI', 'Release', GETDATE(), GETDATE());
+VALUES ('7B885328-C701-46DF-871B-3C8344A87809', 1, 'JP', 7.5, 110, 300000, N'Conan và nhóm bạn của mình phải ngăn chặn một âm mưu khủng bố liên quan đến một viên ngọc quý có tên là Sapphire Xanh.', 'Detective Conan: The Fist of Blue Sapphire', N'Conan: Cú Đấm Sapphire Xanh', 'https://storage.googleapis.com/streaming-movie/movie/New Movies/7B885328-C701-46DF-871B-3C8344A87809.webp', 'https://www.youtube.com/watch?v=_PzW3BLKZvI', 'Release', GETDATE(), GETDATE());
 
 -- Thêm bộ phim Conan: Nàng Dâu Halloween
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated)
-VALUES ('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 1, 'JP', 7.0, 100, 200000, N'Conan và nhóm bạn của mình phải giải quyết một vụ án mạng xảy ra trong một lễ hội Halloween, nơi có sự xuất hiện của một cô gái bí ẩn có tên là Nàng Dâu Halloween.', 'Detective Conan: The Scarlet Bullet', N'Conan: Nàng Dâu Halloween', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/New Movies/E1C3CE6E-FC60-47E7-8172-F0E970444F61.jpg', 'https://www.youtube.com/watch?v=Pt38ZgehKlI', 'Release', GETDATE(), GETDATE());
+VALUES ('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 1, 'JP', 7.0, 100, 200000, N'Conan và nhóm bạn của mình phải giải quyết một vụ án mạng xảy ra trong một lễ hội Halloween, nơi có sự xuất hiện của một cô gái bí ẩn có tên là Nàng Dâu Halloween.', 'Detective Conan: The Scarlet Bullet', N'Conan: Nàng Dâu Halloween', 'https://storage.googleapis.com/streaming-movie/movie/New Movies/E1C3CE6E-FC60-47E7-8172-F0E970444F61.jpg', 'https://www.youtube.com/watch?v=Pt38ZgehKlI', 'Release', GETDATE(), GETDATE());
 
 -- Thêm phim Yêu lại vợ ngầu - Love reset
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated, TotalSeasons, TotalEpisodes)
-VALUES ('BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB', 3, 'KR', 7.5, 119, 500000, N'Một bộ phim hài lãng mạn về "Roh Jeong-yeol" và "Hong Na-ra" bị mất ký ức do một tai nạn bất ngờ chỉ 30 ngày trước khi kết thúc cuộc sống hôn nhân của họ, bắt đầu như một mối tình lãng mạn nhưng lại trở thành một bộ phim kinh dị.', 'Love Reset', N'Yêu lại vợ ngầu', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB.jpg', 'https://www.youtube.com/watch?v=74zyLwUXN0s', 'Release', GETDATE(), GETDATE(), 1, 1);
+VALUES ('BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB', 3, 'KR', 7.5, 119, 500000, N'Một bộ phim hài lãng mạn về "Roh Jeong-yeol" và "Hong Na-ra" bị mất ký ức do một tai nạn bất ngờ chỉ 30 ngày trước khi kết thúc cuộc sống hôn nhân của họ, bắt đầu như một mối tình lãng mạn nhưng lại trở thành một bộ phim kinh dị.', 'Love Reset', N'Yêu lại vợ ngầu', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB.jpg', 'https://www.youtube.com/watch?v=74zyLwUXN0s', 'Release', GETDATE(), GETDATE(), 1, 1);
 
 -- Thêm phim Conan: Tàu ngầm sắt màu đen
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated, TotalSeasons, TotalEpisodes)
-VALUES ('15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 1, 'JP', 8.0, 112, 400000, N'Conan và nhóm bạn của mình phải đối mặt với một kẻ thù nguy hiểm có tên là Tàu ngầm sắt màu đen, một tên cướp biển bí ẩn đang âm mưu đánh cắp một kho báu khổng lồ dưới đáy biển.', 'Detective Conan: Black Iron Submarine', N'Conan: Tàu ngầm sắt màu đen', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/New Movies/15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888.jpg', 'https://www.youtube.com/watch?v=FXgdEb4kPR4', 'Release', GETDATE(), GETDATE(), 1, 1);
+VALUES ('15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 1, 'JP', 8.0, 112, 400000, N'Conan và nhóm bạn của mình phải đối mặt với một kẻ thù nguy hiểm có tên là Tàu ngầm sắt màu đen, một tên cướp biển bí ẩn đang âm mưu đánh cắp một kho báu khổng lồ dưới đáy biển.', 'Detective Conan: Black Iron Submarine', N'Conan: Tàu ngầm sắt màu đen', 'https://storage.googleapis.com/streaming-movie/movie/New Movies/15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888.jpg', 'https://www.youtube.com/watch?v=FXgdEb4kPR4', 'Release', GETDATE(), GETDATE(), 1, 1);
 
 INSERT INTO [dbo].[Movies] VALUES (
     'F9E3C7B1-0F4A-4D8F-9F8E-6C5F9F9C2E0A', -- MovieID
@@ -96,14 +96,15 @@ INSERT INTO [dbo].[Movies] VALUES (
     'A mystery teen drama that takes place when a class of second-year high school students is suddenly forced to play mafia games in real life during their retreat. The drama will draw out the intense psychological warfare between the students as they go into survival mode.', -- Description
     'Night Has Come', -- EnglishName
     N'Màn Đêm Kinh Hoàng', -- VietnamName
-    'https://streamit-movie.azurewebsites.net/file?fileName=movie/TV Series/F9E3C7B1-0F4A-4D8F-9F8E-6C5F9F9C2E0A.jpg', -- Thumbnail
+    'https://storage.googleapis.com/streaming-movie/movie/TV Series/F9E3C7B1-0F4A-4D8F-9F8E-6C5F9F9C2E0A.jpg', -- Thumbnail
     'https://www.youtube.com/watch?v=eYweevraBdI', -- Trailer
     'Release', -- Status
     '2023-12-04', -- ProducedDate
     '2024-1-14',
     '2023-12-04', -- DateUpdated
     1,
-    7
+    7,
+    null
 );
 
 
@@ -117,14 +118,15 @@ INSERT INTO [dbo].[Movies] VALUES (
     N'Katniss Everdeen volunteers to take her sister''s place in a televised death match in a dystopian future.', -- Description
     'The Hunger Games', -- EnglishName
     N'Đấu trường sinh tử', -- VietnamName
-    'https://streamit-movie.azurewebsites.net/file?fileName=movie/Standalone Film/52233AA9-5FE5-4A9C-9A03-768A809BD228.jpg', -- Thumbnail
+    'https://storage.googleapis.com/streaming-movie/movie/Standalone Film/52233AA9-5FE5-4A9C-9A03-768A809BD228.jpg', -- Thumbnail
     'https://www.youtube.com/watch?v=QsEfBzLoKys', -- Trailer
     'Release', -- Status
     '2023-12-04', -- ProducedDate
     '2024-1-14',
     '2023-12-04', -- DateUpdated
     1,
-    1
+    1,
+    null
 );
 
 INSERT INTO [dbo].[Movies] VALUES (
@@ -137,39 +139,40 @@ INSERT INTO [dbo].[Movies] VALUES (
 	N'All of Us Are Dead is a South Korean coming-of-age zombie apocalypse horror streaming television series. It stars Park Ji-hu, Yoon Chan-young, Cho Yi-hyun, Lomon, Yoo In-soo, Lee Yoo-mi, Kim Byung-chul, Lee Kyu-hyung, and Jeon Bae-soo. The series centers on a group of high school students in the fictional South Korean city of Hyosan, and their struggle to survive amidst a zombie outbreak.', -- Description
 	'All of Us Are Dead', -- EnglishName
 	N'지금 우리 학교는', -- VietnamName
-	'https://streamit-movie.azurewebsites.net/file?fileName=movie/TV Series/CA7274EA-0F24-4D20-88A7-D7605C449BE9.jpg', -- Thumbnail
+	'https://storage.googleapis.com/streaming-movie/movie/TV Series/CA7274EA-0F24-4D20-88A7-D7605C449BE9.jpg', -- Thumbnail
 	'https://www.youtube.com/watch?v=IN5TD4VRcSM', -- Trailer
 	'Release', -- Status
 	'2022-01-28', -- ProducedDate
     '2024-1-14',
 	'2022-06-06', -- DateUpdated
 	1, -- TotalSeasons
-	12 -- TotalEpisodes
+	12, -- TotalEpisodes
+    null
 );
 
 -- Insert data for Transformers (2007)
 INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [ProducedDate], [DateUpdated], [TotalSeasons], [TotalEpisodes])
-VALUES ('D9E9976C-9C92-451A-AFBE-01449D6E64C0', 1, 'US', 7.0, 144, 10000000, 'An ancient struggle between two Cybertronian races, the heroic Autobots and the evil Decepticons, comes to Earth, with a clue to the ultimate power held by a teenager.', 'Transformers', N'Biến hình', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/D9E9976C-9C92-451A-AFBE-01449D6E64C0.jpg', 'transformers-2007-trailer.mp4', 'Released', '2007-07-03', '2007-07-03', 0, 0);
+VALUES ('D9E9976C-9C92-451A-AFBE-01449D6E64C0', 1, 'US', 7.0, 144, 10000000, 'An ancient struggle between two Cybertronian races, the heroic Autobots and the evil Decepticons, comes to Earth, with a clue to the ultimate power held by a teenager.', 'Transformers', N'Biến hình', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/D9E9976C-9C92-451A-AFBE-01449D6E64C0.jpg', 'transformers-2007-trailer.mp4', 'Released', '2007-07-03', '2007-07-03', 0, 0);
 
 -- Insert data for Transformers: Revenge of the Fallen (2009)
 INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [ProducedDate], [DateUpdated], [TotalSeasons], [TotalEpisodes])
-VALUES ('4A14D5AF-4766-4E00-837F-DF20E1139F34', 1, 'US', 6.0, 150, 9000000, 'Sam Witwicky leaves the Autobots behind for a normal life. But when his mind is filled with cryptic symbols, the Decepticons target him and he is dragged back into the Transformers'' war.', 'Transformers: Revenge of the Fallen', N'Biến hình: Báo thù của người đã chết', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/4A14D5AF-4766-4E00-837F-DF20E1139F34.webp', 'transformers-2009-trailer.mp4', 'Released', '2009-06-24', '2009-06-24', 0, 0);
+VALUES ('4A14D5AF-4766-4E00-837F-DF20E1139F34', 1, 'US', 6.0, 150, 9000000, 'Sam Witwicky leaves the Autobots behind for a normal life. But when his mind is filled with cryptic symbols, the Decepticons target him and he is dragged back into the Transformers'' war.', 'Transformers: Revenge of the Fallen', N'Biến hình: Báo thù của người đã chết', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/4A14D5AF-4766-4E00-837F-DF20E1139F34.webp', 'transformers-2009-trailer.mp4', 'Released', '2009-06-24', '2009-06-24', 0, 0);
 
 -- Insert data for Transformers: Dark of the Moon (2011)
 INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [ProducedDate], [DateUpdated], [TotalSeasons], [TotalEpisodes])
-VALUES ('78A479B5-8EDE-434E-A751-8FE3F804B358', 1, 'US', 6.2, 154, 8000000, 'The Autobots learn of a Cybertronian spacecraft hidden on the moon, and race against the Decepticons to reach it and to learn its secrets.', 'Transformers: Dark of the Moon', N'Biến hình: Mặt trăng bóng tối', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/78A479B5-8EDE-434E-A751-8FE3F804B358.jpg', 'transformers-2011-trailer.mp4', 'Released', '2011-06-29', '2011-06-29', 0, 0);
+VALUES ('78A479B5-8EDE-434E-A751-8FE3F804B358', 1, 'US', 6.2, 154, 8000000, 'The Autobots learn of a Cybertronian spacecraft hidden on the moon, and race against the Decepticons to reach it and to learn its secrets.', 'Transformers: Dark of the Moon', N'Biến hình: Mặt trăng bóng tối', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/78A479B5-8EDE-434E-A751-8FE3F804B358.jpg', 'transformers-2011-trailer.mp4', 'Released', '2011-06-29', '2011-06-29', 0, 0);
 
 -- Insert data for Transformers: Age of Extinction (2014)
 INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [ProducedDate], [DateUpdated], [TotalSeasons], [TotalEpisodes])
-VALUES ('1B2CF33E-2639-4E24-ADAF-D6B35D7C132A', 1, 'US', 5.6, 165, 7000000, 'When humanity allies with a bounty hunter in pursuit of Optimus Prime, the Autobots turn to a mechanic and his family for help.', 'Transformers: Age of Extinction', N'Biến hình: Kỷ nguyên tuyệt chủng', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/1B2CF33E-2639-4E24-ADAF-D6B35D7C132A.jpg', 'transformers-2014-trailer.mp4', 'Released', '2014-06-27', '2014-06-27', 0, 0);
+VALUES ('1B2CF33E-2639-4E24-ADAF-D6B35D7C132A', 1, 'US', 5.6, 165, 7000000, 'When humanity allies with a bounty hunter in pursuit of Optimus Prime, the Autobots turn to a mechanic and his family for help.', 'Transformers: Age of Extinction', N'Biến hình: Kỷ nguyên tuyệt chủng', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/1B2CF33E-2639-4E24-ADAF-D6B35D7C132A.jpg', 'transformers-2014-trailer.mp4', 'Released', '2014-06-27', '2014-06-27', 0, 0);
 
 -- Insert data for Transformers: Rise of the Beasts (2023)
 INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [ProducedDate], [DateUpdated], [TotalSeasons], [TotalEpisodes])
-VALUES ('52C7FA50-058F-4178-B2AD-4CA58FC08479', 1, 'US', 7.2, 120, 123344, 'The film will take place in 1994 and explore the Transformers'' history on Earth, introducing the Maximals, Predacons, and Terrorcons to the existing battle on earth between Autobots and Decepticons.', 'Transformers: Rise of the Beasts', N'Biến hình: Sự trỗi dậy của quái vật', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/52C7FA50-058F-4178-B2AD-4CA58FC08479.jpg', 'transformers-2023-trailer.mp4', 'Upcoming', '2023-06-09', NULL, 0, 0);
+VALUES ('52C7FA50-058F-4178-B2AD-4CA58FC08479', 1, 'US', 7.2, 120, 123344, 'The film will take place in 1994 and explore the Transformers'' history on Earth, introducing the Maximals, Predacons, and Terrorcons to the existing battle on earth between Autobots and Decepticons.', 'Transformers: Rise of the Beasts', N'Biến hình: Sự trỗi dậy của quái vật', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/52C7FA50-058F-4178-B2AD-4CA58FC08479.jpg', 'transformers-2023-trailer.mp4', 'Upcoming', '2023-06-09', NULL, 0, 0);
 
 -- Insert data for The Wolf of Wall Street (2013)
 INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [ProducedDate], [DateUpdated], [TotalSeasons], [TotalEpisodes])
-VALUES ('F153BBFE-E593-45A1-80EC-33B6BC7CEAB3', 2, 'US', 8.2, 180, 6000000, 'Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.', 'The Wolf of Wall Street', N'Sói già phố Wall', 'https://streamit-movie.azurewebsites.net/file?fileName=movie/Cinema Film/F153BBFE-E593-45A1-80EC-33B6BC7CEAB3.png', 'wolf-2013-trailer.mp4', 'Released', '2013-12-25', '2013-12-25', 0, 0);
+VALUES ('F153BBFE-E593-45A1-80EC-33B6BC7CEAB3', 2, 'US', 8.2, 180, 6000000, 'Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.', 'The Wolf of Wall Street', N'Sói già phố Wall', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/F153BBFE-E593-45A1-80EC-33B6BC7CEAB3.png', 'wolf-2013-trailer.mp4', 'Released', '2013-12-25', '2013-12-25', 0, 0);
 
 INSERT INTO [dbo].[Movies]
 (
@@ -202,7 +205,7 @@ VALUES
     N'Dưa Hấu Lấp Lánh – Twinkling Watermelon nói về Eun Gyeol sinh ra trong gia đình khiếm thính nhưng lại có năng khiếu và đam mê với âm nhạc. Trong một lần ghé thăm cửa hàng nhạc cụ bí ẩn nọ, cậu bất ngờ bị đưa vào dòng thời gian khác. Tại đây, cậu gặp gỡ bố mẹ mình thời cấp ba. Để giúp bố và mẹ ở thời quá khứ đến với nhau, cậu quyết định gia nhập ban nhạc học đường của họ.', -- Description - a brief description of the movie
     'Twinkling Watermelon', -- EnglishName - the English name of the movie
     N'Dưa Hấu Lấp Lánh', -- VietnamName - the Vietnamese name of the movie
-    'https://streamit-movie.azurewebsites.net/file?fileName=movie/TV Series/7998498f-d884-4206-a969-d6a91c431029.jpg', -- Thumbnail - assuming 'thumbnail.jpg' is the filename of the thumbnail image
+    'https://storage.googleapis.com/streaming-movie/movie/TV Series/7998498f-d884-4206-a969-d6a91c431029.jpg', -- Thumbnail - assuming 'thumbnail.jpg' is the filename of the thumbnail image
     'https://www.youtube.com/watch?v=HtWloirZmrg', -- Trailer - assuming 'trailer.mp4' is the filename of the trailer video
     'Upcoming', -- Status - the current status of the movie
     '2024-01-01T00:00:00', -- ProducedDate - assuming the movie was produced on January 1, 2024
@@ -243,7 +246,7 @@ VALUES
     N'Ngay sau khi vào đại học, Jian nhận được cuộc gọi từ cảnh sát địa phương thông báo về việc chú cô “tự sát”. Người chăm sóc cô, kể từ cái chết của cha mẹ cô, chú Jeong Jin Man, luôn trầm lặng và bí ẩn nhưng chưa bao giờ tự tử. Nhưng trước khi Jian có cơ hội suy nghĩ, cuộc sống của cô bị đảo lộn bởi hàng loạt tiếng súng, máy bay không người lái giết người và hơn thế nữa, khi một nhóm sát thủ có tay nghề cao không thể giải thích được chuyển trọng tâm của họ sang giết cô. Bị giam giữ trong nhà của chú cô, Jian sẽ buộc phải xem lại một số khóa huấn luyện kỳ ​​lạ mà chú cô đã giao cho cô trong suốt những năm trưởng thành nếu cô hy vọng sống sót đủ lâu để khám phá chuyện gì đang xảy ra.', -- Description - a brief description of the movie
     'A Shop for Killers', -- EnglishName - the English name of the movie
     N'Cửa Hàng Mua Sắm Của Kẻ Sát Nhân', -- VietnamName - the Vietnamese name of the movie
-    'https://streamit-movie.azurewebsites.net/file?fileName=movie/TV Series/b13d411d-398a-4405-ac44-b64eca88ed66.jpg', -- Thumbnail - assuming 'thumbnail.jpg' is the filename of the thumbnail image
+    'https://storage.googleapis.com/streaming-movie/movie/TV Series/b13d411d-398a-4405-ac44-b64eca88ed66.jpg', -- Thumbnail - assuming 'thumbnail.jpg' is the filename of the thumbnail image
     'https://www.youtube.com/watch?v=LbHiDQJHwbg', -- Trailer - assuming 'trailer.mp4' is the filename of the trailer video
     'Upcoming', -- Status - the current status of the movie
     '2024-01-01T00:00:00', -- ProducedDate - assuming the movie was produced on January 1, 2024

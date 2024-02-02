@@ -103,12 +103,12 @@ BEGIN
     -- Update total seasons for the corresponding movie (inserted)
     UPDATE [dbo].[Movies]
     SET [TotalSeasons] = [TotalSeasons] + 1
-    WHERE [Movies].[MovieID] IN (SELECT [MovieID] FROM inserted);
+    WHERE [Movies].[MovieID] IN (SELECT TOP 1 [MovieID] FROM inserted);
 
     -- Update total seasons for the corresponding movie (deleted)
     UPDATE [dbo].[Movies]
     SET [TotalSeasons] = [TotalSeasons] - 1
-    WHERE [Movies].[MovieID] IN (SELECT [MovieID] FROM deleted);
+    WHERE [Movies].[MovieID] IN (SELECT TOP 1 [MovieID] FROM deleted);
 END;
 
 CREATE TRIGGER [dbo].[UpdateTotalEpisodes]
@@ -119,12 +119,12 @@ BEGIN
     -- Update total seasons for the corresponding movie (inserted)
     UPDATE [dbo].[Movies]
     SET [TotalEpisodes] = [TotalEpisodes] + 1
-    WHERE [Movies].[MovieID] IN (SELECT [MovieID] FROM inserted);
+    WHERE [Movies].[MovieID] IN (SELECT TOP 1 [MovieID] FROM inserted);
 
     -- Update total seasons for the corresponding movie (deleted)
     UPDATE [dbo].[Movies]
     SET [TotalEpisodes] = [TotalEpisodes] - 1
-    WHERE [Movies].[MovieID] IN (SELECT [MovieID] FROM deleted);
+    WHERE [Movies].[MovieID] IN (SELECT TOP 1 [MovieID] FROM deleted);
 END;
 */
 /*-----------------*/

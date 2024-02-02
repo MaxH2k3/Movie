@@ -21,6 +21,7 @@
             public static string CREATED_DATE = "createddate";
             public static string DELETED_DATE = "deleteddate";
             public static string NAME = "name";
+            public static IEnumerable<string> ALL = new List<string> { PRODUCED_DATE, CREATED_DATE, DELETED_DATE, NAME };
         }
 
         public static class StatusMovie

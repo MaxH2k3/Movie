@@ -72,6 +72,11 @@ public class MovieController : Controller
             return BadRequest("Invalid status!");
         }
 
+        if(sortBy != null && !Constraint.SortName.ALL.Contains(sortBy.Trim().ToLower()))
+        {
+            return BadRequest("Invalid sort by!");
+        }
+
         IEnumerable<dynamic> movies;
 
         if (Constraint.FilterName.CATEGORY.Equals(filterBy?.Trim().ToLower()))
@@ -146,7 +151,10 @@ public class MovieController : Controller
         } else if(Constraint.SortName.CREATED_DATE.Equals(sortBy?.Trim().ToLower()))
         {
             movies = movies.OrderByDescending(m => m.DateCreated).Skip((page - 1) * eachPage).Take(eachPage);
-        } 
+        } else
+        {
+            movies = movies.Skip((page - 1) * eachPage).Take(eachPage);
+        }
         
         return Ok(movies);
     }
