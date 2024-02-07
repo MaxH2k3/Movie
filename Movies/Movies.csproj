@@ -18,8 +18,6 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Google.Cloud.Storage.V1" Version="4.7.0" />
     <PackageReference Include="Google_GenerativeAI" Version="0.1.12" />
-    <PackageReference Include="Hangfire" Version="1.8.9" />
-    <PackageReference Include="Hangfire.Mongo" Version="1.9.16" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.25" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
@@ -37,6 +35,9 @@
     <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
     <PackageReference Include="MongoDB.Driver.Core" Version="2.23.1" />
     <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+    <PackageReference Include="Quartz" Version="3.8.0" />
+    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.8.0" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
     <PackageReference Include="WatchDog.NET" Version="1.4.10" />

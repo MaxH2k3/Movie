@@ -1,12 +1,7 @@
-using Hangfire;
-using Hangfire.Mongo;
-using Hangfire.Mongo.Migration.Strategies.Backup;
-using Hangfire.Mongo.Migration.Strategies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Movies.Configuration;
 using Movies.ExceptionHandler;
@@ -16,6 +11,9 @@ using Movies.Repository;
 using Movies.Security;
 using Movies.Service;
 using Movies.Utilities;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 using System.Text;
 using WatchDog;
 using WatchDog.src.Enums;
@@ -51,7 +49,8 @@ public class Program
         builder.Services.AddScoped<IIPService, IPService>();
         builder.Services.AddScoped<GeminiService>();
         builder.Services.AddDbContext<MOVIESContext>();
-
+        builder.Services.AddScoped<IQuartzRepository, QuartzService>();
+        builder.Services.AddQuartzConfig();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -62,8 +61,8 @@ public class Program
         {
             opt.IsAutoClear = true;
             opt.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Quarterly;
-            opt.SetExternalDbConnString = builder.Configuration.GetConnectionString("WatchDog");
-            opt.DbDriverOption = WatchDogDbDriverEnum.MSSQL;
+            opt.SetExternalDbConnString = builder.Configuration.GetConnectionString("Hangfire");
+            opt.DbDriverOption = WatchDogDbDriverEnum.Mongo;
         });
 
         //set up configuration JWT
@@ -94,8 +93,8 @@ public class Program
             opt.AddPolicy(Constraint.RoleUser.ADMIN, policy => policy.RequireClaim("Role", Constraint.RoleUser.ADMIN));
         });
 
-        //set up Hangfire
-        builder.Services.AddHangfireService();
+        //set up configuration for quartz
+        //builder.Services.AddQuartzService();
 
         builder.Services.AddSwaggerGen(
             swagger =>
@@ -142,8 +141,6 @@ public class Program
             opt.Blacklist = "Admin/Statistics, Movies, Admin/Statistics, Categories, Features, Chat, Movies/Newest, nations, Persons, Person/{PersonId}, Seasons, User";
         });
 
-        app.ConfigureExceptionHandler();
-
         app.UseAuthentication();
 
         app.UseHttpsRedirection();
@@ -152,9 +149,7 @@ public class Program
 
         app.MapControllers();
 
-        app.UseHangfireDashboard();
-
-        app.MapHangfireDashboard(); 
+        app.ConfigureExceptionHandler();
 
         app.Run();
     }

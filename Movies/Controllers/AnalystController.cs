@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Repository;
 using System.Net;
+using Movies.Utilities;
 
 namespace Movies.Controllers;
 
@@ -29,14 +30,4 @@ public class AnalystController : Controller
         _analystService.ConvertToPrevious();
         return Ok("Record Successfully!");
     }
-
-    [HttpGet("analyst/test")]
-    public async Task<IActionResult> Test(string ip)
-    {
-        //var t = _ipService.CheckExist(IPAddress.Parse(ip));
-        var res = await _ipService.DeleteIp(ip);
-
-        return Ok(res);
-    }
-
 }

@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Business.persons;
+using Movies.Configuration;
 using Movies.Interface;
 using Movies.Repository;
+using Movies.Service;
+using Movies.Utilities;
+using Quartz;
+using Quartz.Impl;
 
 namespace Movies.Controllers;
 
@@ -10,11 +15,14 @@ namespace Movies.Controllers;
 public class AdminController : Controller
 {
     private readonly IMovieRepository _movieService;
+    private readonly IQuartzRepository _quartzService;
 
-    public AdminController(IMovieRepository movieRepository)
+    public AdminController(IMovieRepository movieRepository, IQuartzRepository quartzRepository)
     {
         _movieService = movieRepository;
+        _quartzService = quartzRepository;
     }
+
 
     [HttpGet("Admin/Statistics")]
     [ProducesResponseType(typeof(Dictionary<string, int>), StatusCodes.Status200OK)]
@@ -48,6 +56,28 @@ public class AdminController : Controller
     public async Task<IActionResult> StatisticCategories()
     {
         return Ok(await _movieService.GetStatisticCategory());
+    }
+    
+    [HttpGet("Admin/Job")]
+    public async Task<IActionResult> GetCurrentJob()
+    {
+        var jobDetails = await _quartzService.GetCurrentJob();
+        return Ok(jobDetails);
+    }
+
+    [HttpPut("Admin/Job")]
+    public async Task<IActionResult> UpdateJob(int time, string action)
+    {
+        
+        var result = await _quartzService.ControlTask(time, action);
+        return Ok(result);
+    }
+    
+    [HttpGet("Admin/ExecuteJob")]
+    public async Task<IActionResult> ExecuteJob()
+    {
+        var result = await _quartzService.ExecuteJob();
+        return Ok(result);
     }
 
 }

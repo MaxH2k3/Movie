@@ -61,5 +61,29 @@
             public static string CONFIRM_MAIL = "Resources/ConfirmMail.html";
             public static string ERROR_MAIL = "Resources/ErrorMail.html";
         }
+
+        public static class JobTime
+        {
+            public static int Time = 5;
+        }
+        
+        public static class JobAction
+        {
+            public static string RESUME = "resume";
+            public static string PAUSE = "pause";
+            public static string DELETE = "delete";
+            public static string UPDATE = "update";
+        }
+
+        public static IEnumerable<object> DayOfWeek = new List<object>()
+        {
+            System.DayOfWeek.Monday,
+            System.DayOfWeek.Tuesday,
+            System.DayOfWeek.Wednesday,
+            System.DayOfWeek.Thursday,
+            System.DayOfWeek.Friday,
+            System.DayOfWeek.Saturday,
+            System.DayOfWeek.Sunday
+        };
     }
 }

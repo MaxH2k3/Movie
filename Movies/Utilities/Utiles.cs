@@ -2,11 +2,32 @@
 {
     public class Utiles
     {
-        public static DateTime ConvertToDateTime(double? value)
+        public void Hello()
         {
-            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds((long)value);
-            DateTime expirationDateTime = dateTimeOffset.UtcDateTime;
-            return expirationDateTime;
+            // Lấy múi giờ hiện tại của server
+            DateTime serverTime = DateTime.UtcNow;
+
+            // Tìm thông tin múi giờ của Việt Nam
+            TimeZoneInfo vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+
+            // Chuyển múi giờ của server sang múi giờ của Việt Nam
+            DateTime vietnamTime = TimeZoneInfo.ConvertTimeFromUtc(serverTime, vietnamTimeZone);
+            
+            Console.WriteLine("Time: " + vietnamTime);
+        }
+        
+        public static DateTime GetNow()
+        {
+            // Lấy múi giờ hiện tại của server
+            DateTime serverTime = DateTime.UtcNow;
+
+            // Tìm thông tin múi giờ của Việt Nam
+            TimeZoneInfo vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+
+            // Chuyển múi giờ của server sang múi giờ của Việt Nam
+            DateTime vietnamTime = TimeZoneInfo.ConvertTimeFromUtc(serverTime, vietnamTimeZone);
+
+            return vietnamTime;
         }
 
         public static int RandomNumber(int min, int max)
