@@ -9,23 +9,32 @@ namespace Movies.Service
     public class AnalystService : IAnalystRepository
     {
         private readonly MovieMongoContext _context;
+        private readonly MOVIESContext _contextsql;
 
-        public AnalystService(MovieMongoContext context)
+        public AnalystService(MovieMongoContext context, MOVIESContext contextsql)
         {
             _context = context;
+            _contextsql = contextsql;
         }
 
         public AnalystService()
         {
             _context = new MovieMongoContext();
+            _contextsql = new MOVIESContext();
         }
 
-        public async Task AddViewerMovie(Guid movieId)
+        public async Task<string> AddViewerMovie(Guid movieId)
         {
+            var movie = await _contextsql.Movies.FindAsync(movieId);
+            if (movie == null)
+            {
+                return "Movie not found";
+            }
             var filter = Builders<AnalystMovie>.Filter.Eq("MovieId", movieId);
             var update = Builders<AnalystMovie>.Update.Inc("Viewer", 1);
             var options = new UpdateOptions { IsUpsert = true };
             await _context.CurrentTopMovies.UpdateOneAsync(filter, update, options);
+            return "Saved successfully";
         }
 
         public async Task ConvertToPrevious()
@@ -33,7 +42,7 @@ namespace Movies.Service
             var pipeline = new List<BsonDocument>
             {
                 new BsonDocument("$sort", new BsonDocument("Viewer", -1)),
-                new BsonDocument("$limit", 10),
+                new BsonDocument("$limit", 15),
                 new BsonDocument("$out", "PreviousTopMovie")
             };
             var list = await _context.CurrentTopMovies.AggregateAsync<BsonDocument>(pipeline).Result.ToListAsync();
@@ -43,5 +52,10 @@ namespace Movies.Service
             }
         }
 
+        public async Task<List<AnalystMovie>> GetTopMovies()
+        {
+            var list = await _context.PreviousTopMovies.FindAsync(new BsonDocument());
+            return await list.ToListAsync();
+        }
     }
 }

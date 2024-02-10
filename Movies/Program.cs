@@ -138,7 +138,9 @@ public class Program
         {
             opt.WatchPageUsername = "admin";
             opt.WatchPagePassword = "123";
-            opt.Blacklist = "Admin/Statistics, Movies, Admin/Statistics, Categories, Features, Chat, Movies/Newest, nations, Persons, Person/{PersonId}, Seasons, User";
+            opt.Blacklist = "Admin/Statistics, Movies, Admin/Statistics, Categories, Features, Chat, Movies/Newest, " +
+                            "nations, Persons, Person/{PersonId}, Seasons, User, analyst/GetViewerMovie, Admin/Job, " +
+                            "Admin/Categories, Admin/Features";
         });
 
         app.UseAuthentication();

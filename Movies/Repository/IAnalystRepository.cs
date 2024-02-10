@@ -1,7 +1,10 @@
-﻿namespace Movies.Repository;
+﻿using Movies.Business.movies;
+
+namespace Movies.Repository;
 
 public interface IAnalystRepository
 {
-    Task AddViewerMovie(Guid movieId);
+    Task<string> AddViewerMovie(Guid movieId);
     Task ConvertToPrevious();
+    Task<List<AnalystMovie>> GetTopMovies();
 }

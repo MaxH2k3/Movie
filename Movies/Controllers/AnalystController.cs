@@ -9,25 +9,23 @@ namespace Movies.Controllers;
 public class AnalystController : Controller
 {
     private readonly IAnalystRepository _analystService;
-    private readonly IIPService _ipService;
 
-    public AnalystController(IAnalystRepository analystRepository, IIPService ipService)
+    public AnalystController(IAnalystRepository analystRepository)
     {
         _analystService = analystRepository;
-        _ipService = ipService;
     }
 
-    [HttpPost("analyst/addViewerMovie")]
+    [HttpPost("Analyst/AddViewerMovie")]
     public async Task<IActionResult> AddViewerMovie(Guid movieId)
     {
-        await _analystService.AddViewerMovie(movieId);
-        return Ok("Record Successfully!");
+        var result = await _analystService.AddViewerMovie(movieId);
+        return Ok(result);
     }
 
-    [HttpGet("analyst/convertToPrevious")]
-    public IActionResult ConvertToPrevious()
+    [HttpGet("Analyst/GetViewerMovie")]
+    public async Task<IActionResult> ConvertToPrevious()
     {
-        _analystService.ConvertToPrevious();
-        return Ok("Record Successfully!");
+        var movies = await _analystService.GetTopMovies();
+        return Ok(movies);
     }
 }
