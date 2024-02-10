@@ -2,18 +2,11 @@
 {
     public class Utiles
     {
-        public void Hello()
+        public static Guid CreateId()
         {
-            // Lấy múi giờ hiện tại của server
-            DateTime serverTime = DateTime.UtcNow;
-
-            // Tìm thông tin múi giờ của Việt Nam
-            TimeZoneInfo vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
-
-            // Chuyển múi giờ của server sang múi giờ của Việt Nam
-            DateTime vietnamTime = TimeZoneInfo.ConvertTimeFromUtc(serverTime, vietnamTimeZone);
-            
-            Console.WriteLine("Time: " + vietnamTime);
+            Guid id = Guid.NewGuid();
+            var newId = id.ToString().Replace("-", "");
+            return Guid.Parse(newId);
         }
         
         public static DateTime GetNow()

@@ -77,7 +77,7 @@ namespace Movies.Repository
                 return new ResponseDTO(HttpStatusCode.Conflict, "Person already exist!");
             }
 
-            newPerson.PersonId = Guid.NewGuid();
+            newPerson.PersonId = Utiles.CreateId();
             ResponseDTO responseDTO = await ValidateData(newPerson);
 
             if (responseDTO.Status != HttpStatusCode.Continue)
