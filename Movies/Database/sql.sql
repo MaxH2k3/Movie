@@ -34,22 +34,22 @@ VALUES
 -- Insert some records into the Person table
 INSERT INTO [dbo].[Person] ([PersonID], [Image], [NamePerson], [NationID], [Role], [DoB])
 VALUES
-('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'https://storage.googleapis.com/streaming-movie/person/actor/E1CB11EF-1753-4DA7-A352-25D7F2969329.jpg', N'Lee Jong Suk', 'KR', 'PR', '1989-09-14'),
-('7B885328-C701-46DF-871B-3C8344A87809', 'https://storage.googleapis.com/streaming-movie/person/actor/7B885328-C701-46DF-871B-3C8344A87809.jpg', N'Song Kang', 'KR', 'AC', '1993-05-16'),
-('9B46E82B-279E-43F3-BC36-60A45E10015D', 'https://storage.googleapis.com/streaming-movie/person/actor/9B46E82B-279E-43F3-BC36-60A45E10015D.jpg', N'Han So Hee', 'KR', 'AC', '1982-09-25'),
-('1401FC65-44FD-4881-A16A-640CF36F835C', 'https://storage.googleapis.com/streaming-movie/person/actor/1401FC65-44FD-4881-A16A-640CF36F835C.webp', N'Kim Yoo-Jung', 'KR', 'AC', '1979-07-10'),
-('8E379873-B309-4890-9271-6A66E4291BEA', 'https://storage.googleapis.com/streaming-movie/person/actor/8E379873-B309-4890-9271-6A66E4291BEA.jpg', N'Park Seo Joon', 'KR', 'PR', '1985-09-19'),
-('572A3A53-1F81-4251-B886-6ADF4E62389C', 'https://storage.googleapis.com/streaming-movie/person/actor/572A3A53-1F81-4251-B886-6ADF4E62389C.jpeg', N'Ji Chang Wook', 'KR', 'AC', '1985-09-19'),
-('04031A5E-AE87-4D20-AE8B-E639444768BD', 'https://storage.googleapis.com/streaming-movie/person/actor/04031A5E-AE87-4D20-AE8B-E639444768BD.jpg', N'Shin Hye Sun', 'KR', 'PR', '1985-09-19'),
-('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 'https://storage.googleapis.com/streaming-movie/person/producer/E1C3CE6E-FC60-47E7-8172-F0E970444F61.webp', N'Trấn Thành', 'VN', 'PR', '1985-09-19'),
-('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'https://storage.googleapis.com/streaming-movie/person/actor/EA879220-F69F-4256-BDC3-F55637E2E8A1.jpg', N'Yoon Chan-Young', 'KR', 'AC', '1985-09-19'),
-('751AB02D-33A1-455F-9875-FEC992B5382B', 'https://storage.googleapis.com/streaming-movie/person/actor/751AB02D-33A1-455F-9875-FEC992B5382B.jpg', N'Cho Yi-Hyun', 'KR', 'AC', '1985-09-19'),
-('A3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9F', 'https://storage.googleapis.com/streaming-movie/person/actor/F3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9.jpg', N'Park Ji Hu', 'KR', 'AC', '1985-09-19'),
-('0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F', 'https://storage.googleapis.com/streaming-movie/person/producer/0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F.webp', N'Lee Jae Gyu', 'KR', 'PR', '1985-09-19'),
-('88876642-8167-4A4C-8380-D1734A98132B', 'https://storage.googleapis.com/streaming-movie/person/producer/88876642-8167-4A4C-8380-D1734A98132B.jpg', N'Michael Bay', 'US', 'PR', '1985-09-19'),
-('1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA', 'https://storage.googleapis.com/streaming-movie/person/producer/1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA.jpg', N'Terence Winter', 'US', 'PR', '1985-09-19');
+    ('E1CB11EF-1753-4DA7-A352-25D7F2969329', 'https://storage.googleapis.com/streaming-movie/person/actor/E1CB11EF-1753-4DA7-A352-25D7F2969329.jpg', N'Lee Jong Suk', 'KR', 'PR', '1989-09-14'),
+    ('7B885328-C701-46DF-871B-3C8344A87809', 'https://storage.googleapis.com/streaming-movie/person/actor/7B885328-C701-46DF-871B-3C8344A87809.jpg', N'Song Kang', 'KR', 'AC', '1993-05-16'),
+    ('9B46E82B-279E-43F3-BC36-60A45E10015D', 'https://storage.googleapis.com/streaming-movie/person/actor/9B46E82B-279E-43F3-BC36-60A45E10015D.jpg', N'Han So Hee', 'KR', 'AC', '1982-09-25'),
+    ('1401FC65-44FD-4881-A16A-640CF36F835C', 'https://storage.googleapis.com/streaming-movie/person/actor/1401FC65-44FD-4881-A16A-640CF36F835C.webp', N'Kim Yoo-Jung', 'KR', 'AC', '1979-07-10'),
+    ('8E379873-B309-4890-9271-6A66E4291BEA', 'https://storage.googleapis.com/streaming-movie/person/actor/8E379873-B309-4890-9271-6A66E4291BEA.jpg', N'Park Seo Joon', 'KR', 'PR', '1985-09-19'),
+    ('572A3A53-1F81-4251-B886-6ADF4E62389C', 'https://storage.googleapis.com/streaming-movie/person/actor/572A3A53-1F81-4251-B886-6ADF4E62389C.jpeg', N'Ji Chang Wook', 'KR', 'AC', '1985-09-19'),
+    ('04031A5E-AE87-4D20-AE8B-E639444768BD', 'https://storage.googleapis.com/streaming-movie/person/actor/04031A5E-AE87-4D20-AE8B-E639444768BD.jpg', N'Shin Hye Sun', 'KR', 'PR', '1985-09-19'),
+    ('E1C3CE6E-FC60-47E7-8172-F0E970444F61', 'https://storage.googleapis.com/streaming-movie/person/producer/E1C3CE6E-FC60-47E7-8172-F0E970444F61.webp', N'Trấn Thành', 'VN', 'PR', '1985-09-19'),
+    ('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'https://storage.googleapis.com/streaming-movie/person/actor/EA879220-F69F-4256-BDC3-F55637E2E8A1.jpg', N'Yoon Chan-Young', 'KR', 'AC', '1985-09-19'),
+    ('751AB02D-33A1-455F-9875-FEC992B5382B', 'https://storage.googleapis.com/streaming-movie/person/actor/751AB02D-33A1-455F-9875-FEC992B5382B.jpg', N'Cho Yi-Hyun', 'KR', 'AC', '1985-09-19'),
+    ('A3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9F', 'https://storage.googleapis.com/streaming-movie/person/actor/F3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9.jpg', N'Park Ji Hu', 'KR', 'AC', '1985-09-19'),
+    ('0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F', 'https://storage.googleapis.com/streaming-movie/person/producer/0B0A0E0D-3C6D-4F7B-9E9F-1F1C1D1E1F1F.webp', N'Lee Jae Gyu', 'KR', 'PR', '1985-09-19'),
+    ('88876642-8167-4A4C-8380-D1734A98132B', 'https://storage.googleapis.com/streaming-movie/person/producer/88876642-8167-4A4C-8380-D1734A98132B.jpg', N'Michael Bay', 'US', 'PR', '1985-09-19'),
+    ('1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA', 'https://storage.googleapis.com/streaming-movie/person/producer/1EB50E8F-F5D8-43D5-BFB9-29672B5EFCEA.jpg', N'Terence Winter', 'US', 'PR', '1985-09-19');
 
-    
+
 -- Thêm bộ phim Spider-Man: No Way Home
 INSERT INTO [dbo].[Movies] (MovieID, FeatureId, NationID, Mark, Time, Viewer, Description, EnglishName, VietnamName, Thumbnail, Trailer, Status, ProducedDate, DateUpdated)
 VALUES ('B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 3, 'US', 9.5, 148, 1000000, N'Sau khi danh tính của Spider-Man bị tiết lộ, Peter Parker phải tìm cách khôi phục lại cuộc sống bình thường của mình và đối mặt với những kẻ thù đến từ nhiều vũ trụ khác nhau.', 'Spider-Man: No Way Home', N'Người Nhện: Không Còn Nhà', 'https://storage.googleapis.com/streaming-movie/movie/Cinema Film/B83F35D3-0B41-404D-AD0F-E909E45C2F5D.jpg', 'https://www.youtube.com/watch?v=fp6NrvO1Hso', 'Release', GETDATE(), GETDATE());
@@ -105,7 +105,7 @@ INSERT INTO [dbo].[Movies] VALUES (
     1,
     7,
     null
-);
+    );
 
 
 INSERT INTO [dbo].[Movies] VALUES (
@@ -127,28 +127,28 @@ INSERT INTO [dbo].[Movies] VALUES (
     1,
     1,
     null
-);
+    );
 
 INSERT INTO [dbo].[Movies] VALUES (
-	'CA7274EA-0F24-4D20-88A7-D7605C449BE9', -- MovieID
-	3, -- FeatureId
-	'KR', -- NationID
-	8.5, -- Mark
-	30, -- Time
-	474260000, -- Viewer
-	N'All of Us Are Dead is a South Korean coming-of-age zombie apocalypse horror streaming television series. It stars Park Ji-hu, Yoon Chan-young, Cho Yi-hyun, Lomon, Yoo In-soo, Lee Yoo-mi, Kim Byung-chul, Lee Kyu-hyung, and Jeon Bae-soo. The series centers on a group of high school students in the fictional South Korean city of Hyosan, and their struggle to survive amidst a zombie outbreak.', -- Description
-	'All of Us Are Dead', -- EnglishName
-	N'지금 우리 학교는', -- VietnamName
-	'https://storage.googleapis.com/streaming-movie/movie/TV Series/CA7274EA-0F24-4D20-88A7-D7605C449BE9.jpg', -- Thumbnail
-	'https://www.youtube.com/watch?v=IN5TD4VRcSM', -- Trailer
-	'Release', -- Status
-	'2022-01-28', -- ProducedDate
+    'CA7274EA-0F24-4D20-88A7-D7605C449BE9', -- MovieID
+    3, -- FeatureId
+    'KR', -- NationID
+    8.5, -- Mark
+    30, -- Time
+    474260000, -- Viewer
+    N'All of Us Are Dead is a South Korean coming-of-age zombie apocalypse horror streaming television series. It stars Park Ji-hu, Yoon Chan-young, Cho Yi-hyun, Lomon, Yoo In-soo, Lee Yoo-mi, Kim Byung-chul, Lee Kyu-hyung, and Jeon Bae-soo. The series centers on a group of high school students in the fictional South Korean city of Hyosan, and their struggle to survive amidst a zombie outbreak.', -- Description
+    'All of Us Are Dead', -- EnglishName
+    N'지금 우리 학교는', -- VietnamName
+    'https://storage.googleapis.com/streaming-movie/movie/TV Series/CA7274EA-0F24-4D20-88A7-D7605C449BE9.jpg', -- Thumbnail
+    'https://www.youtube.com/watch?v=IN5TD4VRcSM', -- Trailer
+    'Release', -- Status
+    '2022-01-28', -- ProducedDate
     '2024-1-14',
-	'2022-06-06', -- DateUpdated
-	1, -- TotalSeasons
-	12, -- TotalEpisodes
+    '2022-06-06', -- DateUpdated
+    1, -- TotalSeasons
+    12, -- TotalEpisodes
     null
-);
+    );
 
 -- Insert data for Transformers (2007)
 INSERT INTO [dbo].[Movies] ([MovieID], [FeatureId], [NationID], [Mark], [Time], [Viewer], [Description], [EnglishName], [VietnamName], [Thumbnail], [Trailer], [Status], [ProducedDate], [DateUpdated], [TotalSeasons], [TotalEpisodes])
@@ -192,10 +192,10 @@ INSERT INTO [dbo].[Movies]
     [DateCreated],
     [DateUpdated],
     [TotalSeasons],
-    [TotalEpisodes]
+[TotalEpisodes]
 )
 VALUES
-(
+    (
     '7998498f-d884-4206-a969-d6a91c431029', -- MovieID - a new uniqueidentifier
     3, -- FeatureId - assuming 1 is a valid FeatureId in the featurefilm table
     'KR', -- NationID - 'VN' for Vietnam
@@ -213,7 +213,7 @@ VALUES
     GETDATE(), -- DateUpdated - the current date and time
     0, -- TotalSeasons - assuming the movie has 1 season
     0 -- TotalEpisodes - assuming the movie has 10 episodes
-);
+    );
 
 INSERT INTO [dbo].[Movies]
 (
@@ -233,10 +233,10 @@ INSERT INTO [dbo].[Movies]
     [DateCreated],
     [DateUpdated],
     [TotalSeasons],
-    [TotalEpisodes]
+[TotalEpisodes]
 )
 VALUES
-(
+    (
     'b13d411d-398a-4405-ac44-b64eca88ed66', -- MovieID - a new uniqueidentifier
     3, -- FeatureId - assuming 1 is a valid FeatureId in the featurefilm table
     'KR', -- NationID - 'VN' for Vietnam
@@ -254,7 +254,7 @@ VALUES
     GETDATE(), -- DateUpdated - the current date and time
     0, -- TotalSeasons - assuming the movie has 1 season
     0 -- TotalEpisodes - assuming the movie has 10 episodes
-);
+    );
 
 INSERT INTO [dbo].[Movies]
 (
@@ -274,10 +274,10 @@ INSERT INTO [dbo].[Movies]
     [DateCreated],
     [DateUpdated],
     [TotalSeasons],
-    [TotalEpisodes]
+[TotalEpisodes]
 )
 VALUES
-(
+    (
     'a3d26d5a-218e-4aea-be8d-118625d17d37', -- MovieID - a new uniqueidentifier
     1, -- FeatureId - assuming 1 is a valid FeatureId in the featurefilm table
     'VN', -- NationID - 'VN' for Vietnam
@@ -295,25 +295,25 @@ VALUES
     GETDATE(), -- DateUpdated - the current date and time
     0, -- TotalSeasons - assuming the movie has 1 season
     0 -- TotalEpisodes - assuming the movie has 10 episodes
-);
+    );
 
 
 
 INSERT INTO dbo.Cast (PersonID, MovieID, CharacterName)
-VALUES 
-('7B885328-C701-46DF-871B-3C8344A87809', '15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 'John Doe'),
-('1401FC65-44FD-4881-A16A-640CF36F835C', 'BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB', 'Jane Smith'),
-('1401FC65-44FD-4881-A16A-640CF36F835C', '7626213A-FDC6-4291-BF57-DABD768CD1C8', 'Michael Johnson'),
-('751AB02D-33A1-455F-9875-FEC992B5382B', 'B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 'Emily Davis'),
-('E1C3CE6E-FC60-47E7-8172-F0E970444F61', '15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 'David Brown');
+VALUES
+    ('7B885328-C701-46DF-871B-3C8344A87809', '15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 'John Doe'),
+    ('1401FC65-44FD-4881-A16A-640CF36F835C', 'BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB', 'Jane Smith'),
+    ('1401FC65-44FD-4881-A16A-640CF36F835C', '7626213A-FDC6-4291-BF57-DABD768CD1C8', 'Michael Johnson'),
+    ('751AB02D-33A1-455F-9875-FEC992B5382B', 'B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 'Emily Davis'),
+    ('E1C3CE6E-FC60-47E7-8172-F0E970444F61', '15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 'David Brown');
 
 INSERT INTO [dbo].[Cast] ([PersonID], [MovieID], [CharacterName])
 VALUES
-('7B885328-C701-46DF-871B-3C8344A87809', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Nam On-jo'),
-('751AB02D-33A1-455F-9875-FEC992B5382B', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Lee Cheong-san'),
-('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Choi Nam-ra'),
-('9B46E82B-279E-43F3-BC36-60A45E10015D', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Lee Su-hyeok'),
-('A3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9F', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Yoon Gwi-nam');
+    ('7B885328-C701-46DF-871B-3C8344A87809', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Nam On-jo'),
+    ('751AB02D-33A1-455F-9875-FEC992B5382B', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Lee Cheong-san'),
+    ('EA879220-F69F-4256-BDC3-F55637E2E8A1', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Choi Nam-ra'),
+    ('9B46E82B-279E-43F3-BC36-60A45E10015D', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Lee Su-hyeok'),
+    ('A3B3F1F9-8F0A-4A9E-8F9F-0F0E9F5F8F9F', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 'Yoon Gwi-nam');
 
 
 SET IDENTITY_INSERT [dbo].[category] ON 
@@ -357,69 +357,69 @@ INSERT INTO [dbo].[MovieCategory]([MovieID], [CategoryID]) VALUES
 
 
 INSERT INTO Season (SeasonID, MovieID, SeasonNumber) VALUES
-('F81AFFFB-3739-4B7D-AF27-01FBC1B5BB5E', '2A866A68-5DBF-40D2-B773-12D4202CE028', 1),
-('1E384E72-3736-4040-AC5B-1E872D2FE69E', '7626213A-FDC6-4291-BF57-DABD768CD1C8', 1),
-('880971BC-35C4-44DD-9EF2-556E0CCB8B35', '99D5840E-DD16-497D-96C5-8A448B9AF19A', 1),
-('0AF5D90F-F6A4-47D2-AA01-785E2481C954', 'B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 1),
-('4193B360-46DA-4D95-A730-81E2278166F0', 'BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB', 1),
-('6FC0DADA-2F1D-4507-96DB-89820EE80FC0', '15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 1),
-('298C87E2-BAB4-4016-ABBD-91C5B3A57064', '7B885328-C701-46DF-871B-3C8344A87809', 1),
-('13CC220B-6AF3-42C9-9085-98BA326DE43E', 'E1C3CE6E-FC60-47E7-8172-F0E970444F61', 1),
-('BB0EDA61-8853-42F1-AC43-E9D26AE4DD24', '751AB02D-33A1-455F-9875-FEC992B5382B', 1),
-('3B6D4792-F516-4349-A215-F4611158A0D3', '52233AA9-5FE5-4A9C-9A03-768A809BD228', 1),
-('077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 'F9E3C7B1-0F4A-4D8F-9F8E-6C5F9F9C2E0A', 1),
-('22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 1),
-('b3b4b148-10bc-4e15-ad2f-e22fb5934478', 'a3d26d5a-218e-4aea-be8d-118625d17d37', 1),
-('47ea3d1a-a855-444e-955b-3ea2042236b9', 'b13d411d-398a-4405-ac44-b64eca88ed66', 1),
-('df15ae99-225c-4498-bfe0-789e561ba277', 'f153bbfe-e593-45a1-80ec-33b6bc7ceab3', 1);
+                                                         ('F81AFFFB-3739-4B7D-AF27-01FBC1B5BB5E', '2A866A68-5DBF-40D2-B773-12D4202CE028', 1),
+                                                         ('1E384E72-3736-4040-AC5B-1E872D2FE69E', '7626213A-FDC6-4291-BF57-DABD768CD1C8', 1),
+                                                         ('880971BC-35C4-44DD-9EF2-556E0CCB8B35', '99D5840E-DD16-497D-96C5-8A448B9AF19A', 1),
+                                                         ('0AF5D90F-F6A4-47D2-AA01-785E2481C954', 'B83F35D3-0B41-404D-AD0F-E909E45C2F5D', 1),
+                                                         ('4193B360-46DA-4D95-A730-81E2278166F0', 'BD345BDA-A5FC-4C05-B4F2-6E91E2E76BAB', 1),
+                                                         ('6FC0DADA-2F1D-4507-96DB-89820EE80FC0', '15FA08DF-A3ED-41E4-A1F8-5A3CF2C22888', 1),
+                                                         ('298C87E2-BAB4-4016-ABBD-91C5B3A57064', '7B885328-C701-46DF-871B-3C8344A87809', 1),
+                                                         ('13CC220B-6AF3-42C9-9085-98BA326DE43E', 'E1C3CE6E-FC60-47E7-8172-F0E970444F61', 1),
+                                                         ('BB0EDA61-8853-42F1-AC43-E9D26AE4DD24', '751AB02D-33A1-455F-9875-FEC992B5382B', 1),
+                                                         ('3B6D4792-F516-4349-A215-F4611158A0D3', '52233AA9-5FE5-4A9C-9A03-768A809BD228', 1),
+                                                         ('077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 'F9E3C7B1-0F4A-4D8F-9F8E-6C5F9F9C2E0A', 1),
+                                                         ('22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 'CA7274EA-0F24-4D20-88A7-D7605C449BE9', 1),
+                                                         ('b3b4b148-10bc-4e15-ad2f-e22fb5934478', 'a3d26d5a-218e-4aea-be8d-118625d17d37', 1),
+                                                         ('47ea3d1a-a855-444e-955b-3ea2042236b9', 'b13d411d-398a-4405-ac44-b64eca88ed66', 1),
+                                                         ('df15ae99-225c-4498-bfe0-789e561ba277', 'f153bbfe-e593-45a1-80ec-33b6bc7ceab3', 1);
 
 INSERT INTO Episode (EpisodeID, SeasonID, EpisodeNumber, Name, Video) VALUES
-('FA59ED42-3FDD-423A-8448-0188AF065C8D', 'F81AFFFB-3739-4B7D-AF27-01FBC1B5BB5E', 1, 'Black Panther', '1oBS-q7Rybq01LFhFULfoTftInX6QK6GQ'),
-('F11178FF-9B6E-4A7E-853F-112D8B324748', '1E384E72-3736-4040-AC5B-1E872D2FE69E', 1, 'SpiderMan: Far From Home', '1hZg9kSY47VJLuxILcGYRzGovUNtjQ86H'),
-('EE596F6E-E386-4591-92F1-4CC84C838B96', '880971BC-35C4-44DD-9EF2-556E0CCB8B35', 1, 'FreeLance 2023', '1bcpbAokSRBh1yrC1k7uKaKtU_oFBCtYP'),
-('77ED3FA9-E4D3-4F55-AB67-5EC41F3C3945', '0AF5D90F-F6A4-47D2-AA01-785E2481C954', 1, 'SpiderMan: No Way Home', '1mP5kBSgx-22sHfKAD1YcdKTQ8Ev3OULK'),
-('A8BFFC8A-62DC-4DD0-9FFC-7B06EBC34837', '4193B360-46DA-4D95-A730-81E2278166F0', 1, 'Love Reset', '1r0bUvA324AEpGuzoYagDm1ikuSMtwwW4'),
-('2AF1EF8A-697E-4D6E-8E66-9860E009B888', '6FC0DADA-2F1D-4507-96DB-89820EE80FC0', 1, N'Conan: Tàu Ngầm Sắt Màu Đen', '1qk65A-bxrHMxRm1u9SHV3wsaHYA0EcNU'),
-('E4B7D179-8653-4139-B70D-CA0DD7D82CEA', '298C87E2-BAB4-4016-ABBD-91C5B3A57064', 1, N'Conan: Cú Đấm Sapphire Xanh', '1NTmci_amLxe19IlHeThwNVVNJaqaXP8n'),
-('140C8FD2-53B7-4DFF-959F-D3D095089455', '13CC220B-6AF3-42C9-9085-98BA326DE43E', 1, N'Conan: Nàng Dâu Hallowen', '1iih31C5qvnonEkokPY88MfpumUwnWQ7H'),
-('46FF76C9-D39F-4E39-962D-F3B62E812131', 'BB0EDA61-8853-42F1-AC43-E9D26AE4DD24', 1, 'SpiderMan: Across the Spider Verse', '1313eUuuxSa_gDLtKliSd0TfMxT4s-VWp'),
-('C2ADAC22-9715-4362-AEE9-F56E0AB04497', '3B6D4792-F516-4349-A215-F4611158A0D3', 1, N'Đấu Trường Sinh Tử: Khúc Hát Của Chim Ca và Rắn Độc', '1Z97W9nbFiLfI_ZKCFhkZP72lNQBlGZc9'),
-('8691BFBC-FDF4-406B-B2F3-D15BA1AFE494', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 1, N'Episdode 1', '1VXC7LQZs3y6th18F_5RA1Yk4ykSMn07q'),
-('8BEE155D-EFA8-4B8C-9752-A474E8661911', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 2, N'Episdode 2', '1zsiJDJGtmPdX08eGeQhUdmLlSwpZfSkQ'),
-('67A29658-4CD7-472D-8613-8BA42D02E742', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 3, N'Episdode 3', '1tstq0CuMBeleJ4wLwNK19KGLzlTBFe3v'),
-('2AB65F83-E9BE-4A39-8248-ABACC1AE000C', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 4, N'Episdode 4', '1fuTWpI_9l1XrR_kBUDa90mnwkeoFcphG'),
-('233C2D7E-D7A7-4F79-AA04-20A8A949A4C1', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 5, N'Episdode 5', '1gS2JjNmbfV1CGuCt6Xxwrrsh2RIfZty4'),
-('1D814FBC-38CC-4361-8FFC-0F4A04C1F3A2', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 6, N'Episdode 6', '1aY-BQ8aI0d1IdqJ_961A45SdIhFPmKsm'),
-('FFC617B3-0365-418E-8FA5-8D4785FFDF73', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 7, N'Episdode 7', '1J25CMSiw7Rf6_6MKe3Vrri-jZKKEEbne'),
-('2C07479B-65FA-4B64-97A5-E51221A65BBE', '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 1, N'Episdode 1', '1fkIDULvQG5J4iP3GzTzRrXOMeGWZKft-'),
-('1A0A2322-5DE1-4B82-B4E7-665CE1AD4D7F', '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 2, N'Episdode 2', '1aAerLCQ9cw4M0MafTfdcWGicYwMSAK10'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 3, N'Episdode 3', '160KsZW7bUpO956AnRhcv8uYpwjeKhSMs'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 4, N'Episdode 4', '1uL0n6AbXOMjuXaEB1uIUNxUybgNHRras'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 5, N'Episdode 5', '1Tli1YqdWjEqEAXZtZhq34RCUvPOSta1a'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 6, N'Episdode 6', '1TiBctoha4f9xmA9gCkV7_loZEFkLbnrv'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 7, N'Episdode 7', '1bRXYI8bmvrKNiGxYddOb_JbuIOdbAeos'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 8, N'Episdode 8', '18AQ_-YY9q68oY0ttzUlUdQTtpgI6IWRj'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 9, N'Episdode 9', '1UZPh1T8YC_aAPvBqwZd3G5Bq5xhSmBzE'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 10, N'Episdode 10', '1MEcfE9T_0vK2vIwGbNKyMauxXP6njcKR'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 11, N'Episdode 11', '1kKlHw_gr1na-OI42TO6aRnf84ResKSMQ'),
-(NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 12, N'Episdode 12', '1GeBHJHR7O4rUhzN3G7AZ3a01PpPRs-gf'),
-(newid(), 'b3b4b148-10bc-4e15-ad2f-e22fb5934478', 1, N'Quỷ Cẩu', '1f6iJzKzKmZnlryMqQC2M57U_1jI6O3vR'),
-(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 1, N'Episode 1', '1ZfnXZTR98t5m4PMkDCFLS3MonVyMoVGb'),
-(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 2, N'Episode 2', '1MnrrI62w32ICIVFMk7RFNBIYW8V0eMJK'),
-(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 3, N'Episode 3', '1ZF6pdaqnmZlSF86zF71gXGnofEHB2XPK'),
-(newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 4, N'Episode 4', '1IaCd8SP4ABvicU_WljvdtN5twDeFZ0kK'),
-(newid(), 'df15ae99-225c-4498-bfe0-789e561ba277', 1, 'The Wolf of Wall Street', '1BSdwgsMrCA0NShju8hGi4ZusnR6613dc');
+                                                                          ('FA59ED42-3FDD-423A-8448-0188AF065C8D', 'F81AFFFB-3739-4B7D-AF27-01FBC1B5BB5E', 1, 'Black Panther', '1oBS-q7Rybq01LFhFULfoTftInX6QK6GQ'),
+                                                                          ('F11178FF-9B6E-4A7E-853F-112D8B324748', '1E384E72-3736-4040-AC5B-1E872D2FE69E', 1, 'SpiderMan: Far From Home', '1hZg9kSY47VJLuxILcGYRzGovUNtjQ86H'),
+                                                                          ('EE596F6E-E386-4591-92F1-4CC84C838B96', '880971BC-35C4-44DD-9EF2-556E0CCB8B35', 1, 'FreeLance 2023', '1bcpbAokSRBh1yrC1k7uKaKtU_oFBCtYP'),
+                                                                          ('77ED3FA9-E4D3-4F55-AB67-5EC41F3C3945', '0AF5D90F-F6A4-47D2-AA01-785E2481C954', 1, 'SpiderMan: No Way Home', '1mP5kBSgx-22sHfKAD1YcdKTQ8Ev3OULK'),
+                                                                          ('A8BFFC8A-62DC-4DD0-9FFC-7B06EBC34837', '4193B360-46DA-4D95-A730-81E2278166F0', 1, 'Love Reset', '1r0bUvA324AEpGuzoYagDm1ikuSMtwwW4'),
+                                                                          ('2AF1EF8A-697E-4D6E-8E66-9860E009B888', '6FC0DADA-2F1D-4507-96DB-89820EE80FC0', 1, N'Conan: Tàu Ngầm Sắt Màu Đen', '1qk65A-bxrHMxRm1u9SHV3wsaHYA0EcNU'),
+                                                                          ('E4B7D179-8653-4139-B70D-CA0DD7D82CEA', '298C87E2-BAB4-4016-ABBD-91C5B3A57064', 1, N'Conan: Cú Đấm Sapphire Xanh', '1NTmci_amLxe19IlHeThwNVVNJaqaXP8n'),
+                                                                          ('140C8FD2-53B7-4DFF-959F-D3D095089455', '13CC220B-6AF3-42C9-9085-98BA326DE43E', 1, N'Conan: Nàng Dâu Hallowen', '1iih31C5qvnonEkokPY88MfpumUwnWQ7H'),
+                                                                          ('46FF76C9-D39F-4E39-962D-F3B62E812131', 'BB0EDA61-8853-42F1-AC43-E9D26AE4DD24', 1, 'SpiderMan: Across the Spider Verse', '1313eUuuxSa_gDLtKliSd0TfMxT4s-VWp'),
+                                                                          ('C2ADAC22-9715-4362-AEE9-F56E0AB04497', '3B6D4792-F516-4349-A215-F4611158A0D3', 1, N'Đấu Trường Sinh Tử: Khúc Hát Của Chim Ca và Rắn Độc', '1Z97W9nbFiLfI_ZKCFhkZP72lNQBlGZc9'),
+                                                                          ('8691BFBC-FDF4-406B-B2F3-D15BA1AFE494', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 1, N'Episdode 1', '1VXC7LQZs3y6th18F_5RA1Yk4ykSMn07q'),
+                                                                          ('8BEE155D-EFA8-4B8C-9752-A474E8661911', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 2, N'Episdode 2', '1zsiJDJGtmPdX08eGeQhUdmLlSwpZfSkQ'),
+                                                                          ('67A29658-4CD7-472D-8613-8BA42D02E742', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 3, N'Episdode 3', '1tstq0CuMBeleJ4wLwNK19KGLzlTBFe3v'),
+                                                                          ('2AB65F83-E9BE-4A39-8248-ABACC1AE000C', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 4, N'Episdode 4', '1fuTWpI_9l1XrR_kBUDa90mnwkeoFcphG'),
+                                                                          ('233C2D7E-D7A7-4F79-AA04-20A8A949A4C1', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 5, N'Episdode 5', '1gS2JjNmbfV1CGuCt6Xxwrrsh2RIfZty4'),
+                                                                          ('1D814FBC-38CC-4361-8FFC-0F4A04C1F3A2', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 6, N'Episdode 6', '1aY-BQ8aI0d1IdqJ_961A45SdIhFPmKsm'),
+                                                                          ('FFC617B3-0365-418E-8FA5-8D4785FFDF73', '077A2AA1-D63B-4A6C-AC5B-58B109FD2B9C', 7, N'Episdode 7', '1J25CMSiw7Rf6_6MKe3Vrri-jZKKEEbne'),
+                                                                          ('2C07479B-65FA-4B64-97A5-E51221A65BBE', '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 1, N'Episdode 1', '1fkIDULvQG5J4iP3GzTzRrXOMeGWZKft-'),
+                                                                          ('1A0A2322-5DE1-4B82-B4E7-665CE1AD4D7F', '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 2, N'Episdode 2', '1aAerLCQ9cw4M0MafTfdcWGicYwMSAK10'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 3, N'Episdode 3', '160KsZW7bUpO956AnRhcv8uYpwjeKhSMs'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 4, N'Episdode 4', '1uL0n6AbXOMjuXaEB1uIUNxUybgNHRras'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 5, N'Episdode 5', '1Tli1YqdWjEqEAXZtZhq34RCUvPOSta1a'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 6, N'Episdode 6', '1TiBctoha4f9xmA9gCkV7_loZEFkLbnrv'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 7, N'Episdode 7', '1bRXYI8bmvrKNiGxYddOb_JbuIOdbAeos'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 8, N'Episdode 8', '18AQ_-YY9q68oY0ttzUlUdQTtpgI6IWRj'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 9, N'Episdode 9', '1UZPh1T8YC_aAPvBqwZd3G5Bq5xhSmBzE'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 10, N'Episdode 10', '1MEcfE9T_0vK2vIwGbNKyMauxXP6njcKR'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 11, N'Episdode 11', '1kKlHw_gr1na-OI42TO6aRnf84ResKSMQ'),
+                                                                          (NEWID(), '22866D8A-C874-4D85-ABDE-07D6E3CF1BD7', 12, N'Episdode 12', '1GeBHJHR7O4rUhzN3G7AZ3a01PpPRs-gf'),
+                                                                          (newid(), 'b3b4b148-10bc-4e15-ad2f-e22fb5934478', 1, N'Quỷ Cẩu', '1f6iJzKzKmZnlryMqQC2M57U_1jI6O3vR'),
+                                                                          (newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 1, N'Episode 1', '1ZfnXZTR98t5m4PMkDCFLS3MonVyMoVGb'),
+                                                                          (newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 2, N'Episode 2', '1MnrrI62w32ICIVFMk7RFNBIYW8V0eMJK'),
+                                                                          (newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 3, N'Episode 3', '1ZF6pdaqnmZlSF86zF71gXGnofEHB2XPK'),
+                                                                          (newid(), '47ea3d1a-a855-444e-955b-3ea2042236b9', 4, N'Episode 4', '1IaCd8SP4ABvicU_WljvdtN5twDeFZ0kK'),
+                                                                          (newid(), 'df15ae99-225c-4498-bfe0-789e561ba277', 1, 'The Wolf of Wall Street', '1BSdwgsMrCA0NShju8hGi4ZusnR6613dc');
 
 
 
 
 /* test trigger */
 INSERT INTO Season (SeasonID, MovieID, SeasonNumber) VALUES
-(NEWID(), '7626213A-FDC6-4291-BF57-DABD768CD1C8', 5);
+    (NEWID(), '7626213A-FDC6-4291-BF57-DABD768CD1C8', 5);
 
 DELETE FROM Season WHERE SeasonID = '2A866A68-5DBF-40D2-B773-12D4202CE028';
 
 INSERT INTO Episode (EpisodeID, SeasonID, EpisodeNumber, Name) VALUES
-('99D5840E-DD16-497D-96C5-8A448B9AF19A', '880971BC-35C4-44DD-9EF2-556E0CCB8B35', 3, N'Tập 3');
+    ('99D5840E-DD16-497D-96C5-8A448B9AF19A', '880971BC-35C4-44DD-9EF2-556E0CCB8B35', 3, N'Tập 3');
 
 DELETE FROM Episode WHERE EpisodeID = '99D5840E-DD16-497D-96C5-8A448B9AF19A';

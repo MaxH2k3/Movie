@@ -141,7 +141,7 @@ public class MovieService : IMovieRepository
             return new ResponseDTO(HttpStatusCode.BadRequest, "Movie already exists!");
         }
 
-        newMovie.MovieId = Utiles.CreateId();
+        newMovie.MovieId = Guid.NewGuid();
         ResponseDTO responseDTO = await validateData(newMovie);
         if(responseDTO.Status != HttpStatusCode.Continue)
         {
