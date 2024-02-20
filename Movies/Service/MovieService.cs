@@ -397,7 +397,7 @@ public class MovieService : IMovieRepository
         var movies = _context.Movies;
         foreach (var item in features)
         {
-            statistics.Add(item.Name, await movies.CountAsync(m => (m.FeatureId == item.FeatureId) && (m.DateDeleted == null)));
+            statistics.Add(item.Name.Replace(" ", ""), await movies.CountAsync(m => (m.FeatureId == item.FeatureId) && (m.DateDeleted == null)));
         }
 
         return statistics;
