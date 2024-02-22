@@ -3,6 +3,7 @@ using Movies.Business.movies;
 using Movies.Models;
 using Movies.Repository;
 using MongoDB.Bson;
+using Microsoft.EntityFrameworkCore;
 
 namespace Movies.Service
 {
@@ -52,10 +53,15 @@ namespace Movies.Service
             }
         }
 
-        public async Task<List<AnalystMovie>> GetTopMovies()
+        public async Task<List<Movie>> GetTopMovies()
         {
-            var list = await _context.PreviousTopMovies.FindAsync(new BsonDocument());
-            return await list.ToListAsync();
+            var list = await (await _context.PreviousTopMovies.FindAsync(new BsonDocument())).ToListAsync();
+            var listId = list.Select(x => x.MovieId).ToList();
+            var movies = await _contextsql.Movies
+                .Include(x => x.Feature)
+                .Where(x => listId.Contains(x.MovieId))
+                .ToListAsync();
+            return movies;
         }
     }
 }

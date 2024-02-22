@@ -2,6 +2,8 @@
 using Movies.Repository;
 using System.Net;
 using Movies.Utilities;
+using AutoMapper;
+using Movies.Business.movies;
 
 namespace Movies.Controllers;
 
@@ -9,10 +11,13 @@ namespace Movies.Controllers;
 public class AnalystController : Controller
 {
     private readonly IAnalystRepository _analystService;
+    private readonly IMapper _mapper;
 
-    public AnalystController(IAnalystRepository analystRepository)
+    public AnalystController(IAnalystRepository analystRepository, 
+        IMapper mapper)
     {
         _analystService = analystRepository;
+        _mapper = mapper;
     }
 
     [HttpPost("Analyst/AddViewerMovie")]
@@ -26,6 +31,7 @@ public class AnalystController : Controller
     public async Task<IActionResult> ConvertToPrevious()
     {
         var movies = await _analystService.GetTopMovies();
-        return Ok(movies);
+        var result = _mapper.Map<IEnumerable<MoviePreview>>(movies);
+        return Ok(result);
     }
 }
