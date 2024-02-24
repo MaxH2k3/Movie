@@ -49,7 +49,7 @@ CREATE TABLE [dbo].[Movies](
 	[Description] [nvarchar](max) NULL,
 	[EnglishName] [varchar](255) NULL,
 	[VietnamName] [nvarchar](255) NULL,
-	[Thumbnail] [varchar](255) NULL,
+	[Thumbnail] [varchar](max) NULL,
 	[Trailer] [varchar](255) NULL,
 	[Status] [varchar](255) NULL,
 	[ProducedDate] [datetime] NULL,

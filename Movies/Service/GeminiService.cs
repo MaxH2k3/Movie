@@ -52,8 +52,15 @@ public class GeminiService
         pattern += (nation != null) ? "produced in " + nation : "";
         pattern += $" using example from FeatureFilm {features} and Category {categories} and Nation {nations}. You should search exactly name";
 
-        Console.WriteLine(pattern);
-        var result = await _client.GenerateContentAsync(pattern);
+        string result = "";
+        try
+        {
+            result = await _client.GenerateContentAsync(pattern);
+        } catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            result = e.Message;
+        }
 
          return CleanResult(result);
     }

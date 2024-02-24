@@ -89,7 +89,6 @@ namespace Movies.Repository
             person = _mapper.Map<Person>(newPerson);
             person.Role = person.Role?.ToUpper();
             person.NationId = person.NationId?.ToUpper();
-            person.Thumbnail = responseDTO.Data?.ToString();
             person.DateCreated = DateTime.Now;
 
             _context.Persons.Add(person);
@@ -108,7 +107,7 @@ namespace Movies.Repository
             }
 
             Person? person = GetPerson((Guid) newPerson.PersonId);
-            string? oldImage = person?.Thumbnail;
+
             if (person == null)
             {
                 return new ResponseDTO(HttpStatusCode.NotFound, "Person not found!");
@@ -128,7 +127,6 @@ namespace Movies.Repository
             person = _mapper.Map<Person>(newPerson);
             person.Role = person.Role?.ToUpper();
             person.NationId = person.NationId?.ToUpper();
-            person.Thumbnail = (newPerson.Thumbnail != null) ? responseDTO.Data?.ToString() : oldImage;
   
             _context.Persons.Update(person);
             if (await _context.SaveChangesAsync() > 0)
@@ -153,17 +151,6 @@ namespace Movies.Repository
                 return new ResponseDTO(HttpStatusCode.NotFound, "Role must be actor (AC) or producer (PR)");
             }
 
-            //upload image
-            /*string? filePath = null;
-            string url = "https://storage.googleapis.com/streaming-movie/";
-            if (newPerson.Thumbnail != null)
-            {
-                var role = newPerson.Role.ToUpper().Equals(Constraint.RolePerson.ACTOR) ? "actor" : "producer";
-                filePath = $"person/{role}/{newPerson.PersonId}";
-                await _storageRepository.DeleteFile(filePath);
-                await _storageRepository.UploadFile(newPerson.Thumbnail, filePath);
-            }*/
-
             return new ResponseDTO(HttpStatusCode.Continue, "Validate Successfully!", "");
         }
 
@@ -176,7 +163,7 @@ namespace Movies.Repository
             }
 
             _context.Persons.Remove(person);
-            await _storageRepository.DeleteFile(person.Thumbnail.Replace("https://storage.googleapis.com/streaming-movie/", ""));
+
             if (await _context.SaveChangesAsync() > 0)
             {
                 return new ResponseDTO(HttpStatusCode.OK, "Person delete successfully!");

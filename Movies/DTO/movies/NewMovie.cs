@@ -18,7 +18,7 @@ public class NewMovie
     [MinLength(2)]
     [Required]
     public string? VietnamName { get; set; }
-    public IFormFile? Thumbnail { get; set; }
+    public string? Thumbnail { get; set; }
     [Required]
     public string? Trailer { get; set; }
     [Required]

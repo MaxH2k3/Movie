@@ -5,7 +5,7 @@ namespace Movies.Business.persons
     public class NewPerson
     {
         public Guid? PersonId { get; set; }
-        public IFormFile? Thumbnail { get; set; }
+        public string? Thumbnail { get; set; }
         [Required]
         public string? NamePerson { get; set; }
         [Required]

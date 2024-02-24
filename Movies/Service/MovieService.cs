@@ -152,7 +152,6 @@ public class MovieService : IMovieRepository
         movie = _mapper.Map<Movie>(newMovie);   
         movie.Status = Constraint.StatusMovie.UPCOMING;
         movie.NationId = movie.NationId?.ToUpper();
-        movie.Thumbnail = responseDTO.Data?.ToString();
         movie.DateCreated = DateTime.Now;
 
         ResponseDTO response;
@@ -193,7 +192,6 @@ public class MovieService : IMovieRepository
 
         movie = _mapper.Map<Movie>(newMovie);
         movie.NationId = movie.NationId?.ToUpper();
-        movie.Thumbnail = (newMovie.Thumbnail != null) ? responseDTO.Data?.ToString() : oldThumnail;
         movie.TotalSeasons = totalSeasons;
         movie.TotalEpisodes = totalEpisodes;
         movie.DateCreated = DateCreated;
@@ -217,7 +215,7 @@ public class MovieService : IMovieRepository
         }
 
         _context.Movies.Remove(movie);
-        await _storageRepository.DeleteFile(movie.Thumbnail.Replace("https://storage.googleapis.com/streaming-movie/", ""));
+
         if (await _context.SaveChangesAsync() > 0)
         {
             return new ResponseDTO(HttpStatusCode.OK, "Remove movie successfully!");
@@ -240,16 +238,6 @@ public class MovieService : IMovieRepository
             return new ResponseDTO(HttpStatusCode.NotFound, "Feature Film not found");
         }
 
-        //upload image
-        /*string? filePath = null;
-        string url = "https://storage.googleapis.com/streaming-movie/";
-        if (newMovie.Thumbnail != null)
-        {
-            filePath = $"movie/{feature.Name}/{newMovie.MovieId}";
-            await _storageRepository.DeleteFile(filePath);
-            await _storageRepository.UploadFile(newMovie.Thumbnail, filePath);
-        }*/
-
         return new ResponseDTO(HttpStatusCode.Continue, "Validate successfully!", "");
     }
 
@@ -257,12 +245,12 @@ public class MovieService : IMovieRepository
     {   
         if(id == null)
         {
-            return GetMovies().Any(m => m.EnglishName.ToLower().Equals(englishName) ||
+            return _context.Movies.Any(m => m.EnglishName.ToLower().Equals(englishName) ||
                                 m.VietnamName.ToLower().Equals(vietNamName));
         }
         else if(id != null)
         {
-            return GetMovies().Any(m => (m.EnglishName.ToLower().Equals(englishName) ||
+            return _context.Movies.Any(m => (m.EnglishName.ToLower().Equals(englishName) ||
                                 m.VietnamName.ToLower().Equals(vietNamName)) && !m.MovieId.Equals(id));
         }
         return false;
