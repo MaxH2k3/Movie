@@ -3,7 +3,7 @@ using Movies.Repository;
 
 namespace Movies.Service;
 
-public class NationService : INationRepository
+public class NationService : INationService
 {
     private readonly MOVIESContext _context;
 

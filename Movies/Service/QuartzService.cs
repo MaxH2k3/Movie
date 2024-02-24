@@ -5,7 +5,7 @@ using Quartz;
 
 namespace Movies.Service;
 
-public class QuartzService : IQuartzRepository
+public class QuartzService : IQuartzService
 {
     private readonly ISchedulerFactory _schedulerFactory;
     

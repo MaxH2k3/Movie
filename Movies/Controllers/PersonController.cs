@@ -13,10 +13,10 @@ namespace Movies.Controllers;
 [ApiController]
 public class PersonController : Controller
 {
-    private readonly IPersonRepository _personRepository;
+    private readonly IPersonService _personRepository;
     private readonly IMapper _mapper;
 
-    public PersonController(IPersonRepository personRepository,
+    public PersonController(IPersonService personRepository,
                    IMapper mapper)
     {
         _personRepository = personRepository;

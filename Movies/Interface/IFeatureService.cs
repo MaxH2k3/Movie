@@ -2,7 +2,7 @@
 
 namespace Movies.Interface
 {
-    public interface IFeatureRepository
+    public interface IFeatureService
     {
         IEnumerable<FeatureFilm> GetFeatures();
     }

@@ -6,7 +6,7 @@ using System.Net;
 
 namespace Movies.Service;
 
-public class MovieCategoryService : IMovieCategoryRepository
+public class MovieCategoryService : IMovieCategoryService
 {
     private readonly MOVIESContext _context;
     private readonly IMapper _mapper;

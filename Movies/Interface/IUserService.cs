@@ -4,7 +4,7 @@ using Movies.Models;
 
 namespace Movies.Interface
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         User? GetUser(string username);
         IEnumerable<User> GetUsers();

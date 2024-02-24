@@ -13,11 +13,11 @@ namespace Movies.Controllers;
 [ApiController]
 public class UserController : Controller
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userRepository;
     private readonly JWTGenerator _tokenGenerator;
     private readonly IMapper _mapper;
 
-    public UserController(IUserRepository userRepository, JWTGenerator jwtGenerator,
+    public UserController(IUserService userRepository, JWTGenerator jwtGenerator,
         IMapper mapper)
     {
         _userRepository = userRepository;

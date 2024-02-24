@@ -10,10 +10,10 @@ namespace Movies.Controllers;
 [ApiController]
 public class AnalystController : Controller
 {
-    private readonly IAnalystRepository _analystService;
+    private readonly IAnalystService _analystService;
     private readonly IMapper _mapper;
 
-    public AnalystController(IAnalystRepository analystRepository, 
+    public AnalystController(IAnalystService analystRepository, 
         IMapper mapper)
     {
         _analystService = analystRepository;

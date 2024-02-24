@@ -7,9 +7,9 @@ namespace Movies.Quartz;
 [DisallowConcurrentExecution]
 public class QuartzTask : IJob
 {
-    private readonly IAnalystRepository _analystService;
+    private readonly IAnalystService _analystService;
 
-    public QuartzTask(IAnalystRepository analystRepository)
+    public QuartzTask(IAnalystService analystRepository)
     {
         _analystService = analystRepository;
     }

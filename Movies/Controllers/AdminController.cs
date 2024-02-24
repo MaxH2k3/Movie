@@ -14,10 +14,10 @@ namespace Movies.Controllers;
 [ApiController]
 public class AdminController : Controller
 {
-    private readonly IMovieRepository _movieService;
-    private readonly IQuartzRepository _quartzService;
+    private readonly IMovieService _movieService;
+    private readonly IQuartzService _quartzService;
 
-    public AdminController(IMovieRepository movieRepository, IQuartzRepository quartzRepository)
+    public AdminController(IMovieService movieRepository, IQuartzService quartzRepository)
     {
         _movieService = movieRepository;
         _quartzService = quartzRepository;

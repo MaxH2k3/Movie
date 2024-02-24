@@ -8,9 +8,9 @@ namespace Movies.Controllers;
 [ApiController]
 public class CategoryController : Controller
 {
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly ICategoryService _categoryRepository;
 
-    public CategoryController(ICategoryRepository categoryRepository)
+    public CategoryController(ICategoryService categoryRepository)
     {
         _categoryRepository = categoryRepository;
     }

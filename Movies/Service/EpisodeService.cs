@@ -10,7 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Movies.Repository
 {
-    public class EpisodeService : IEpisodeRepository
+    public class EpisodeService : IEpisodeService
     {
         private readonly MOVIESContext _context;
         private readonly IMapper _mapper;

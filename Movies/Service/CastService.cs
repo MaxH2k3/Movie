@@ -6,7 +6,7 @@ using System.Net;
 
 namespace Movies.Service;
 
-public class CastService : ICastRepository
+public class CastService : ICastService
 {
     private readonly MOVIESContext _context;
 

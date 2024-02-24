@@ -3,7 +3,7 @@ using Movies.Models;
 
 namespace Movies.Repository
 {
-    public class FeatureService : IFeatureRepository
+    public class FeatureService : IFeatureService
     {
         private readonly MOVIESContext _context;
 

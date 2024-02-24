@@ -2,7 +2,7 @@
 
 namespace Movies.Interface
 {
-    public interface ICategoryRepository
+    public interface ICategoryService
     {
         IEnumerable<Category> GetCategories();
     }

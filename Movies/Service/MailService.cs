@@ -7,7 +7,7 @@ using Movies.Repository;
 
 namespace Movies.Service
 {
-    public class MailService : IMailRepository
+    public class MailService : IMailService
     {
         private readonly GmailConfig _gmailConfig;
 

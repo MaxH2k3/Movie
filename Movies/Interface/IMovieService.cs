@@ -4,7 +4,7 @@ using Movies.Models;
 
 namespace Movies.Interface
 {
-    public interface IMovieRepository
+    public interface IMovieService
     {
         IEnumerable<Movie> GetMovies(string? status = null, bool deleted = false);
         Movie? GetMovieById(Guid id, string? status = null);

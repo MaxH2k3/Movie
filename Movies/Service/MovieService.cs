@@ -9,21 +9,21 @@ using System.Net;
 
 namespace Movies.Repository;
 
-public class MovieService : IMovieRepository
+public class MovieService : IMovieService
 {
     private readonly MOVIESContext _context;
     private readonly IMapper _mapper;
-    private readonly IStorageRepository _storageRepository;
+    private readonly IStorageService _storageRepository;
 
     public MovieService(MOVIESContext context, IMapper mapper, 
-        IStorageRepository storageRepository)
+        IStorageService storageRepository)
     {
         _context = context;
         _mapper = mapper;
         _storageRepository = storageRepository;
     }
 
-    public MovieService(IMapper mapper, IStorageRepository storageRepository)
+    public MovieService(IMapper mapper, IStorageService storageRepository)
     {
         _context = new MOVIESContext();
         _mapper = mapper;

@@ -2,7 +2,7 @@
 
 namespace Movies.Repository;
 
-public interface IQuartzRepository
+public interface IQuartzService
 {
     Task<JobDetails> GetCurrentJob();
     Task<string> ControlTask(int? time, string action);

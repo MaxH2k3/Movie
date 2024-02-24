@@ -10,10 +10,10 @@ namespace Movies.Controllers;
 [ApiController]
 public class SeasonController : Controller
 {
-    private readonly ISeasonRepository _seasonRepository;
+    private readonly ISeasonService _seasonRepository;
     private readonly IMapper _mapper;
 
-    public SeasonController(ISeasonRepository seasonRepository,
+    public SeasonController(ISeasonService seasonRepository,
                           IMapper mapper)
     {
         _seasonRepository = seasonRepository;

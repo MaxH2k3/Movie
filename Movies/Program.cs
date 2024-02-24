@@ -31,25 +31,25 @@ public class Program
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         builder.Services.AddScoped<GlobalException>();
 
-        builder.Services.AddScoped<IMovieRepository, MovieService>();
-        builder.Services.AddScoped<IPersonRepository, PersonService>();
-        builder.Services.AddScoped<ICategoryRepository, CategoryService>();
-        builder.Services.AddScoped<IFeatureRepository, FeatureService>();
-        builder.Services.AddScoped<ISeasonRepository, SeasonService>();
-        builder.Services.AddScoped<IEpisodeRepository, EpisodeService>();
-        builder.Services.AddScoped<IStorageRepository, StorageService>();
-        builder.Services.AddScoped<IUserRepository, UserService>();
-        builder.Services.AddScoped<IMovieCategoryRepository, MovieCategoryService>();
+        builder.Services.AddScoped<IMovieService, MovieService>();
+        builder.Services.AddScoped<IPersonService, PersonService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<IFeatureService, FeatureService>();
+        builder.Services.AddScoped<ISeasonService, SeasonService>();
+        builder.Services.AddScoped<IEpisodeService, EpisodeService>();
+        builder.Services.AddScoped<IStorageService, StorageService>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IMovieCategoryService, MovieCategoryService>();
         builder.Services.AddScoped<JWTGenerator, JWTConfig>();
         builder.Services.AddScoped<IAuthentication, Authentication>();
-        builder.Services.AddScoped<IMailRepository, MailService>();
-        builder.Services.AddScoped<INationRepository, NationService>();
-        builder.Services.AddScoped<ICastRepository, CastService>();
-        builder.Services.AddScoped<IAnalystRepository, AnalystService>();
+        builder.Services.AddScoped<IMailService, MailService>();
+        builder.Services.AddScoped<INationService, NationService>();
+        builder.Services.AddScoped<ICastService, CastService>();
+        builder.Services.AddScoped<IAnalystService, AnalystService>();
         builder.Services.AddScoped<IIPService, IPService>();
-        builder.Services.AddScoped<GeminiService>();
+        builder.Services.AddScoped<IGeminiService, GeminiService>();
         builder.Services.AddDbContext<MOVIESContext>();
-        builder.Services.AddScoped<IQuartzRepository, QuartzService>();
+        builder.Services.AddScoped<IQuartzService, QuartzService>();
         builder.Services.AddQuartzConfig();
 
         builder.Services.AddControllers();
@@ -102,6 +102,7 @@ public class Program
                 swagger.SwaggerDoc("v1", new() { Title = "Movies", Version = "v1" });
                 swagger.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Movies.xml"));
             });
+
         builder.Services.AddCors();
 
         //Set size limit for request

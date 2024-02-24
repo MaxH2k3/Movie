@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Movies.Repository
 {
-    public class StorageService : IStorageRepository
+    public class StorageService : IStorageService
     {
         private readonly GCPContext _gcpContext;
 

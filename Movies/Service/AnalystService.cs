@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Movies.Service
 {
-    public class AnalystService : IAnalystRepository
+    public class AnalystService : IAnalystService
     {
         private readonly MovieMongoContext _context;
         private readonly MOVIESContext _contextsql;

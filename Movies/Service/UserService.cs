@@ -11,16 +11,16 @@ using System.Net;
 
 namespace Movies.Repository;
 
-public class UserService : IUserRepository
+public class UserService : IUserService
 {
     private readonly MOVIESContext _context;
     private readonly IAuthentication _authentication;
     private readonly MovieMongoContext _MongoContext;
-    private readonly IMailRepository _mailService;
+    private readonly IMailService _mailService;
     private readonly IMapper _mapper;
 
     public UserService(MOVIESContext context, IAuthentication authentication, 
-        IMapper mapper, MovieMongoContext mongoContext, IMailRepository mailRepository)
+        IMapper mapper, MovieMongoContext mongoContext, IMailService mailRepository)
     {
         _context = context;
         _authentication = authentication;
@@ -29,7 +29,7 @@ public class UserService : IUserRepository
         _mailService = mailRepository;
     }
 
-    public UserService(IAuthentication authentication, IMapper mapper, IMailRepository mailRepository)
+    public UserService(IAuthentication authentication, IMapper mapper, IMailService mailRepository)
     {
         _context = new MOVIESContext();
         _MongoContext = new MovieMongoContext();

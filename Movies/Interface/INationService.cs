@@ -2,7 +2,7 @@
 
 namespace Movies.Repository
 {
-    public interface INationRepository
+    public interface INationService
     {
         IEnumerable<Nation> GetNations();
     }

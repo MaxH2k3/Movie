@@ -1,44 +1,43 @@
 ﻿using GenerativeAI.Models;
 using MongoDB.Bson;
 using Movies.Business.movies;
+using Movies.DTO.anothers;
 using Movies.Interface;
+using Movies.Models;
 using Movies.Repository;
 using NuGet.Protocol;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using Movies.Utilities;
 
 namespace Movies.Service;
 
-public class GeminiService
+public class GeminiService : IGeminiService
 {
-    private readonly GenerativeModel _client;
-    private readonly IFeatureRepository _featureService;
-    private readonly ICategoryRepository _categoryService;
-    private readonly INationRepository _nationService;
+    private GenerativeModel _client;
+    private readonly IFeatureService _featureService;
+    private readonly ICategoryService _categoryService;
+    private readonly INationService _nationService;
+    private readonly GeminiMongoContext _context;
 
-    public GeminiService(IFeatureRepository featureService, ICategoryRepository categoryService, INationRepository nationRepository)
+    public GeminiService(IFeatureService featureService, ICategoryService categoryService, 
+        INationService nationRepository, GeminiMongoContext context)
     {
         _featureService = featureService;
         _categoryService = categoryService;
         _nationService = nationRepository;
-        _client = new GenerativeModel(GetConnectionString());
+        _context = context;
     }
 
-    private string GetConnectionString()
+    public GeminiService(IFeatureService featureService, ICategoryService categoryService,
+        INationService nationRepository)
     {
-
-        IConfiguration config = new ConfigurationBuilder()
-
-        .SetBasePath(Directory.GetCurrentDirectory())
-
-        .AddJsonFile("appsettings.json", true, true)
-
-        .Build();
-
-        var strConn = config["GeminiAI:APIKey"];
-
-        return strConn;
-
+        _featureService = featureService;
+        _categoryService = categoryService;
+        _nationService = nationRepository;
+        _context = new GeminiMongoContext();
     }
 
     public async Task<string> Chat(string content, string nation)
@@ -53,16 +52,59 @@ public class GeminiService
         pattern += $" using example from FeatureFilm {features} and Category {categories} and Nation {nations}. You should search exactly name";
 
         string result = "";
-        try
+        for(int i = 0; i < 3; i++)
         {
-            result = await _client.GenerateContentAsync(pattern);
-        } catch (Exception e)
+            var key = await GetGeminiKey();
+            if(key == null)
+            {
+                return "Gemini Key not found";
+            }
+
+            _client = new GenerativeModel(key.APIKey);
+
+            try
+            {
+                result = await _client.GenerateContentAsync(pattern);
+                return CleanResult(result);
+            } catch (Exception e)
+            {
+                DeleteGeminiKey(key.APIKey);
+            }
+        }
+        return CleanResult(result);
+    }
+
+    public async Task<string> AddGeminiKey(string key)
+    {
+        GeminiKey geminiKey = new GeminiKey() { 
+            APIKey = key,
+            DateCreated = Utiles.GetNow()
+        };
+        await _context.GeminiKeys.InsertOneAsync(geminiKey);
+        return "Saved successfully";
+    }
+
+    public async Task<string> DeleteGeminiKey(string key)
+    {
+        var geminiKey = await _context.GeminiKeys.FindOneAndDeleteAsync(gemini => gemini.APIKey.Equals(key));
+        
+        if(geminiKey == null)
         {
-            Console.WriteLine(e.Message);
-            result = e.Message;
+            return "Not found";
         }
 
-         return CleanResult(result);
+        return "Deleted successfully";
+    }
+
+    public async Task<GeminiKey> GetGeminiKey()
+    {
+        var list = await (await _context.GeminiKeys.FindAsync(new BsonDocument())).ToListAsync();
+        return list.FirstOrDefault();
+    }
+
+    public async Task<IEnumerable<GeminiKey>> GetGeminiKeys()
+    {
+        return await (await _context.GeminiKeys.FindAsync(new BsonDocument())).ToListAsync();
     }
 
     public string CleanResult(string data)

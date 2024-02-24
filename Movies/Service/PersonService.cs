@@ -9,13 +9,13 @@ using System.Net;
 
 namespace Movies.Repository
 {
-    public class PersonService : IPersonRepository
+    public class PersonService : IPersonService
     {
         private readonly MOVIESContext _context;
         private readonly IMapper _mapper;
-        private readonly IStorageRepository _storageRepository;
+        private readonly IStorageService _storageRepository;
 
-        public PersonService(MOVIESContext context, IMapper mapper, IStorageRepository storageRepository)
+        public PersonService(MOVIESContext context, IMapper mapper, IStorageService storageRepository)
         {
             _context = context;
             _mapper = mapper;

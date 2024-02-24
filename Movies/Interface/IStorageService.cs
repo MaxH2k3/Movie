@@ -1,6 +1,6 @@
 ﻿namespace Movies.Interface
 {
-    public interface IStorageRepository
+    public interface IStorageService
     {
         Task<Stream> GetFile(string fileName);
         Task UploadFile(IFormFile file, string filePath);

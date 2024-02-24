@@ -8,9 +8,9 @@ namespace Movies.Controllers;
 public class CastController : Controller
 {
 
-    private readonly ICastRepository _castService;
+    private readonly ICastService _castService;
 
-    public CastController(ICastRepository castService)
+    public CastController(ICastService castService)
     {
         _castService = castService;
     }

@@ -4,7 +4,7 @@ using Movies.Models;
 
 namespace Movies.Interface
 {
-    public interface IPersonRepository
+    public interface IPersonService
     {
         IEnumerable<Person> GetPersons();
         Person? GetPerson(Guid id);

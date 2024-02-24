@@ -11,10 +11,10 @@ namespace Movies.Controllers;
 public class EpisodeController : Controller
 {
 
-    private readonly IEpisodeRepository _episodeRepository;
-    private readonly IMovieRepository _movieService;
+    private readonly IEpisodeService _episodeRepository;
+    private readonly IMovieService _movieService;
 
-    public EpisodeController(IEpisodeRepository episodeRepository, IMovieRepository movieRepository)
+    public EpisodeController(IEpisodeService episodeRepository, IMovieService movieRepository)
     {
         _episodeRepository = episodeRepository;
         _movieService = movieRepository;

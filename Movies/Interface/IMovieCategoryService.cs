@@ -3,7 +3,7 @@ using Movies.Models;
 
 namespace Movies.Repository
 {
-    public interface IMovieCategoryRepository
+    public interface IMovieCategoryService
     {
         Task<ResponseDTO> CreateMovieCategory(Guid movieId, IEnumerable<int> MovieCategories);
         IEnumerable<MovieCategory> GetMovieCategories(Guid movieId);

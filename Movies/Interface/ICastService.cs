@@ -4,7 +4,7 @@ using Movies.Models;
 
 namespace Movies.Repository
 {
-    public interface ICastRepository
+    public interface ICastService
     {
         Task<ResponseDTO> CreateCast(Guid movieId, IEnumerable<NewCast> newCasts);
         Task<ResponseDTO> UpdateCast(Guid movieId, IEnumerable<NewCast> newCasts);

@@ -4,7 +4,7 @@ using Movies.Models;
 
 namespace Movies.Interface
 {
-    public interface IEpisodeRepository
+    public interface IEpisodeService
     {
         IEnumerable<Episode> GetEpisodes();
         IEnumerable<Episode> GetEpisodesBySeason(Guid seasonId);

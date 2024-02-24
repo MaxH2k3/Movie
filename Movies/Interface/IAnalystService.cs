@@ -3,7 +3,7 @@ using Movies.Models;
 
 namespace Movies.Repository;
 
-public interface IAnalystRepository
+public interface IAnalystService
 {
     Task<string> AddViewerMovie(Guid movieId);
     Task ConvertToPrevious();

@@ -17,14 +17,14 @@ namespace Movies.Controllers;
 [ApiController]
 public class MovieController : Controller
 {
-    private readonly IMovieRepository _movieRepository;
+    private readonly IMovieService _movieRepository;
     private readonly IMapper _mapper;
-    private readonly ISeasonRepository _seasonService;
-    private readonly IMovieCategoryRepository _movieCategoryService;
+    private readonly ISeasonService _seasonService;
+    private readonly IMovieCategoryService _movieCategoryService;
 
-    public MovieController(IMovieRepository movieRepository,
+    public MovieController(IMovieService movieRepository,
         IMapper mapper,
-        ISeasonRepository seasonRepository, IMovieCategoryRepository movieCategoryRepository)
+        ISeasonService seasonRepository, IMovieCategoryService movieCategoryRepository)
     {
         _movieRepository = movieRepository;
         _mapper = mapper;

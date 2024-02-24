@@ -4,7 +4,7 @@ using Movies.Models;
 
 namespace Movies.Repository;
 
-public interface IMailRepository
+public interface IMailService
 {
     Task<bool> SendMail(MimeMessage mimeMessage);
     MimeMessage CreateMail(Mail mail, UserMail userMail);

@@ -7,9 +7,9 @@ namespace Movies.Controllers;
 [ApiController]
 public class NationController : Controller
 {
-    private readonly INationRepository _nationService;
+    private readonly INationService _nationService;
 
-    public NationController(INationRepository nationRepository)
+    public NationController(INationService nationRepository)
     {
         _nationService = nationRepository;
     }

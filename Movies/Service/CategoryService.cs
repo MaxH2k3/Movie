@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Movies.Repository
 {
-    public class CategoryService : ICategoryRepository
+    public class CategoryService : ICategoryService
     {
         private readonly MOVIESContext _context;
 

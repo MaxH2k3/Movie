@@ -7,21 +7,21 @@ using System.Net;
 
 namespace Movies.Repository
 {
-    public class SeasonService : ISeasonRepository
+    public class SeasonService : ISeasonService
     {
         private readonly MOVIESContext _context;
-        private readonly IMovieRepository _movieService;
-        private readonly IEpisodeRepository _episodeService;
+        private readonly IMovieService _movieService;
+        private readonly IEpisodeService _episodeService;
 
-        public SeasonService(MOVIESContext context, IMovieRepository movieRepository, 
-                        IEpisodeRepository episodeRepository)
+        public SeasonService(MOVIESContext context, IMovieService movieRepository, 
+                        IEpisodeService episodeRepository)
         {
             _context = context;
             _movieService = movieRepository;
             _episodeService = episodeRepository;
         }
 
-        public SeasonService(IMovieRepository movieRepository, IEpisodeRepository episodeRepository)
+        public SeasonService(IMovieService movieRepository, IEpisodeService episodeRepository)
         {
             _context = new MOVIESContext();
             _movieService = movieRepository;

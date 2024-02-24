@@ -11,15 +11,15 @@ namespace Movies.Security
     public class JWTConfig : JWTGenerator
     {
         private readonly JWTSetting _jwtsetting;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userRepository;
 
-        public JWTConfig(JWTSetting jwtsetting, IUserRepository userRepository)
+        public JWTConfig(JWTSetting jwtsetting, IUserService userRepository)
         {
             _jwtsetting = jwtsetting;
             _userRepository = userRepository;
         }
 
-        public JWTConfig(IUserRepository userRepository)
+        public JWTConfig(IUserService userRepository)
         {
             _jwtsetting = new JWTSetting();
             _userRepository = userRepository;
