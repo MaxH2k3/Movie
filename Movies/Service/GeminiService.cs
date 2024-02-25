@@ -76,6 +76,11 @@ public class GeminiService : IGeminiService
 
     public async Task<string> AddGeminiKey(string key)
     {
+        var existKey = await _context.GeminiKeys.Find(gemini => gemini.APIKey.Equals(key)).FirstOrDefaultAsync();
+        if(existKey != null)
+        {
+            return "Key already exists";
+        }
         GeminiKey geminiKey = new GeminiKey() { 
             APIKey = key,
             DateCreated = Utiles.GetNow()

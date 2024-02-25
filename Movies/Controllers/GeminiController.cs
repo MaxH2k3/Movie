@@ -35,7 +35,7 @@ public class GeminiController : Controller
     }
 
     [HttpPost("AddGeminiKey")]
-    public async Task<IActionResult> AddGeminiKey(string apiKey)
+    public async Task<IActionResult> AddGeminiKey([FromBody] string apiKey)
     {
         var res = await _geminiService.AddGeminiKey(apiKey);
 

@@ -1,13 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Business.persons;
-using Movies.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Interface;
 using Movies.Repository;
-using Movies.Service;
-using Movies.Utilities;
-using Quartz;
-using Quartz.Impl;
 
 namespace Movies.Controllers;
 
