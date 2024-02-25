@@ -38,10 +38,10 @@ namespace Movies.Repository
         {
             if(role.Equals(Constraint.RolePerson.ACTOR))
             {
-                return GetActos().Where(a => a.NamePerson.ToLower().Contains(name)).ToList();
+                return GetActos().Where(a => a.NamePerson.ToLower().Contains(name.ToLower())).ToList();
             } else
             {
-                return GetProducers().Where(a => a.NamePerson.ToLower().Contains(name)).ToList();
+                return GetProducers().Where(a => a.NamePerson.ToLower().Contains(name.ToLower())).ToList();
             }
             
         }

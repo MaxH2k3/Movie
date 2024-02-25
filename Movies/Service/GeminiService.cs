@@ -11,6 +11,8 @@ using System.Text.RegularExpressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Movies.Utilities;
+using Movies.Business.globals;
+using System.Net;
 
 namespace Movies.Service;
 
@@ -74,31 +76,31 @@ public class GeminiService : IGeminiService
         return CleanResult(result);
     }
 
-    public async Task<string> AddGeminiKey(string key)
+    public async Task<ResponseDTO> AddGeminiKey(string key)
     {
         var existKey = await _context.GeminiKeys.Find(gemini => gemini.APIKey.Equals(key)).FirstOrDefaultAsync();
         if(existKey != null)
         {
-            return "Key already exists";
+            return new ResponseDTO(HttpStatusCode.Conflict, "Key already exists");
         }
         GeminiKey geminiKey = new GeminiKey() { 
             APIKey = key,
             DateCreated = Utiles.GetNow()
         };
         await _context.GeminiKeys.InsertOneAsync(geminiKey);
-        return "Saved successfully";
+        return new ResponseDTO(HttpStatusCode.Created, "Saved successfully");
     }
 
-    public async Task<string> DeleteGeminiKey(string key)
+    public async Task<ResponseDTO> DeleteGeminiKey(string key)
     {
         var geminiKey = await _context.GeminiKeys.FindOneAndDeleteAsync(gemini => gemini.APIKey.Equals(key));
         
         if(geminiKey == null)
         {
-            return "Not found";
+            return new ResponseDTO(HttpStatusCode.NotFound, "Not found");
         }
 
-        return "Deleted successfully";
+        return new ResponseDTO(HttpStatusCode.OK, "Deleted successfully");
     }
 
     public async Task<GeminiKey> GetGeminiKey()

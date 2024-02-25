@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Repository;
 using Movies.Service;
+using System.Net;
 
 namespace Movies.Controllers;
 
@@ -38,14 +39,28 @@ public class GeminiController : Controller
     public async Task<IActionResult> AddGeminiKey([FromBody] string apiKey)
     {
         var res = await _geminiService.AddGeminiKey(apiKey);
+        if(res.Status == HttpStatusCode.Created)
+        {
+            return Ok(res.Message);
+        } else if(res.Status == HttpStatusCode.Conflict)
+        {
+            return Conflict(res.Message);
+        }
 
-        return Ok(res);
+        return BadRequest(res);
     }
 
-    [HttpDelete("DeleteGeminiKey")]
+    [HttpDelete("DeleteGeminiKey/{key}")]
     public async Task<IActionResult> DeleteGeminiKey(string key)
     {
         var res = await _geminiService.DeleteGeminiKey(key);
+        if(res.Status == HttpStatusCode.OK)
+        {
+            return Ok(res.Message);
+        } else if(res.Status == HttpStatusCode.NotFound)
+        {
+            return NotFound(res.Message);
+        }
 
         return Ok(res);
     }

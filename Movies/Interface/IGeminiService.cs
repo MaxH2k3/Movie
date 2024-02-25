@@ -1,11 +1,12 @@
-﻿using Movies.DTO.anothers;
+﻿using Movies.Business.globals;
+using Movies.DTO.anothers;
 
 namespace Movies.Repository
 {
     public interface IGeminiService
     {
-        Task<string> AddGeminiKey(string key);
-        Task<string> DeleteGeminiKey(string key);
+        Task<ResponseDTO> AddGeminiKey(string key);
+        Task<ResponseDTO> DeleteGeminiKey(string key);
         Task<GeminiKey> GetGeminiKey();
         Task<IEnumerable<GeminiKey>> GetGeminiKeys();
         Task<string> Chat(string content, string nation);
