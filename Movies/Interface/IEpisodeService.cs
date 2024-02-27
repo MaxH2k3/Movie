@@ -15,5 +15,6 @@ namespace Movies.Interface
         Task<ResponseDTO> DeleteEpisodeBySeason(Guid seasonId);
         Task<ResponseDTO> UpdateEpisode(NewEpisode newEpisode, Guid episodeId);
         Task<ResponseDTO> UpdateEpisodes(Guid seasonId, IEnumerable<EpisodeDTO> newEpisodes);
+        int GetTotalEpisodes(Guid seasonId);
     }
 }

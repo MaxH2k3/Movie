@@ -212,5 +212,10 @@ namespace Movies.Repository
             return new ResponseDTO(HttpStatusCode.InternalServerError, "Server Error!");
         }
 
+        public int GetTotalSeason(Guid movieId)
+        {
+            return _context.Seasons.Where(s => s.MovieId.Equals(movieId)).Count();
+        }
+
     }
 }

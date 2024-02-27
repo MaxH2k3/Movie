@@ -24,8 +24,6 @@ namespace Movies.Models
         public string? Thumbnail { get; set; }
         public string? Trailer { get; set; }
         public string? Status { get; set; }
-        public int? TotalSeasons { get; set; }
-        public int? TotalEpisodes { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public DateTime? DateDeleted { get; set; }

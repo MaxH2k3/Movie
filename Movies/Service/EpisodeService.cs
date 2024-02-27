@@ -123,6 +123,7 @@ namespace Movies.Repository
                 episodes.AddLast(CreateEpisode(newEpisodes.ElementAt(i), episodeNumber, seasonId));
             }
 
+            //save episodes
             await _context.Episodes.AddRangeAsync(episodes);
             
             if(await _context.SaveChangesAsync() > 0)
@@ -279,6 +280,17 @@ namespace Movies.Repository
             }
             
             return new ResponseDTO(HttpStatusCode.InternalServerError, "Serer Error!");
+        }
+
+        public int GetTotalEpisodes(Guid movieId)
+        {
+            var seasons = _context.Seasons.Where(s => s.MovieId.Equals(movieId)).Select(s => s.SeasonId).ToList();
+            int totalEpisodes = 0;
+            foreach(var season in seasons)
+            {
+                totalEpisodes += _context.Episodes.Where(e => e.SeasonId.Equals(season)).Count();
+            }
+            return totalEpisodes;
         }
 
     }

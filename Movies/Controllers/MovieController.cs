@@ -21,15 +21,17 @@ public class MovieController : Controller
     private readonly IMapper _mapper;
     private readonly ISeasonService _seasonService;
     private readonly IMovieCategoryService _movieCategoryService;
+    private readonly IEpisodeService _episodeService;
 
     public MovieController(IMovieService movieRepository,
-        IMapper mapper,
-        ISeasonService seasonRepository, IMovieCategoryService movieCategoryRepository)
+        IMapper mapper, ISeasonService seasonRepository, 
+        IMovieCategoryService movieCategoryRepository, IEpisodeService episodeService)
     {
         _movieRepository = movieRepository;
         _mapper = mapper;
         _seasonService = seasonRepository;
         _movieCategoryService = movieCategoryRepository;
+        _episodeService = episodeService;
     }
 
     /// <summary>
@@ -194,7 +196,10 @@ public class MovieController : Controller
         {
             return NotFound("The movie did not existed");
         }
-        Console.WriteLine(movie);
+
+        movie.TotalSeasons = _seasonService.GetTotalSeason(MovieId);
+        movie.TotalEpisodes = _episodeService.GetTotalEpisodes(MovieId);
+
         return Ok(movie);
     }
 

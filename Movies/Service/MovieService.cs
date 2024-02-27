@@ -13,21 +13,17 @@ public class MovieService : IMovieService
 {
     private readonly MOVIESContext _context;
     private readonly IMapper _mapper;
-    private readonly IStorageService _storageRepository;
 
-    public MovieService(MOVIESContext context, IMapper mapper, 
-        IStorageService storageRepository)
+    public MovieService(MOVIESContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
-        _storageRepository = storageRepository;
     }
 
-    public MovieService(IMapper mapper, IStorageService storageRepository)
+    public MovieService(IMapper mapper)
     {
         _context = new MOVIESContext();
         _mapper = mapper;
-        _storageRepository = storageRepository;
     }
 
     public IEnumerable<Movie> GetMovies(string? status = null, bool deleted = false)
@@ -174,9 +170,6 @@ public class MovieService : IMovieService
             return new ResponseDTO(HttpStatusCode.BadRequest, "Movie already exists!");
         }
         Movie movie = GetMovieById((Guid)newMovie.MovieId);
-        string? oldThumnail = movie?.Thumbnail;
-        int? totalSeasons = movie?.TotalSeasons;
-        int? totalEpisodes = movie?.TotalEpisodes;
         DateTime? DateCreated = movie?.DateCreated;
         string? Status = movie?.Status;
         if (movie == null)
@@ -192,8 +185,6 @@ public class MovieService : IMovieService
 
         movie = _mapper.Map<Movie>(newMovie);
         movie.NationId = movie.NationId?.ToUpper();
-        movie.TotalSeasons = totalSeasons;
-        movie.TotalEpisodes = totalEpisodes;
         movie.DateCreated = DateCreated;
         movie.Status = Status;
         movie.DateUpdated = DateTime.Now;

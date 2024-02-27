@@ -14,5 +14,6 @@ namespace Movies.Interface
         Task<ResponseDTO> DeleteSeason(Guid seasonId);
         Task<ResponseDTO> UpdateSeason(string? name, Guid seasonId);
         Task<ResponseDTO> DeleteSeasonByMovie(Guid id);
+        int GetTotalSeason(Guid movieId);
     }
 }
