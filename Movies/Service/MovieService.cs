@@ -360,7 +360,7 @@ public class MovieService : IMovieService
                 LEFT JOIN MovieCategory mc ON m.MovieID = mc.MovieID
                 WHERE m.MovieID != '{movieId}'
                 GROUP BY m.MovieID, m.FeatureId, m.NationID, m.Mark, m.Time, m.Viewer, m.Description, m.EnglishName, 
-                m.VietnamName, m.Thumbnail, m.Trailer, m.Status, m.ProducedDate, m.DateCreated, m.DateUpdated, m.TotalSeasons, m.TotalEpisodes, m.DateDeleted
+                m.VietnamName, m.Thumbnail, m.Trailer, m.Status, m.ProducedDate, m.DateCreated, m.DateUpdated, m.DateDeleted
                 ORDER BY {(moviescategories.Count > 0 ? $"COUNT(CASE WHEN mc.CategoryID IN ({string.Join(',', moviescategories)}) THEN 1 ELSE NULL END) DESC," : "")}  m.ProducedDate DESC";
         
         var result = _context.Movies.FromSqlRaw(query).ToList();
