@@ -43,4 +43,13 @@
     <PackageReference Include="WatchDog.NET" Version="1.4.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\ConfirmMail.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ErrorMail.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
